@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import util.HibernateUtil;
 
 public class MasterDAO {
-	
+	//Teste de clone do projeto
 	public Session getSession(){
 		return HibernateUtil.getSessionFactory().openSession();
 	}
