@@ -10,7 +10,7 @@ public class GeraTabelas {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		SchemaExport se = new SchemaExport(conf);
-		//Exportando dados para o banco
+		//Exportando dados para o banco de dados
 		se.create(true, true);
 		session.getTransaction().commit();
 		session.close();
