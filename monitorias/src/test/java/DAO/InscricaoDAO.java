@@ -35,7 +35,7 @@ public class InscricaoDAO extends MasterDAO {
 	public List<Inscricao> buscaInscricao(String str){
 		Session s = getSession();
 		s.beginTransaction();
-		Query qr = s.createQuery("from Inscricao m where m.idInscricao like :mo");
+		Query qr = s.createQuery("from Inscricao i where i.idInscricao like :mo");
 		qr.setParameter("%"+str+"%", "mo");
 		List<Inscricao> listaInscricao = qr.list();
 		s.getTransaction().commit();

@@ -33,7 +33,7 @@ public class EditalProfessorDAO extends MasterDAO {
 	public List<EditalProfessor> buscaEditalProfessor(String str){
 		Session s = getSession();
 		s.beginTransaction();
-		Query qr = s.createQuery("from EditalProfessor m where m.idEditalProfessor like :mo");
+		Query qr = s.createQuery("from EditalProfessor e where e.idEditalProfessor like :mo");
 		qr.setParameter("%"+str+"%", "mo");
 		List<EditalProfessor> listaEditalProfessor = qr.list();
 		s.getTransaction().commit();

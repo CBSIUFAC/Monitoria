@@ -33,7 +33,7 @@ public class AdendoDAO extends MasterDAO {
 	public List<Adendo> buscaAdendo(String str){
 		Session s = getSession();
 		s.beginTransaction();
-		Query qr = s.createQuery("from Adendo m where m.titulo like :mo");
+		Query qr = s.createQuery("from Adendo a where a.titulo like :mo");
 		qr.setParameter("%"+str+"%", "mo");
 		List<Adendo> listaAdendo = qr.list();
 		s.getTransaction().commit();

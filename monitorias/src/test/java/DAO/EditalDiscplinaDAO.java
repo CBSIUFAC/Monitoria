@@ -33,7 +33,7 @@ public class EditalDiscplinaDAO extends MasterDAO {
 	public List<EditalDisciplina> buscaEditalDisciplina(String str){
 		Session s = getSession();
 		s.beginTransaction();
-		Query qr = s.createQuery("from EditalDisciplina m where m.idEditalDisciplina like :mo");
+		Query qr = s.createQuery("from EditalDisciplina e where e.idEditalDisciplina like :mo");
 		qr.setParameter("%"+str+"%", "mo");
 		List<EditalDisciplina> listaEditalDisciplina = qr.list();
 		s.getTransaction().commit();

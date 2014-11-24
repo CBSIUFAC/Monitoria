@@ -35,7 +35,7 @@ public class RelatorioDAO extends MasterDAO {
 	public List<Relatorio> buscaRelatorio(String str){
 		Session s = getSession();
 		s.beginTransaction();
-		Query qr = s.createQuery("from Relatorio m where m.nome like :mo");
+		Query qr = s.createQuery("from Relatorio r where r.nome like :mo");
 		qr.setParameter("%"+str+"%", "mo");
 		List<Relatorio> listaRelatorio = qr.list();
 		s.getTransaction().commit();

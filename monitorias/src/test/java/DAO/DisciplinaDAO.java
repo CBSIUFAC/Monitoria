@@ -33,7 +33,7 @@ public class DisciplinaDAO extends MasterDAO {
 	public List<Disciplina> buscaDisciplina(String str){
 		Session s = getSession();
 		s.beginTransaction();
-		Query qr = s.createQuery("from Disciplina m where m.nome like :mo");
+		Query qr = s.createQuery("from Disciplina e where e.nome like :mo");
 		qr.setParameter("%"+str+"%", "mo");
 		List<Disciplina> listaDisciplina = qr.list();
 		s.getTransaction().commit();

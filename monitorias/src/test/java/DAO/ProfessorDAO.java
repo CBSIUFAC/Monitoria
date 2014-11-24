@@ -33,7 +33,7 @@ public class ProfessorDAO extends MasterDAO {
 	public List<Professor> buscaProfessor(String str){
 		Session s = getSession();
 		s.beginTransaction();
-		Query qr = s.createQuery("from Professor m where m.nome like :mo");
+		Query qr = s.createQuery("from Professor p where p.nome like :mo");
 		qr.setParameter("%"+str+"%", "mo");
 		List<Professor> listaProfessor = qr.list();
 		s.getTransaction().commit();
