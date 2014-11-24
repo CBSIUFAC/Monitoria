@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import entity.EditalDisciplina;
 
 public class EditalDiscplinaDAO extends MasterDAO {
+	
 	public void inserirEditalDisciplina(EditalDisciplina editalDisciplina){
 		inserirEditalDisciplina(editalDisciplina);
 	}

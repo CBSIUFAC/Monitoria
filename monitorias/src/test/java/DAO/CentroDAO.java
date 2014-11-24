@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import entity.Centro;
 
 public class CentroDAO extends MasterDAO {
+	
 	public void inserirCentro(Centro centro){
 		inserirCentro(centro);
 	}

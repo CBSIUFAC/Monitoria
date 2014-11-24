@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import entity.Relatorio;
 
 public class RelatorioDAO extends MasterDAO {
+	
 	public void inserirRelatorio(Relatorio relatorio){
 		inserirRelatorio(relatorio);
 	}

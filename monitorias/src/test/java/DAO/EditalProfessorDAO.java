@@ -40,5 +40,4 @@ public class EditalProfessorDAO extends MasterDAO {
 		s.close();
 		return listaEditalProfessor;
 	}
-
 }

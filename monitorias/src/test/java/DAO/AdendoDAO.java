@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import entity.Adendo;
 
 public class AdendoDAO extends MasterDAO {
+	
 	public void inserirAdendo(Adendo adendo){
 		inserirAdendo(adendo);
 	}

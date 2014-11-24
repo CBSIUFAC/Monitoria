@@ -40,5 +40,4 @@ public class AlunoDAO extends MasterDAO{
 		s.close();
 		return listaAluno;
 	}
-
 }

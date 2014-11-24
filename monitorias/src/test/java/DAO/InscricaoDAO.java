@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import entity.Inscricao;
 
 public class InscricaoDAO extends MasterDAO {
+	
 	public void inserirInscricao(Inscricao inscricao){
 		inserirInscricao(inscricao);
 	}

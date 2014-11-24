@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import entity.Professor;
 
 public class ProfessorDAO extends MasterDAO {
+	
 	public void inserirProfessor(Professor professor){
 		inserirProfessor(professor);
 	}
