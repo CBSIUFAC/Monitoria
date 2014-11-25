@@ -10,7 +10,7 @@ import entity.EditalDisciplina;
 public class EditalDiscplinaDAO extends MasterDAO {
 	
 	public void inserirEditalDisciplina(EditalDisciplina editalDisciplina){
-		inserirEditalDisciplina(editalDisciplina);
+		inserirObjeto(editalDisciplina);
 	}
 	
 	public void deletarEditalDisciplina(EditalDisciplina editalDisciplina){
@@ -26,15 +26,15 @@ public class EditalDiscplinaDAO extends MasterDAO {
 	}
 	
 	public List<EditalDisciplina> getListaEditalDisciplina(){
-		return getLista("from EditalDisciplina m");
+		return getLista("from EditalDisciplina ed");
 	}
 	
 	//Busca de editalDisciplina pelo id total ou parte dele.
 	public List<EditalDisciplina> buscaEditalDisciplina(String str){
 		Session s = getSession();
 		s.beginTransaction();
-		Query qr = s.createQuery("from EditalDisciplina e where e.idEditalDisciplina like :mo");
-		qr.setParameter("%"+str+"%", "mo");
+		Query qr = s.createQuery("from EditalDisciplina e where e.idEditalDisciplina like :ed");
+		qr.setParameter("%"+str+"%", "ed");
 		List<EditalDisciplina> listaEditalDisciplina = qr.list();
 		s.getTransaction().commit();
 		s.close();

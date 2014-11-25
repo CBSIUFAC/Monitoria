@@ -10,7 +10,7 @@ import entity.Adendo;
 public class AdendoDAO extends MasterDAO {
 	
 	public void inserirAdendo(Adendo adendo){
-		inserirAdendo(adendo);
+		inserirObjeto(adendo);
 	}
 	
 	public void deletarAdendo(Adendo adendo){
@@ -26,15 +26,15 @@ public class AdendoDAO extends MasterDAO {
 	}
 	
 	public List<Adendo> getListaAdendo(){
-		return getLista("from Adendo m");
+		return getLista("from Adendo a");
 	}
 	
 	//Busca de adendo por titulo
 	public List<Adendo> buscaAdendo(String str){
 		Session s = getSession();
 		s.beginTransaction();
-		Query qr = s.createQuery("from Adendo a where a.titulo like :mo");
-		qr.setParameter("%"+str+"%", "mo");
+		Query qr = s.createQuery("from Adendo a where a.titulo like :ti");
+		qr.setParameter("%"+str+"%", "ti");
 		List<Adendo> listaAdendo = qr.list();
 		s.getTransaction().commit();
 		s.close();

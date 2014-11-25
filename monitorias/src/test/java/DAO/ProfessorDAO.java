@@ -10,7 +10,7 @@ import entity.Professor;
 public class ProfessorDAO extends MasterDAO {
 	
 	public void inserirProfessor(Professor professor){
-		inserirProfessor(professor);
+		inserirObjeto(professor);
 	}
 	
 	public void deletarProfessor(Professor professor){
@@ -26,15 +26,15 @@ public class ProfessorDAO extends MasterDAO {
 	}
 	
 	public List<Professor> getListaProfessor(){
-		return getLista("from Professor m");
+		return getLista("from Professor p");
 	}
 	
 	//Busca de professor por nome
 	public List<Professor> buscaProfessor(String str){
 		Session s = getSession();
 		s.beginTransaction();
-		Query qr = s.createQuery("from Professor p where p.nome like :mo");
-		qr.setParameter("%"+str+"%", "mo");
+		Query qr = s.createQuery("from Professor p where p.nome like :no");
+		qr.setParameter("%"+str+"%", "no");
 		List<Professor> listaProfessor = qr.list();
 		s.getTransaction().commit();
 		s.close();

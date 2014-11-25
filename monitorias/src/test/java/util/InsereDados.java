@@ -1,9 +1,12 @@
 package util;
 
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.Session;
 
+import DAO.AlunoDAO;
+import DAO.ProfessorDAO;
 import entity.Aluno;
 import entity.Disciplina;
 import entity.Edital;
@@ -13,64 +16,20 @@ import entity.Professor;
 public class InsereDados {
 
 	public static void main(String[] args) {
-		//Commit online
-		Session s = HibernateUtil.getSessionFactory().openSession();
-		s.beginTransaction();
-		
-		//aluno
-		
+		/*
 		Aluno aluno = new Aluno();
-		Date dataNascimento = new Date(new String("09/05/1995"));
+		aluno.setNome("João Neto");
+		aluno.setCpf(777555);
+		aluno.setDataNascimento(new Date(new String("09/05/1995")));
+		aluno.setMatricula(2012030);
+		aluno.setRg(123456);
+		*/
 		
-		aluno.setNome("João Doido");
-		aluno.setCpf(77777);
-		aluno.setDataNascimento(dataNascimento);
-		aluno.setMatricula(122234566);
-		aluno.setRg(1442345);
-		s.save(aluno);
-
-
-		//professor
+		AlunoDAO alunoDAO = new AlunoDAO();	
+		List<Aluno> alunos = alunoDAO.buscaAluno("oido");
 		
-		Professor professor = new Professor();
-		
-		professor.setCpf(123445);
-		professor.setNome("Clebes Brandão");
-		professor.setRg(12345);
-		s.save(professor);
-		
-		//Disciplina
-		
-		Disciplina disciplina = new Disciplina();
-		
-		disciplina.setCargaHoraria(50);
-		disciplina.setCodigo("CCET45");
-		disciplina.setNome("Matemática Elementar");
-		s.save(disciplina);
-		
-		//Edital
-		
-		Edital edital = new Edital();
-		
-		edital.setDataInscricao(dataNascimento);
-		edital.setDataResultado(dataNascimento);
-		edital.setIdEdital(6);
-		edital.setSrcPDF("teste");
-		edital.setTitulo("Edital tunts tunts quero ve");
-		edital.setTotalVagas(15);
-		s.save(edital);
-		
-		//Inscrição
-		
-		Inscricao inscricao = new Inscricao();
-		
-		inscricao.setDataInscricao(dataNascimento);
-		inscricao.setIdInscricao(2);
-		inscricao.setEdital(edital);
-		inscricao.setAluno(aluno);
-		inscricao.setDisciplina(disciplina);
-		s.save(inscricao);
-		s.getTransaction().commit();
-		
+		//for (Aluno a : alunos) {
+			//System.out.println(a.getNome());
+		//}	
 	}
 }

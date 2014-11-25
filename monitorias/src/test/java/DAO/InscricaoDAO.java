@@ -10,7 +10,7 @@ import entity.Inscricao;
 public class InscricaoDAO extends MasterDAO {
 	
 	public void inserirInscricao(Inscricao inscricao){
-		inserirInscricao(inscricao);
+		inserirObjeto(inscricao);
 	}
 	
 	public void deletarInscricao(Inscricao inscricao){
@@ -26,7 +26,7 @@ public class InscricaoDAO extends MasterDAO {
 	}
 	
 	public List<Inscricao> getListaInscricao(){
-		return getLista("from Inscricao m");
+		return getLista("from Inscricao i");
 	}
 	
 	//Busca de inscricao por data aproximada: ideal seria aqui utilizar duas datas como parâmetros 
@@ -35,8 +35,8 @@ public class InscricaoDAO extends MasterDAO {
 	public List<Inscricao> buscaInscricao(String str){
 		Session s = getSession();
 		s.beginTransaction();
-		Query qr = s.createQuery("from Inscricao i where i.idInscricao like :mo");
-		qr.setParameter("%"+str+"%", "mo");
+		Query qr = s.createQuery("from Inscricao i where i.idInscricao like :in");
+		qr.setParameter("%"+str+"%", "in");
 		List<Inscricao> listaInscricao = qr.list();
 		s.getTransaction().commit();
 		s.close();

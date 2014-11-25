@@ -10,7 +10,7 @@ import entity.Disciplina;
 public class DisciplinaDAO extends MasterDAO {
 	
 	public void inserirDisciplina(Disciplina disciplina){
-		inserirDisciplina(disciplina);
+		inserirObjeto(disciplina);
 	}
 	
 	public void deletarDisciplina(Disciplina disciplina){
@@ -26,15 +26,15 @@ public class DisciplinaDAO extends MasterDAO {
 	}
 	
 	public List<Disciplina> getListaDisciplina(){
-		return getLista("from Disciplina m");
+		return getLista("from Disciplina d");
 	}
 	
 	//Busca de disciplina por nome
 	public List<Disciplina> buscaDisciplina(String str){
 		Session s = getSession();
 		s.beginTransaction();
-		Query qr = s.createQuery("from Disciplina e where e.nome like :mo");
-		qr.setParameter("%"+str+"%", "mo");
+		Query qr = s.createQuery("from Disciplina e where e.nome like :no");
+		qr.setParameter("%"+str+"%", "no");
 		List<Disciplina> listaDisciplina = qr.list();
 		s.getTransaction().commit();
 		s.close();

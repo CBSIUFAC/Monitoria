@@ -10,7 +10,7 @@ import entity.Relatorio;
 public class RelatorioDAO extends MasterDAO {
 	
 	public void inserirRelatorio(Relatorio relatorio){
-		inserirRelatorio(relatorio);
+		inserirObjeto(relatorio);
 	}
 	
 	public void deletarRelatorio(Relatorio relatorio){
@@ -26,7 +26,7 @@ public class RelatorioDAO extends MasterDAO {
 	}
 	
 	public List<Relatorio> getListaRelatorio(){
-		return getLista("from Relatorio m");
+		return getLista("from Relatorio r");
 	}
 	
 	//Busca de relatório por data aproximada: ideal seria aqui utilizar duas datas como parâmetros 
@@ -35,8 +35,8 @@ public class RelatorioDAO extends MasterDAO {
 	public List<Relatorio> buscaRelatorio(String str){
 		Session s = getSession();
 		s.beginTransaction();
-		Query qr = s.createQuery("from Relatorio r where r.nome like :mo");
-		qr.setParameter("%"+str+"%", "mo");
+		Query qr = s.createQuery("from Relatorio r where r.nome like :re");
+		qr.setParameter("%"+str+"%", "re");
 		List<Relatorio> listaRelatorio = qr.list();
 		s.getTransaction().commit();
 		s.close();

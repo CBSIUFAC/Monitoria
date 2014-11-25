@@ -10,7 +10,7 @@ import entity.Edital;
 public class EditalDAO extends MasterDAO {
 	
 	public void inserirEdital(Edital edital){
-		inserirEdital(edital);
+		inserirObjeto(edital);
 	}
 	
 	public void deletarEdital(Edital edital){
@@ -26,15 +26,15 @@ public class EditalDAO extends MasterDAO {
 	}
 	
 	public List<Edital> getListaEdital(){
-		return getLista("from Edital m");
+		return getLista("from Edital e");
 	}
 	
 	//Busca de edital por titulo
 	public List<Edital> buscaEdital(String str){
 		Session s = getSession();
 		s.beginTransaction();
-		Query qr = s.createQuery("from Edital e where e.titulo like :mo");
-		qr.setParameter("%"+str+"%", "mo");
+		Query qr = s.createQuery("from Edital e where e.titulo like :ti");
+		qr.setParameter("%"+str+"%", "ti");
 		List<Edital> listaEdital = qr.list();
 		s.getTransaction().commit();
 		s.close();

@@ -9,7 +9,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 public class HibernateUtil {
-//	Variaveis estaticas para serem usadas na configuracao
+	//	Variaveis estaticas para serem usadas na configuracao
 	private static SessionFactory sessionFactory;
 	private static ServiceRegistry serviceRegistry;
 		
