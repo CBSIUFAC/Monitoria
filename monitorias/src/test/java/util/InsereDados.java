@@ -18,26 +18,16 @@ public class InsereDados {
 	public static void main(String[] args) {
 	
 		Aluno aluno = new Aluno();
-		aluno.setNome("João Neto");
-		aluno.setCpf(1111);
+		aluno.setNome("Ikaro Row");
+		aluno.setCpf(62);
 		aluno.setDataNascimento(new Date(new String("09/05/1995")));
-		aluno.setMatricula(2012030);
-		aluno.setRg(123456);
+		aluno.setMatricula(204530);
+		aluno.setRg(124556);
 
 		AlunoDAO alunoDAO = new AlunoDAO();	
 		alunoDAO.inserirAluno(aluno);
 		
 		List<Aluno> alunos = alunoDAO.getListaAluno();
-		
-		for (Aluno a : alunos) {
-			System.out.println(a.getNome());
-		}
-		
-		aluno.setNome("Joaummm");
-		aluno.setMatricula(555);
-		alunoDAO.atualizarAluno(aluno);
-		
-		alunos = alunoDAO.getListaAluno();
 		
 		for (Aluno a : alunos) {
 			System.out.println(a.getNome());
