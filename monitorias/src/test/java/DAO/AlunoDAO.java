@@ -33,8 +33,8 @@ public class AlunoDAO extends MasterDAO{
 	public List<Aluno> buscaAluno(String str){
 		Session s = getSession();
 		s.beginTransaction();
-		Query qr = s.createQuery("from Aluno a where a.nome like :no");
-		qr.setParameter("%"+str+"%", "no");
+		Query qr = s.createQuery("from Aluno a where a.nome LIKE :no");
+		qr.setParameter("no", "%"+str+"%");
 		List<Aluno> listaAluno = qr.list();
 		s.getTransaction().commit();
 		s.close();
