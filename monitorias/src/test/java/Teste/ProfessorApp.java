@@ -40,11 +40,11 @@ public class ProfessorApp {
 		ProfessorDAO professorDAO = new ProfessorDAO();		
 		List<Professor> professores = professorDAO.getListaProfessor();
 		if (professores.size() == 0)
-			System.out.println("Não há professor cadastrado no banco de dados.");
+			System.out.println("Não há professor cadastrado no sistema.");
 		else{
-			System.out.println("Imprimindo Professor:");	
-			for (Professor a : professores) {
-				System.out.println(a);
+			System.out.println("Imprimindo Professor(es):");	
+			for (Professor p : professores) {
+				System.out.println(p);
 			}
 		
 			System.out.println("\n");

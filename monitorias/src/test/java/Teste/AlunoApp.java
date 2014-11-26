@@ -5,6 +5,7 @@ import java.util.List;
 
 import DAO.AlunoDAO;
 import entity.Aluno;
+import entity.Professor;
 
 public class AlunoApp {
 	
@@ -41,9 +42,15 @@ public class AlunoApp {
 	public void imprime(){
 		AlunoDAO alunoDAO = new AlunoDAO();		
 		List<Aluno> alunos = alunoDAO.getListaAluno();
-			
-		for (Aluno a : alunos) {
-			System.out.println(a);
+		if (alunos.size() == 0)
+			System.out.println("Não há aluno cadastrado no sistema.");
+		else{
+			System.out.println("Imprimindo Aluno(s):");	
+			for (Aluno a : alunos) {
+				System.out.println(a);
+			}
+		
+			System.out.println("\n");
 		}
 	}
 

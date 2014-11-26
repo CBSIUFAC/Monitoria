@@ -63,7 +63,7 @@ public class Centro implements Serializable {
 	@Override
 	public String toString() {
 		return "Centro [sigla=" + sigla + ", nome=" + nome + ", nomeDiretor="
-				+ nomeDiretor + ", disciplinas=" + disciplinas + "]";
+				+ nomeDiretor + "]";
 	}
 	
 	

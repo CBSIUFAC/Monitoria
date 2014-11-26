@@ -26,6 +26,22 @@ public class Disciplina implements Serializable {
 	
 	/* RELACIONAMENTOS */
 	
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
+
+	public Centro getCentro() {
+		return centro;
+	}
+
+	public void setCentro(Centro centro) {
+		this.centro = centro;
+	}
+
 	@ManyToOne
 	@JoinColumn(referencedColumnName="cpf", name="fkProfessor")
 	private Professor professor;
@@ -76,4 +92,12 @@ public class Disciplina implements Serializable {
 	public void setCargaHoraria(int cargaHoraria) {
 		this.cargaHoraria = cargaHoraria;
 	}
+
+	@Override
+	public String toString() {
+		return "Disciplina [codigo=" + codigo + ", nome=" + nome
+				+ ", cargaHoraria=" + cargaHoraria + ", professor=" + professor
+				+ ", centro=" + centro + "]";
+	}
+	
 }
