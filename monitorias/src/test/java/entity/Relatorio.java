@@ -76,4 +76,38 @@ public class Relatorio implements Serializable {
 	public void setDataRelatorio(Date dataRelatorio) {
 		this.dataRelatorio = dataRelatorio;
 	}
+
+	public Aluno getAluno() {
+		return aluno;
+	}
+
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
+
+	public Disciplina getDisciplina() {
+		return disciplina;
+	}
+
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
+	}
+
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
+
+	@Override
+	public String toString() {
+		return "Relatorio [idRelatorio=" + idRelatorio + ", srcPdfAtividade="
+				+ srcPdfAtividade + ", srcPdfRelatorio=" + srcPdfRelatorio
+				+ ", dataRelatorio=" + dataRelatorio + ", aluno=" + aluno
+				+ ", disciplina=" + disciplina + ", professor=" + professor
+				+ "]";
+	}
+	
 }

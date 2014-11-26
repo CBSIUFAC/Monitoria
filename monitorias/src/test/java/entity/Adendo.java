@@ -29,8 +29,21 @@ public class Adendo implements Serializable {
 	@JoinColumn(referencedColumnName="idEdital",name="fkEdital")
 	private Edital edital;
 	
-	/* GETTERS AND SETTERS */ 
+	/* GETTERS AND SETTERS */
 	
+	public Edital getEdital() {
+		return edital;
+	}
+
+	public void setEdital(Edital edital) {
+		this.edital = edital;
+	}
+	
+	
+	public void setIdAdendo(int idAdendo) {
+		this.idAdendo = idAdendo;
+	}
+
 	public int getIdAdendo() {
 		return idAdendo;
 	}
@@ -50,4 +63,11 @@ public class Adendo implements Serializable {
 	public void setSrcPDF(String srcPDF) {
 		this.srcPDF = srcPDF;
 	}
+
+	@Override
+	public String toString() {
+		return "Adendo [idAdendo=" + idAdendo + ", titulo=" + titulo
+				+ ", srcPDF=" + srcPDF + ", edital=" + edital + "]";
+	}
+	
 }
