@@ -1,4 +1,4 @@
-package Teste;
+package teste;
 
 import java.util.Date;
 import java.util.List;
@@ -49,11 +49,8 @@ public static void main (String[] args ){
 		relatorioDAO.atualizarRelatorio(relatorio);
 	
 		relatorioApp.imprime();
-		
-		relatorioDAO.deletarRelatorio(relatorio);
-		
-		relatorioApp.imprime();
-		
+		relatorioDAO.deletarRelatorio(relatorio);	
+		relatorioApp.imprime();		
 	}
 	
 	public void imprime(){
@@ -65,8 +62,7 @@ public static void main (String[] args ){
 			System.out.println("Imprimindo Relatorio(s):");	
 			for (Relatorio a : relatorios) {
 				System.out.println(a);
-			}
-		
+			}	
 			System.out.println("\n");
 		}
 	}

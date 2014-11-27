@@ -1,4 +1,4 @@
-package Teste;
+package teste;
 
 import java.util.Date;
 import java.util.List;
@@ -20,8 +20,8 @@ public static void main (String[] args ){
 		adendo.setSrcPDF("http3://endereco.do.pdf.do.adendo/");
 		adendo.setTitulo("Titulo3 de Teste de um Adendo");
 		adendo.setEdital(edital);
+		
 		adendoDAO.inserirAdendo(adendo);
-	
 		adendoApp.imprime();
 		
 		adendo.setSrcPDF("http4://endereco.do.pdf.do.adendo/");
@@ -30,9 +30,7 @@ public static void main (String[] args ){
 		adendoDAO.atualizarAdendo(adendo);
 	
 		adendoApp.imprime();
-		
 		adendoDAO.deletarAdendo(adendo);
-		
 		adendoApp.imprime();
 		
 	}
@@ -50,5 +48,4 @@ public static void main (String[] args ){
 		}
 		System.out.println("\n");
 	}
-
 }

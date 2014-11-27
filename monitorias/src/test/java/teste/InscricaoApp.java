@@ -1,4 +1,4 @@
-package Teste;
+package teste;
 
 import java.util.Date;
 import java.util.List;
@@ -44,11 +44,8 @@ public class InscricaoApp {
 		inscricaoDAO.atualizarInscricao(inscricao);
 	
 		inscricaoApp.imprime();
-		
 		inscricaoDAO.deletarInscricao(inscricao);
-		
 		inscricaoApp.imprime();
-		
 	}
 	
 	public void imprime(){
@@ -61,7 +58,6 @@ public class InscricaoApp {
 			for (Inscricao a : inscricoes) {
 				System.out.println(a);
 			}
-		
 			System.out.println("\n");
 		}
 	}

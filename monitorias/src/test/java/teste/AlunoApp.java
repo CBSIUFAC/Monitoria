@@ -1,11 +1,10 @@
-package Teste;
+package teste;
 
 import java.util.Date;
 import java.util.List;
 
 import DAO.AlunoDAO;
 import entity.Aluno;
-import entity.Professor;
 
 public class AlunoApp {
 	
@@ -15,27 +14,25 @@ public class AlunoApp {
 		Aluno aluno = new Aluno();
 		AlunoApp alunoApp = new AlunoApp();
 		
-		
-		aluno.setCpf(1111);
-		aluno.setNome("Lucas");
+		aluno.setCpf(333);
+		aluno.setNome("João");
 		aluno.setDataNascimento(new Date(new String("01/01/1090")));
 		aluno.setMatricula(111);
 		aluno.setRg(1111);
+		
 		alunoDAO.inserirAluno(aluno);
-	
 		alunoApp.imprime();
 		
 		aluno.setNome("Vitor Lucas Cordovil");
 		aluno.setDataNascimento(new Date(new String("27/02/1994")));
 		aluno.setMatricula(20120300);
 		aluno.setRg(1131346);
+		
 		alunoDAO.atualizarAluno(aluno);
-	
 		alunoApp.imprime();
-		
 		alunoDAO.deletarAluno(aluno);
-		
 		alunoApp.imprime();
+
 		
 	}
 	
@@ -49,9 +46,7 @@ public class AlunoApp {
 			for (Aluno a : alunos) {
 				System.out.println(a);
 			}
-		
 			System.out.println("\n");
 		}
 	}
-
 }

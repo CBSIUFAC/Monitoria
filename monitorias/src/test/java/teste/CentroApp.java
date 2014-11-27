@@ -1,4 +1,4 @@
-package Teste;
+package teste;
 
 import java.util.List;
 
@@ -25,11 +25,8 @@ public static void main (String[] args ){
 		centroDAO.atualizarCentro(centro);
 	
 		centroApp.imprime();
-		
-		centroDAO.deletarCentro(centro);
-		
-		centroApp.imprime();
-		
+		//centroDAO.deletarCentro(centro);
+		centroApp.imprime();		
 	}
 	
 	public void imprime(){
@@ -41,10 +38,8 @@ public static void main (String[] args ){
 			System.out.println("Imprimindo Centro(s):");	
 			for (Centro c : centros) {
 				System.out.println(c);
-			}
-		
+			}	
 			System.out.println("\n");
 		}
 	}
-
 }

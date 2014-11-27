@@ -1,4 +1,4 @@
-package Teste;
+package teste;
 
 import java.util.Date;
 import java.util.List;
@@ -14,7 +14,6 @@ public class ProfessorApp {
 		Professor professor = new Professor();
 		ProfessorApp professorApp = new ProfessorApp();
 		
-		
 		professor.setCpf(0);
 		professor.setNome("Professor Teste");
 		professor.setRg(0);
@@ -26,14 +25,9 @@ public class ProfessorApp {
 		professor.setRg(1131346);
 		
 		professorDAO.atualizarProfessor(professor);
-	
 		professorApp.imprime();
-		
-		
 		professorDAO.deletarProfessor(professor);
-		
-		professorApp.imprime();
-		
+		professorApp.imprime();	
 	}
 	
 	public void imprime(){
@@ -46,9 +40,7 @@ public class ProfessorApp {
 			for (Professor p : professores) {
 				System.out.println(p);
 			}
-		
 			System.out.println("\n");
 		}
 	}
-
 }

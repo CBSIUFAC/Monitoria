@@ -1,4 +1,4 @@
-package Teste;
+package teste;
 
 import java.util.Date;
 import java.util.List;
@@ -14,8 +14,7 @@ public static void main(String[] args) {
 		Edital edital = new Edital();
 		EditalApp editalApp = new EditalApp();
 		
-		
-		edital.setIdEdital(3);
+		edital.setIdEdital(1);
 		edital.setDataInscricao( new Date ("26/11/2014"));
 		edital.setDataResultado( new Date ("26/03/2015"));
 		edital.setSrcPDF("http://imagens.lucas.com.br/");
@@ -32,15 +31,11 @@ public static void main(String[] args) {
 		edital.setTotalVagas(12);
 		
 		editalDAO.atualizarEdital(edital);
-	
 		editalApp.imprime();
-
 		editalDAO.deletarEdital(edital);
 		edital.setIdEdital(2);
 		editalDAO.deletarEdital(edital);
-		
-		editalApp.imprime();
-		
+		editalApp.imprime();	
 	}
 	
 	public void imprime(){
@@ -53,7 +48,6 @@ public static void main(String[] args) {
 			for (Edital a : editais) {
 				System.out.println(a);
 			}
-		
 			System.out.println("\n");
 		}
 	}

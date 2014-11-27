@@ -1,4 +1,4 @@
-package Teste;
+package teste;
 
 import java.util.Date;
 import java.util.List;
@@ -38,13 +38,9 @@ public static void main (String[] args ){
 		disciplina.setProfessor(professor);
 
 		disciplinaDAO.atualizarDisciplina(disciplina);
-	
 		disciplinaApp.imprime();
-		
 		disciplinaDAO.deletarDisciplina(disciplina);
-		
 		disciplinaApp.imprime();
-		
 	}
 	
 	public void imprime(){
@@ -57,7 +53,6 @@ public static void main (String[] args ){
 			for (Disciplina a : disciplinas) {
 				System.out.println(a);
 			}
-		
 			System.out.println("\n");
 		}
 	}
