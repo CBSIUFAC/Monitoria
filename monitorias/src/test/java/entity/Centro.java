@@ -57,5 +57,17 @@ public class Centro implements Serializable {
 	
 	public void setNomeDiretor(String nomeDiretor) {
 		this.nomeDiretor = nomeDiretor;
-	}	
+	}
+
+	public void setDisciplinas(List<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
+	}
+
+	@Override
+	public String toString() {
+		return "Centro [sigla=" + sigla + ", nome=" + nome + ", nomeDiretor="
+				+ nomeDiretor + "]";
+	}
+	
+	
 }

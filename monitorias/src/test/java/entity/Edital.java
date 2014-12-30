@@ -110,4 +110,39 @@ public class Edital implements Serializable {
 	public void setSrcPDF(String srcPDF) {
 		this.srcPDF = srcPDF;
 	}
+
+	public Collection<EditalDisciplina> getEditaisDisciplinas() {
+		return editaisDisciplinas;
+	}
+
+	public void setEditaisDisciplinas(
+			Collection<EditalDisciplina> editaisDisciplinas) {
+		this.editaisDisciplinas = editaisDisciplinas;
+	}
+
+	public Collection<EditalProfessor> getEditaisProfessores() {
+		return editaisProfessores;
+	}
+
+	public void setEditaisProfessores(Collection<EditalProfessor> editaisProfessores) {
+		this.editaisProfessores = editaisProfessores;
+	}
+
+	public void setInscricoes(List<Inscricao> inscricoes) {
+		this.inscricoes = inscricoes;
+	}
+
+	public void setAdendos(List<Adendo> adendos) {
+		this.adendos = adendos;
+	}
+
+	@Override
+	public String toString() {
+		return "Edital [idEdital=" + idEdital + ", titulo=" + titulo
+				+ ", dataInscricao=" + dataInscricao + ", dataResultado="
+				+ dataResultado + ", totalVagas=" + totalVagas + ", srcPDF="
+				+ srcPDF + "]";
+	}
+	
+	
 }

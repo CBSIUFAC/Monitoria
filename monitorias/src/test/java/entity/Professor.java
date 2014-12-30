@@ -35,10 +35,23 @@ public class Professor implements Serializable {
 	
 	/* GETTERS AND SETTERS */
 	
+	
 	public List <Disciplina> getDisciplinas() {
 		return disciplinas;
 	}
 	
+	public Collection<EditalProfessor> getEditaisProfessores() {
+		return editaisProfessores;
+	}
+
+	public void setEditaisProfessores(Collection<EditalProfessor> editaisProfessores) {
+		this.editaisProfessores = editaisProfessores;
+	}
+
+	public void setDisciplinas(List<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
+	}
+
 	public List<Relatorio> getRelatorios() {
 		return relatorios;
 	}
@@ -66,6 +79,10 @@ public class Professor implements Serializable {
 	public void setRg(int rg) {
 		this.rg = rg;
 	}
+
+	@Override
+	public String toString() {
+		return "Professor [cpf=" + cpf + ", nome=" + nome + ", rg=" + rg + "]";
+	}
+		
 }
-
-

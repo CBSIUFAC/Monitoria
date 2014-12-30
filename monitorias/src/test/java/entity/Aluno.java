@@ -85,5 +85,16 @@ public class Aluno implements Serializable {
 	
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "Aluno [cpf=" + cpf + ", nome=" + nome + ", rg=" + rg
+				+ ", matricula=" + matricula + ", dataNascimento="
+				+ dataNascimento + "]";
+	}
+	
+	
+	
+	
 }

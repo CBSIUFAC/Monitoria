@@ -34,5 +34,27 @@ public class EditalDisciplina implements Serializable {
 	public void setIdEditalDisciplina(int idEditalDisciplina) {
 		this.idEditalDisciplina = idEditalDisciplina;
 	}
+
+	public Edital getEdital() {
+		return edital;
+	}
+
+	public void setEdital(Edital edital) {
+		this.edital = edital;
+	}
+
+	public Disciplina getDisciplina() {
+		return disciplina;
+	}
+
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
+	}
+
+	@Override
+	public String toString() {
+		return "EditalDisciplina [idEditalDisciplina=" + idEditalDisciplina
+				+ ", edital=" + edital + ", disciplina=" + disciplina + "]";
+	}
 	
 }

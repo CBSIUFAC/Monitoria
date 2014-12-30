@@ -37,6 +37,8 @@ public class Inscricao implements Serializable {
 	private Edital edital;
 
 	/* GETTERS AND SETTERS */
+	
+	
 
 	public int getIdInscricao() {
 		return idInscricao;
@@ -76,5 +78,13 @@ public class Inscricao implements Serializable {
 
 	public void setDataInscricao(Date dataInscricao) {
 		this.dataInscricao = dataInscricao;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "Inscricao [idInscricao=" + idInscricao + ", dataInscricao="
+				+ dataInscricao + ", aluno=" + aluno + ", disciplina="
+				+ disciplina + ", edital=" + edital + "]";
+	}
+	
 }
