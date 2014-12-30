@@ -26,6 +26,9 @@ public class Centro implements Serializable {
 	@OneToMany(mappedBy="centro") 
 	private List<Disciplina> disciplinas;
 	
+	@OneToMany(mappedBy="centro") 
+	private List<Edital> editais;
+	
 	/* GETTERS AND SETTERS */
 	
 	public List<Disciplina> getDisciplinas() {

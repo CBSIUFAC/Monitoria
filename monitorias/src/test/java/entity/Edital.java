@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,6 +36,10 @@ public class Edital implements Serializable {
 	private String srcPDF;
 	
 	/* RELACIONAMENTOS */
+	
+	@ManyToOne
+	@JoinColumn(referencedColumnName="sigla", name="fkCentro")
+	private Centro centro;
 	
 	@OneToMany(mappedBy="edital")
 	private List<Inscricao> inscricoes;
