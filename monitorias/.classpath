@@ -30,5 +30,13 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="db2jcc.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/IBM/SQLLIB/java/db2dbgm.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/IBM/SQLLIB/java/db2jcc.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/IBM/SQLLIB/java/db2jcc_license_cu.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/IBM/SQLLIB/java/db2jcc4.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/IBM/SQLLIB/java/db2policy.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/IBM/SQLLIB/java/db2qgjava.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/IBM/SQLLIB/java/db2umplugin.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
