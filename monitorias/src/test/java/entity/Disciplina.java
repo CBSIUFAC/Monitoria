@@ -9,46 +9,43 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
+@NamedQueries({
+    @NamedQuery(name = "Disciplina.Query", query = "SELECT id, codigo, nome, cargaHoraria FROM Disciplina")})
 @Entity
+@Table(name="disciplinas", schema="DBSM")
 public class Disciplina implements Serializable {
 	
 	@Id
-	@Column(nullable=false)
+	@Column(name="ID_DISCIPLINA")
+	private int id;
+	
+	@Column(name="COD_DISCIPLINA")
 	private String codigo;
 	
-	@Column(nullable=false)
+	@Column(name="NOME_DISCIPLINA")
 	private String nome;
 	
-	@Column(nullable=false)
-	private int cargaHoraria;
+	@Column(name="CH_TOTAL")
+	private Integer cargaHoraria;
 	
 	/* RELACIONAMENTOS */
+
+//	public Centro getCentro() {
+//		return centro;
+//	}
+//
+//	public void setCentro(Centro centro) {
+//		this.centro = centro;
+//	}
 	
-	public Professor getProfessor() {
-		return professor;
-	}
-
-	public void setProfessor(Professor professor) {
-		this.professor = professor;
-	}
-
-	public Centro getCentro() {
-		return centro;
-	}
-
-	public void setCentro(Centro centro) {
-		this.centro = centro;
-	}
-
-	@ManyToOne
-	@JoinColumn(referencedColumnName="cpf", name="fkProfessor")
-	private Professor professor;
-	
-	@ManyToOne
-	@JoinColumn(referencedColumnName="sigla", name="fkCentro")
-	private Centro centro;
+	//@ManyToOne
+	//@JoinColumn(referencedColumnName="sigla_unidade", name="sigla")
+	//private Centro centro;
 	
 	@OneToMany(mappedBy="disciplina")
 	private List<Inscricao> inscricoes;
@@ -77,6 +74,14 @@ public class Disciplina implements Serializable {
 		this.codigo = codigo;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -85,19 +90,18 @@ public class Disciplina implements Serializable {
 		this.nome = nome;
 	}
 	
-	public int getCargaHoraria() {
+	public Integer getCargaHoraria() {
 		return cargaHoraria;
 	}
 	
-	public void setCargaHoraria(int cargaHoraria) {
+	public void setCargaHoraria(Integer cargaHoraria) {
 		this.cargaHoraria = cargaHoraria;
 	}
 
 	@Override
 	public String toString() {
 		return "Disciplina [codigo=" + codigo + ", nome=" + nome
-				+ ", cargaHoraria=" + cargaHoraria + ", professor=" + professor
-				+ ", centro=" + centro + "]";
+				+ ", cargaHoraria=" + cargaHoraria+"]";
+				//+ ", centro=" + centro + "]";
 	}
-	
 }
