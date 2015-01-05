@@ -15,13 +15,11 @@ public static void main (String[] args ){
 		
 		centro.setSigla("CCET");
 		centro.setNome("CENTRO DE CIÊNCIAS");
-		centro.setNomeDiretor("José Augusto Ferreira");
 		centroDAO.inserirCentro(centro);
 	
 		centroApp.imprime();
 		
 		centro.setNome("CENTRO DE CIÊNCIAS EXATAS E TECNOLÓGICAS");
-		centro.setNomeDiretor("Claudionor Alencar");
 		centroDAO.atualizarCentro(centro);
 	
 		centroApp.imprime();

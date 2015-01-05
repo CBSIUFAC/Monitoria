@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,16 +17,16 @@ import javax.persistence.TemporalType;
 public class Aluno implements Serializable {
 	
 	@Id
-	@Column(length=11, nullable=false)
+	@Column
 	private int cpf;
 	
-	@Column(nullable=false)
+	@Column
 	private String nome;
 	
-	@Column(nullable=false)
+	@Column
 	private int rg;
 	
-	@Column(length=11,nullable=false)
+	@Column
 	private int matricula;
 	
 	@Temporal(TemporalType.DATE)
@@ -93,8 +95,4 @@ public class Aluno implements Serializable {
 				+ ", matricula=" + matricula + ", dataNascimento="
 				+ dataNascimento + "]";
 	}
-	
-	
-	
-	
 }

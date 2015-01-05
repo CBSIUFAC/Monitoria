@@ -14,13 +14,13 @@ public class AcadAlunoApp {
 		AlunoAcademicoDAO acdDAO = new AlunoAcademicoDAO();
 		AlunoAcademico alunoAcademico = new AlunoAcademico();
 		AcadAlunoApp acadAlunoApp = new AcadAlunoApp();
-		//acadAlunoApp.imprime();
+		acadAlunoApp.imprime();
 		
-		List<AlunoAcademico> alunos = acdDAO.buscaAlunoAcademico("João Josino Sobrinho Neto");
-		
-		for(AlunoAcademico a : alunos ) {
-			System.out.println(a);
-		}
+//		List<AlunoAcademico> alunos = acdDAO.buscaAlunoAcademico("João Josino Sobrinho Neto");
+//		
+//		for(AlunoAcademico a : alunos ) {
+//			System.out.println(a);
+//		}
 	}
 	
 	public void imprime(){

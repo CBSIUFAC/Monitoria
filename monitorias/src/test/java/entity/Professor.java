@@ -26,19 +26,12 @@ public class Professor implements Serializable {
 
 	@OneToMany(mappedBy="professor")
 	private List<Relatorio> relatorios;
-	
-	@OneToMany(mappedBy="professor")
-	private List<Disciplina> disciplinas;
+
 	
 	@OneToMany(mappedBy="professor")
 	private Collection<EditalProfessor> editaisProfessores;
 	
 	/* GETTERS AND SETTERS */
-	
-	
-	public List <Disciplina> getDisciplinas() {
-		return disciplinas;
-	}
 	
 	public Collection<EditalProfessor> getEditaisProfessores() {
 		return editaisProfessores;
@@ -46,10 +39,6 @@ public class Professor implements Serializable {
 
 	public void setEditaisProfessores(Collection<EditalProfessor> editaisProfessores) {
 		this.editaisProfessores = editaisProfessores;
-	}
-
-	public void setDisciplinas(List<Disciplina> disciplinas) {
-		this.disciplinas = disciplinas;
 	}
 
 	public List<Relatorio> getRelatorios() {

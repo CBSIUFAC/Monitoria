@@ -38,7 +38,7 @@ public class Edital implements Serializable {
 	/* RELACIONAMENTOS */
 	
 	@ManyToOne
-	@JoinColumn(referencedColumnName="sigla", name="fkCentro")
+	@JoinColumn(referencedColumnName="sigla_unidade", name="sigla")
 	private Centro centro;
 	
 	@OneToMany(mappedBy="edital")

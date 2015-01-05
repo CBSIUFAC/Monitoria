@@ -81,17 +81,18 @@ public class MasterDAO {
 		}
 		return (T)retorno;
 	}
+	
 	//Retorna lista de qualquer objeto
 	public <T extends Serializable> List<T> getLista(String str){
 		Session s = null;
 		Transaction tx = null;
 		List<T> retorno = null;
 		try {
-		s = getSession();
-		tx = s.beginTransaction();
-		Query qr = s.createQuery(str);
-		retorno = qr.list();
-		s.getTransaction().commit();
+			s = getSession();
+			tx = s.beginTransaction();
+			Query qr = s.createQuery(str);
+			retorno = qr.list();
+			s.getTransaction().commit();
 		} catch (Exception e) {
 			if(tx!=null) tx.rollback();
 		} finally {
