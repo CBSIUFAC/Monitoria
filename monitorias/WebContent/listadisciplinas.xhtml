@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Lista de Disciplinas</title>
+</h:head>
+<h:body>
+
+	<h:form id="formListaDisciplinas">
+		<p:dataTable var="d" value="#{disciplinaBean.lista}" 
+		rows="5" editable="false" paginator="true"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                         rowsPerPageTemplate="5,10,15">
+		
+		<p:column headerText="ID">
+			<p:outputLabel value="#{d.id}"></p:outputLabel>
+		</p:column>
+		
+		<p:column headerText="Código">
+			<p:outputLabel value="#{d.codigo}"></p:outputLabel>
+		</p:column>
+		
+		<p:column headerText="Nome">
+			<p:outputLabel value="#{d.nome}"></p:outputLabel>
+		</p:column>
+		
+		<p:column headerText="Carga Horária">
+			<p:outputLabel value="#{d.cargaHoraria}"></p:outputLabel>
+		</p:column>
+		</p:dataTable>
+	</h:form>
+</h:body>
+</html>
