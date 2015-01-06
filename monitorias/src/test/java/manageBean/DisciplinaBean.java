@@ -11,16 +11,15 @@ import entity.Disciplina;
 
 @ManagedBean(name="disciplinaBean")
 @SessionScoped
-public class DisciplinaBean implements Serializable {
+public class DisciplinaBean {
 
 	private Disciplina disciplina;
 	private DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 	private List<Disciplina> lista;
 	
-	public String inserirDisciplina() {
-		disciplinaDAO.inserirDisciplina(disciplina);
-		lista = null;
-		return "listadisciplinas";
+	
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
 	}
 	
 	public Disciplina getDisciplina() {
@@ -29,8 +28,8 @@ public class DisciplinaBean implements Serializable {
 		return disciplina;
 	}
 	
-	public void setDisciplina(Disciplina disciplina) {
-		this.disciplina = disciplina;
+	public void setLista(List<Disciplina> lista) {
+		this.lista = lista;
 	}
 	
 	public List<Disciplina> getLista() {
@@ -39,8 +38,11 @@ public class DisciplinaBean implements Serializable {
 		return lista;
 	}
 	
-	public void setLista(List<Disciplina> lista) {
-		this.lista = lista;
+	public void setDisciplinaDAO(DisciplinaDAO disciplinaDAO) {
+		this.disciplinaDAO = disciplinaDAO;
 	}
 	
+	public DisciplinaDAO getDisciplinaDAO() {
+		return disciplinaDAO;
+	}
 }
