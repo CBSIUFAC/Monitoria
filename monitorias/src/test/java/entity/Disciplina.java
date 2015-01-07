@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @NamedQueries({
-    @NamedQuery(name = "Disciplina.Query", query = "SELECT id, codigo, nome, cargaHoraria FROM Disciplina")})
+    @NamedQuery(name = "Disciplina.Query", query = "SELECT id, codigo, nome, cargaHoraria, idUnidade FROM Disciplina")})
 @Entity
 @Table(name="disciplinas", schema="DBSM")
 public class Disciplina implements Serializable {
@@ -33,19 +33,26 @@ public class Disciplina implements Serializable {
 	@Column(name="CH_TOTAL")
 	private Integer cargaHoraria;
 	
+	//alteração
+	@Column(name="ID_UNIDADE")
+	private Integer idUnidade;
+	
+	
 	/* RELACIONAMENTOS */
 
-//	public Centro getCentro() {
-//		return centro;
-//	}
-//
-//	public void setCentro(Centro centro) {
-//		this.centro = centro;
-//	}
+	@ManyToOne
+	@JoinColumn(referencedColumnName="ID_UNIDADE",name="fkCentro")
+	private Centro centro;
 	
-	//@ManyToOne
-	//@JoinColumn(referencedColumnName="sigla_unidade", name="sigla")
-	//private Centro centro;
+	public Centro getCentro() {
+		return centro;
+	}
+
+	public void setCentro(Centro centro) {
+		this.centro = centro;
+	}
+	
+	//Fim de alteração
 	
 	@OneToMany(mappedBy="disciplina")
 	private List<Inscricao> inscricoes;
@@ -101,7 +108,7 @@ public class Disciplina implements Serializable {
 	@Override
 	public String toString() {
 		return "Disciplina [codigo=" + codigo + ", nome=" + nome
-				+ ", cargaHoraria=" + cargaHoraria+"]";
+				+ ", cargaHoraria=" + cargaHoraria+", centroId= "+idUnidade+" ]";
 				//+ ", centro=" + centro + "]";
 	}
 }

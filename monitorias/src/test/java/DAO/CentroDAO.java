@@ -34,7 +34,7 @@ public class CentroDAO extends MasterDAO {
 		Session s = getSession();
 		s.beginTransaction();
 		Query qr = s.createQuery("from Centro c where c.nome like :no");
-		qr.setParameter("%"+str+"%", "no");
+		qr.setParameter( "no","%"+str+"%");
 		List<Centro> listaCentro = qr.list();
 		s.getTransaction().commit();
 		s.close();

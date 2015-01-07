@@ -23,7 +23,7 @@ public static void main (String[] args ){
 		
 		if (disciplinas == null)
 			System.out.println("disciplinas nulo");
-		
+		else
 		if (disciplinas.size() == 0)
 			System.out.println("Não há disciplina cadastrada no sistema.");
 		else{

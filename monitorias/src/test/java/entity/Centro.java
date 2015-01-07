@@ -13,50 +13,56 @@ import javax.persistence.Table;
 @Table(name="ORG_INSTITUICAO", schema="DBSM")
 public class Centro implements Serializable {
 
+	//Alterações
 	@Id
-	@Column(name = "sigla_unidade")
-	private String sigla;
+	@Column(name = "ID_UNIDADE")
+	private String centroId;
 	
-	@Column(name = "nome_unidade")
-	private String nome;
+	@Column(name = "SIGLA_UNIDADE")
+	private String centroSigla;
+	
+	@Column(name = "NOME_UNIDADE")
+	private String centroNome;
 		
+	//Fim de alterações
+	
 	/* RELACIONAMENTOS */
 	
-//	@OneToMany(mappedBy="centro") 
-//	private List<Disciplina> disciplinas;
+	@OneToMany(mappedBy="centro") 
+	private List<Disciplina> disciplinas;
 	
 	@OneToMany(mappedBy="centro") 
 	private List<Edital> editais;
 	
 	/* GETTERS AND SETTERS */
 	
-//	public List<Disciplina> getDisciplinas() {
-//		return disciplinas;
-//	}
+	public List<Disciplina> getDisciplinas() {
+		return disciplinas;
+	}
 	
 	public String getSigla() {
-		return sigla;
+		return centroSigla;
 	}
 	
 	public void setSigla(String sigla) {
-		this.sigla = sigla;
+		this.centroSigla = sigla;
 	}
 	
 	public String getNome() {
-		return nome;
+		return centroNome;
 	}
 	
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.centroNome = nome;
 	}
 
-//	public void setDisciplinas(List<Disciplina> disciplinas) {
-//		this.disciplinas = disciplinas;
-//	}
+	public void setDisciplinas(List<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
+	}
 
 	@Override
 	public String toString() {
-		return "Centro [sigla=" + sigla + ", nome=" + nome + "]";
+		return "Centro [id= "+centroId+", sigla=" + centroSigla + ", nome=" + centroNome + "]";
 	}
 	
 	
