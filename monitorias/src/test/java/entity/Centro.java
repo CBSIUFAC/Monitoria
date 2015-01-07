@@ -16,8 +16,8 @@ public class Centro implements Serializable {
 	//Alterações
 	@Id
 	@Column(name = "ID_UNIDADE")
-	private String centroId;
-	
+	private Integer centroId;
+
 	@Column(name = "SIGLA_UNIDADE")
 	private String centroSigla;
 	
@@ -38,6 +38,15 @@ public class Centro implements Serializable {
 	
 	public List<Disciplina> getDisciplinas() {
 		return disciplinas;
+	}
+	
+
+	public Integer getCentroId() {
+		return centroId;
+	}
+
+	public void setCentroId(Integer centroId) {
+		this.centroId = centroId;
 	}
 	
 	public String getSigla() {
@@ -62,7 +71,7 @@ public class Centro implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Centro [id= "+centroId+", sigla=" + centroSigla + ", nome=" + centroNome + "]";
+		return "Centro [id= "+centroId+", sigla=" + (centroSigla==null?" ":centroSigla) + ", nome=" + centroNome + "]";
 	}
 	
 	

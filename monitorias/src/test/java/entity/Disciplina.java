@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @NamedQueries({
-    @NamedQuery(name = "Disciplina.Query", query = "SELECT id, codigo, nome, cargaHoraria, idUnidade FROM Disciplina")})
+    @NamedQuery(name = "Disciplina.Query", query = "SELECT id, codigo, nome, cargaHoraria FROM Disciplina")})
 @Entity
 @Table(name="disciplinas", schema="DBSM")
 public class Disciplina implements Serializable {
@@ -33,15 +33,11 @@ public class Disciplina implements Serializable {
 	@Column(name="CH_TOTAL")
 	private Integer cargaHoraria;
 	
-	//alteração
-	@Column(name="ID_UNIDADE")
-	private Integer idUnidade;
-	
 	
 	/* RELACIONAMENTOS */
 
 	@ManyToOne
-	@JoinColumn(referencedColumnName="ID_UNIDADE",name="fkCentro")
+	@JoinColumn(referencedColumnName="ID_UNIDADE",name="ID_UNIDADE") //Por quê que uma teve de ser igual à outra?
 	private Centro centro;
 	
 	public Centro getCentro() {
@@ -108,7 +104,6 @@ public class Disciplina implements Serializable {
 	@Override
 	public String toString() {
 		return "Disciplina [codigo=" + codigo + ", nome=" + nome
-				+ ", cargaHoraria=" + cargaHoraria+", centroId= "+idUnidade+" ]";
-				//+ ", centro=" + centro + "]";
+				+ ", cargaHoraria=" + (cargaHoraria==null?0:cargaHoraria)+" "+ centro;
 	}
 }
