@@ -14,11 +14,19 @@ aproveitamento de  módulos, é necessário que o NTI forneça suporte para que 
 A missão do software é diminuir a burocracia do processo como um todo,diminuir o tempo e diminuir os custos em geral.
 
 Ferramentas de Desenvolvimento e Licença de Uso
+
 a.  Microsoft Office 2010 – Shareware
+
 b.  Eclipse -  EPL (Eclipse Public License)
+
 c.  Astah Community – Freeware 
+
 d.  Git -  GNU (General Public License)
+
 e.  Java JDK – GNU (General Public License)
+
 f.  DB2 – Indefinido
+
 g.  Maven - Apache License 2.0
+
 h.  Hibernate – LGPL (Lesser General Public License)
