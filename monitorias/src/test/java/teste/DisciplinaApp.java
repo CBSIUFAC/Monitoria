@@ -10,11 +10,11 @@ public static void main (String[] args ){
 		
 		DisciplinaApp disciplinaApp = new DisciplinaApp();
 		DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
-//		Disciplina d = disciplinaDAO.getDisciplina(1191);
-		
+		//Disciplina d = disciplinaDAO.getDisciplina(1191);
+		//System.out.println(d);
 
-		List<Disciplina> lista = disciplinaDAO.getListaDisciplina();
-	//	System.out.println(lista.get(0));
+//		List<Disciplina> lista = disciplinaDAO.getListaDisciplina();
+//		System.out.println(lista.get(0));
 		disciplinaApp.imprime();
 		
 	}
@@ -31,12 +31,8 @@ public static void main (String[] args ){
 			System.out.println("Não há disciplina cadastrada no sistema.");
 		else{
 			System.out.println("Imprimindo Disciplina(s):");
-			int a = 1;
 			for (Disciplina d : disciplinas) {
-				if ( a == 10)
-					break;
 				System.out.println(d);
-				a++;
 			}
 			System.out.println("\n");
 		}

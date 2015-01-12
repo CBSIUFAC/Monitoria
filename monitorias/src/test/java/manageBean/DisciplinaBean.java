@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import DAO.DisciplinaDAO;
+import entity.Centro;
 import entity.Disciplina;
 
 @ManagedBean(name="disciplinaBean")
@@ -17,7 +18,16 @@ public class DisciplinaBean {
 	private DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 	private List<Disciplina> lista;
 	
+	private Centro centro;
 	
+	public Centro getCentro() {
+		return centro;
+	}
+
+	public void setCentro(Centro centro) {
+		this.centro = centro;
+	}
+
 	public void setDisciplina(Disciplina disciplina) {
 		this.disciplina = disciplina;
 	}

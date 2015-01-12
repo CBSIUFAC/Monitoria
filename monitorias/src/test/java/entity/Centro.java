@@ -49,19 +49,19 @@ public class Centro implements Serializable {
 		this.centroId = centroId;
 	}
 	
-	public String getSigla() {
+	public String getCentroSigla() {
 		return centroSigla;
 	}
 	
-	public void setSigla(String sigla) {
+	public void setCentroSigla(String sigla) {
 		this.centroSigla = sigla;
 	}
 	
-	public String getNome() {
+	public String getCentroNome() {
 		return centroNome;
 	}
 	
-	public void setNome(String nome) {
+	public void setCentroNome(String nome) {
 		this.centroNome = nome;
 	}
 
@@ -72,7 +72,6 @@ public class Centro implements Serializable {
 	@Override
 	public String toString() {
 		return "Centro [id= "+centroId+", sigla=" + (centroSigla==null?" ":centroSigla) + ", nome=" + centroNome + "]";
-	}
-	
+	}	
 	
 }
