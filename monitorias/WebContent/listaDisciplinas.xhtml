@@ -12,32 +12,32 @@
 <h:body>
 
 	<h:form id="formListaDisciplinas">
-		<p:dataTable var="d" value="#{disciplinaBean.lista}" 
+		<p:dataTable var="d" value="#{disciplinaBean.lista}"  
 		rows="15" editable="false" paginator="true"
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-	                         rowsPerPageTemplate="10,20,30,50">
+	                         rowsPerPageTemplate="10,20,30,50" emptyMessage="Não existem disciplinas cadastradas com esse filtro." filteredValue="#{disciplinaBean.listaFiltro}">>
 		
-			<p:column headerText="ID">
+			<p:column headerText="ID" filterBy="#{d.id}" filterMatchMode="contains">
 				<p:outputLabel value="#{d.id}"></p:outputLabel>
 			</p:column>
 			
-			<p:column headerText="Código">
+			<p:column headerText="Código" filterBy="#{d.codigo}" filterMatchMode="contains">
 				<p:outputLabel value="#{d.codigo}"></p:outputLabel>
 			</p:column>
 			
-			<p:column headerText="Nome">
+			<p:column headerText="Nome" filterBy="#{d.nome}" filterMatchMode="contains">
 				<p:outputLabel value="#{d.nome}"></p:outputLabel>
 			</p:column>
 			
-			<p:column headerText="Carga Horária">
+			<p:column headerText="Carga Horária" filterBy="#{d.cargaHoraria}" filterMatchMode="contains">
 				<p:outputLabel value="#{d.cargaHoraria}"></p:outputLabel>
 			</p:column>
 			
-			<p:column headerText="Nome Centro">
+			<p:column headerText="Nome Centro" filterBy="#{d.centro.nome}" filterMatchMode="contains">
 				<p:outputLabel value="#{d.centro.nome}"></p:outputLabel>
 			</p:column>
 			
-			<p:column headerText="Sigla Centro">
+			<p:column headerText="Sigla Centro" filterBy="#{d.centro.sigla}" filterMatchMode="contains">
 				<p:outputLabel value="#{d.centro.sigla}"></p:outputLabel>
 			</p:column>
 			

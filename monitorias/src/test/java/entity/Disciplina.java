@@ -33,7 +33,6 @@ public class Disciplina implements Serializable {
 	@Column(name="CH_TOTAL")
 	private Integer cargaHoraria;
 	
-	
 	/* RELACIONAMENTOS */
 
 	@ManyToOne

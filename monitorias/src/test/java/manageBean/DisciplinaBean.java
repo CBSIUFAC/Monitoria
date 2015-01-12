@@ -17,6 +17,7 @@ public class DisciplinaBean {
 	private Disciplina disciplina;
 	private DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 	private List<Disciplina> lista;
+	private List<Disciplina> listaFiltro;
 	
 	private Centro centro;
 	
@@ -54,5 +55,13 @@ public class DisciplinaBean {
 	
 	public DisciplinaDAO getDisciplinaDAO() {
 		return disciplinaDAO;
+	}
+
+	public List<Disciplina> getListaFiltro() {
+		return listaFiltro;
+	}
+
+	public void setListaFiltro(List<Disciplina> listaFiltro) {
+		this.listaFiltro = listaFiltro;
 	}
 }
