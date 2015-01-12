@@ -93,7 +93,10 @@ public class Disciplina implements Serializable {
 	}
 	
 	public Integer getCargaHoraria() {
-		return cargaHoraria;
+		if(cargaHoraria == null) 
+			return 0;
+		else 
+			return cargaHoraria;
 	}
 	
 	public void setCargaHoraria(Integer cargaHoraria) {

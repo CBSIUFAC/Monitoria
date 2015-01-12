@@ -53,7 +53,10 @@ public class Centro implements Serializable {
 	}
 	
 	public String getSigla() {
-		return sigla;
+		if(sigla == null) 
+			return "- ? -";
+		else
+			return sigla;
 	}
 	
 	public void setSigla(String sigla) {
