@@ -1,5 +1,6 @@
 package DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -26,7 +27,12 @@ public class CentroDAO extends MasterDAO {
 	}
 	
 	public List<Centro> getListaCentro(){
-		return getLista("from Centro c");
+		
+		List<Centro> centros = getLista("from Centro c");
+		if (centros.isEmpty()){
+			return new ArrayList<Centro>();
+		}else
+			return centros;
 	}
 	
 	//Busca de centro por nome

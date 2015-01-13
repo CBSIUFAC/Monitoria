@@ -12,18 +12,7 @@ public static void main (String[] args ){
 		CentroDAO centroDAO = new CentroDAO();
 		Centro centro = new Centro();
 		CentroApp centroApp = new CentroApp();
-		
-		centro.setSigla("CCET");
-		centro.setNome("CENTRO DE CIÊNCIAS");
-		centroDAO.inserirCentro(centro);
 	
-		centroApp.imprime();
-		
-		centro.setNome("CENTRO DE CIÊNCIAS EXATAS E TECNOLÓGICAS");
-		centroDAO.atualizarCentro(centro);
-	
-		centroApp.imprime();
-		//centroDAO.deletarCentro(centro);
 		centroApp.imprime();		
 	}
 	
