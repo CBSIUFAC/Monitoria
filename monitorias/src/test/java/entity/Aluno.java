@@ -7,28 +7,29 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+@Table(name = "mnt_alunos", schema = "DBSM")
 @Entity
 public class Aluno implements Serializable {
 	
 	@Id
-	@Column
-	private int cpf;
+	@Column(name="CPF")
+	private String cpf;
 	
-	@Column
+	@Column(name="NOME_PESSOA")
 	private String nome;
 	
-	@Column
-	private int rg;
+	@Column(name="RG")
+	private String rg;
 	
-	@Column
-	private int matricula;
+	@Column(name="MATRICULA")
+	private String matricula;
 	
+	@Column(name="DT_NASCIMENTO")
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 	
@@ -50,11 +51,11 @@ public class Aluno implements Serializable {
 		return relatorios;
 	}
 	
-	public int getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 	
-	public void setCpf(int cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 	
@@ -66,18 +67,18 @@ public class Aluno implements Serializable {
 		this.nome = nome;
 	}
 	
-	public int getRg() {
+	public String getRg() {
 		return rg;
 	}
-	public void setRg(int rg) {
+	public void setRg(String rg) {
 		this.rg = rg;
 	}
 	
-	public int getMatricula() {
+	public String getMatricula() {
 		return matricula;
 	}
 	
-	public void setMatricula(int matricula) {
+	public void setMatricula(String matricula) {
 		this.matricula = matricula;
 	}
 	
