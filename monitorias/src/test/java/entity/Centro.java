@@ -11,6 +11,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+@NamedQueries({
+    @NamedQuery(name = "Centro.Query", query = "SELECT id, sigla, nome FROM Centro")})
 
 @Entity
 @Table(name="ORG_INSTITUICAO", schema="DBSM")
