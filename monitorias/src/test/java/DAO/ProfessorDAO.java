@@ -7,7 +7,7 @@ import org.hibernate.Session;
 
 import entity.Professor;
 
-public class ProfessorDAO extends MasterDAO {
+public class ProfessorDAO extends MasterDAO{
 	
 	public void inserirProfessor(Professor professor){
 		inserirObjeto(professor);
@@ -26,19 +26,18 @@ public class ProfessorDAO extends MasterDAO {
 	}
 	
 	public List<Professor> getListaProfessor(){
-		return getLista("from Professor p");
+		return getLista("from Professor a WHERE cpf is not null");
 	}
 	
 	//Busca de professor por nome
 	public List<Professor> buscaProfessor(String str){
 		Session s = getSession();
 		s.beginTransaction();
-		Query qr = s.createQuery("from Professor p where p.nome like :no");
-		qr.setParameter("%"+str+"%", "no");
+		Query qr = s.createQuery("from Professor a where a.nome LIKE :no");
+		qr.setParameter("no", "%"+str+"%");
 		List<Professor> listaProfessor = qr.list();
 		s.getTransaction().commit();
 		s.close();
 		return listaProfessor;
 	}
-
 }

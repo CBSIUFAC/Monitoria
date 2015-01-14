@@ -17,6 +17,9 @@ import javax.persistence.TemporalType;
 public class Aluno implements Serializable {
 	
 	@Id
+	@Column(name="MATRICULA")
+	private String matricula;
+	
 	@Column(name="CPF")
 	private String cpf;
 	
@@ -25,9 +28,6 @@ public class Aluno implements Serializable {
 	
 	@Column(name="RG")
 	private String rg;
-	
-	@Column(name="MATRICULA")
-	private String matricula;
 	
 	@Column(name="DT_NASCIMENTO")
 	@Temporal(TemporalType.DATE)

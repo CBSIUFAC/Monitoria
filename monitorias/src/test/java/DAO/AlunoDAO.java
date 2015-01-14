@@ -26,7 +26,7 @@ public class AlunoDAO extends MasterDAO{
 	}
 	
 	public List<Aluno> getListaAluno(){
-		return getLista("from Aluno a");
+		return getLista("from Aluno a ");
 	}
 	
 	//Busca de aluno por nome
