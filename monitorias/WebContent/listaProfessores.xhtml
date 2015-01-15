@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Lista de Professores</title>
+</h:head>
+<h:body>
+
+	<h:form id="formListaProfessores">
+		<p:dataTable var="a" value="#{professorBean.lista}"  
+		rows="15" editable="false" paginator="true"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                         rowsPerPageTemplate="10,20,30,50" emptyMessage="Não existem professors cadastradas com esse filtro." filteredValue="#{professorBean.listaFiltro}">>
+			
+			<p:column headerText="Nome" filterBy="#{a.nome}" filterMatchMode="contains">
+				<p:outputLabel value="#{a.nome}"></p:outputLabel>
+			</p:column>
+			
+			<p:column headerText="CPF" filterBy="#{a.cpf}" filterMatchMode="contains">
+				<p:outputLabel value="#{a.cpf}"></p:outputLabel>
+			</p:column>
+			
+			
+			<p:column headerText="RG" filterBy="#{a.rg}" filterMatchMode="contains">
+				<p:outputLabel value="#{a.rg}"></p:outputLabel>
+			</p:column>	
+		
+		</p:dataTable>
+	</h:form>
+</h:body>
+</html>

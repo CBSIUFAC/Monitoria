@@ -1,4 +1,4 @@
-package manageBean;
+package managedBean;
 
 import java.util.List;
 
