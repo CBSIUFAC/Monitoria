@@ -4,18 +4,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
 	<title>Lista de Professores</title>
 </h:head>
+
+<ui:composition template="/template/principal.xhtml">
+<ui:define name="conteudo">
+
 <h:body>
 
 	<h:form id="formListaProfessores">
 		<p:dataTable var="a" value="#{professorBean.lista}"  
 		rows="15" editable="false" paginator="true"
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-	                         rowsPerPageTemplate="10,20,30,50" emptyMessage="Não existem professors cadastradas com esse filtro." filteredValue="#{professorBean.listaFiltro}">>
+	                         rowsPerPageTemplate="10,20,30,50" emptyMessage="Não existem professors cadastrados com esse filtro." filteredValue="#{professorBean.listaFiltro}">>
 			
 			<p:column headerText="Nome" filterBy="#{a.nome}" filterMatchMode="contains">
 				<p:outputLabel value="#{a.nome}"></p:outputLabel>
@@ -33,4 +38,8 @@
 		</p:dataTable>
 	</h:form>
 </h:body>
+
+</ui:define>
+</ui:composition>
+
 </html>

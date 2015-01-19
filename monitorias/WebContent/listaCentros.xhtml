@@ -4,18 +4,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
 	<title>Lista de Centros</title>
 </h:head>
+
+<ui:composition template="/template/principal.xhtml">
+<ui:define name="conteudo">
+
 <h:body>
 
 	<h:form id="formListaCentros">
 		<p:dataTable var="d" value="#{centroBean.lista}"  
 		rows="15" editable="false" paginator="true"
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-	                         rowsPerPageTemplate="10,20,30,50" emptyMessage="Não existem centros cadastradas com esse filtro." filteredValue="#{centroBean.listaFiltro}">>
+	                         rowsPerPageTemplate="10,20,30,50" emptyMessage="Não existem centros cadastrados com esse filtro." filteredValue="#{centroBean.listaFiltro}">>
 		
 			<p:column headerText="ID" filterBy="#{d.id}" filterMatchMode="contains">
 				<p:outputLabel value="#{d.id}"></p:outputLabel>
@@ -33,4 +38,8 @@
 		</p:dataTable>
 	</h:form>
 </h:body>
+
+</ui:define>
+</ui:composition>
+
 </html>

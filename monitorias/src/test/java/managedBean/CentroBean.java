@@ -1,4 +1,4 @@
-package manageBean;
+package managedBean;
 
 import java.io.Serializable;
 import java.util.List;

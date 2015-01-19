@@ -4,11 +4,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
 	<title>Lista de Disciplinas</title>
 </h:head>
+
+<ui:composition template="/template/principal.xhtml">
+<ui:define name="conteudo">
+
 <h:body>
 
 	<h:form id="formListaDisciplinas">
@@ -44,4 +49,8 @@
 		</p:dataTable>
 	</h:form>
 </h:body>
+
+</ui:define>
+</ui:composition>
+
 </html>
