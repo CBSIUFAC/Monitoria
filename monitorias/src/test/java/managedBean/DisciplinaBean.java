@@ -1,5 +1,6 @@
 package managedBean;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -17,7 +18,8 @@ public class DisciplinaBean {
 	private DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 	private List<Disciplina> lista;
 	private List<Disciplina> listaFiltro;
-	
+	private String[] periodos = new String[]{"1º Semestre", "2º Semestre","DPLE"};
+
 	private Centro centro;
 	
 	public Centro getCentro() {
@@ -31,7 +33,7 @@ public class DisciplinaBean {
 	public void setDisciplina(Disciplina disciplina) {
 		this.disciplina = disciplina;
 	}
-	
+
 	public Disciplina getDisciplina() {
 		if(disciplina == null)
 			disciplina = new Disciplina();
@@ -63,4 +65,25 @@ public class DisciplinaBean {
 	public void setListaFiltro(List<Disciplina> listaFiltro) {
 		this.listaFiltro = listaFiltro;
 	}
+	
+	public String[] getPeriodos() {
+        return periodos;
+    }
+     
+	public void setPeriodos(String[] periodos) {
+		this.periodos = periodos;
+	}
+	
+	public String convertePeriodo(int id) {
+		String periodo = "";
+		if(id == 201) {
+			periodo = "1º Semestre";
+		} else if (id == 202) {
+			periodo = "2º Semestre";
+		} else if (id == 203) {
+			periodo = "DPLE";
+		}
+		return periodo;
+	}
+	
 }

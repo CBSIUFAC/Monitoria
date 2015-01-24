@@ -22,14 +22,14 @@
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 		                         rowsPerPageTemplate="10,20,30,50" emptyMessage="Não existem alunos cadastrados com esse filtro." filteredValue="#{alunoBean.listaFiltro}">>
 				
-				<p:column headerText="Nome" filterBy="#{a.nome}" filterMatchMode="contains">
-					<p:outputLabel value="#{a.nome}"></p:outputLabel>
-				</p:column>
 				
 				<p:column headerText="Matricula" filterBy="#{a.matricula}" filterMatchMode="contains">
 					<p:outputLabel value="#{a.matricula}"></p:outputLabel>
 				</p:column>
 				
+				<p:column headerText="Nome" filterBy="#{a.nome}" filterMatchMode="contains">
+					<p:outputLabel value="#{a.nome}"></p:outputLabel>
+				</p:column>
 				
 				<p:column headerText="CPF" filterBy="#{a.cpf}" filterMatchMode="contains">
 					<p:outputLabel value="#{a.cpf}"></p:outputLabel>

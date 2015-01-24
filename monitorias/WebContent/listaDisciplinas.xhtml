@@ -17,35 +17,54 @@
 <h:body>
 
 	<h:form id="formListaDisciplinas">
-		<p:dataTable var="d" value="#{disciplinaBean.lista}"  
+		<p:dataTable var="d" value="#{disciplinaBean.lista}" widgetVar="tableListaDisciplinas"
 		rows="15" editable="false" paginator="true"
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 	                         rowsPerPageTemplate="10,20,30,50" emptyMessage="Não existem disciplinas cadastradas com esse filtro." filteredValue="#{disciplinaBean.listaFiltro}">>
 		
-			<p:column headerText="ID" filterBy="#{d.id}" filterMatchMode="contains">
-				<p:outputLabel value="#{d.id}"></p:outputLabel>
+			<p:column headerText="ID" filterBy="#{d.idDisciplina}" filterMatchMode="contains">
+				<p:outputLabel value="#{d.idDisciplina}"></p:outputLabel>
 			</p:column>
 			
-			<p:column headerText="Código" filterBy="#{d.codigo}" filterMatchMode="contains">
-				<p:outputLabel value="#{d.codigo}"></p:outputLabel>
+			<p:column headerText="Nome" filterBy="#{d.nomeDisciplina}" filterMatchMode="contains">
+				<p:outputLabel value="#{d.nomeDisciplina}"></p:outputLabel>
 			</p:column>
 			
-			<p:column headerText="Nome" filterBy="#{d.nome}" filterMatchMode="contains">
-				<p:outputLabel value="#{d.nome}"></p:outputLabel>
+			<p:column headerText="Código" filterBy="#{d.codigoDisciplina}" filterMatchMode="contains">
+				<p:outputLabel value="#{d.codigoDisciplina}"></p:outputLabel>
 			</p:column>
+			
+			<p:column headerText="Ano" filterBy="#{d.ano}" filterMatchMode="contains">
+				<p:outputLabel value="#{d.ano}"></p:outputLabel>
+			</p:column>
+			
+			 <p:column filterBy="#{disciplinaBean.convertePeriodo(d.periodo)}" headerText="Semestre" filterMatchMode="contains">
+			 	<f:facet name="filter">
+                	<p:selectOneMenu onchange="PF('tableListaDisciplinas').filter()" >
+                    	<f:selectItem itemLabel="Todos" itemValue="#{null}" noSelectionOption="true" />
+                    	<f:selectItems value="#{disciplinaBean.periodos}" />
+                	</p:selectOneMenu>
+                </f:facet>
+            <p:outputLabel value="#{disciplinaBean.convertePeriodo(d.periodo)}"></p:outputLabel>
+        </p:column>
 			
 			<p:column headerText="Carga Horária" filterBy="#{d.cargaHoraria}" filterMatchMode="contains">
 				<p:outputLabel value="#{d.cargaHoraria}"></p:outputLabel>
 			</p:column>
 			
-			<p:column headerText="Nome Centro" filterBy="#{d.centro.nome}" filterMatchMode="contains">
-				<p:outputLabel value="#{d.centro.nome}"></p:outputLabel>
+			<p:column headerText="Professor" filterBy="#{d.professor}" filterMatchMode="contains">
+				<p:outputLabel value="#{d.professor}"></p:outputLabel>
 			</p:column>
 			
-			<p:column headerText="Sigla Centro" filterBy="#{d.centro.sigla}" filterMatchMode="contains">
-				<p:outputLabel value="#{d.centro.sigla}"></p:outputLabel>
+			<p:column headerText="Vagas Ocupadas" filterBy="#{d.totalInscritos}" filterMatchMode="contains">
+				<p:outputLabel value="#{d.totalInscritos}"></p:outputLabel>
 			</p:column>
 			
+			<p:column headerText="Centro" filterBy="#{d.centro.siglaCentro}" filterMatchMode="contains">
+				<p:outputLabel value="#{d.centro.siglaCentro}"></p:outputLabel>
+			</p:column>
+			
+		
 		</p:dataTable>
 	</h:form>
 </h:body>

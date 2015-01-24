@@ -77,6 +77,46 @@ public class Centro implements Serializable {
 		this.disciplinas = disciplinas;
 	}
 
+	public Integer getIdCentro() {
+		return idCentro;
+	}
+
+
+	public void setIdCentro(Integer idCentro) {
+		this.idCentro = idCentro;
+	}
+
+
+	public String getSiglaCentro() {
+		return siglaCentro;
+	}
+
+
+	public void setSiglaCentro(String siglaCentro) {
+		this.siglaCentro = siglaCentro;
+	}
+
+
+	public String getNomeCentro() {
+		return nomeCentro;
+	}
+
+
+	public void setNomeCentro(String nomeCentro) {
+		this.nomeCentro = nomeCentro;
+	}
+
+
+	public List<Edital> getEditais() {
+		return editais;
+	}
+
+
+	public void setEditais(List<Edital> editais) {
+		this.editais = editais;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Centro [id= "+idCentro+", sigla=" + (siglaCentro==null?" ":siglaCentro) + ", nome=" + nomeCentro + "]";
