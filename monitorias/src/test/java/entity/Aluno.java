@@ -15,14 +15,14 @@ import javax.persistence.TemporalType;
 //@Table(name = "mnt_alunos", schema = "DBSM")
 @Entity
 public class Aluno implements Serializable {
-	
+
 	@Id
-//	@Column(name="CPF")
-	private String cpf;
-	
 //	@Column(name="MATRICULA")
 	private String matricula;
-	
+		
+//	@Column(name="CPF")
+	private String cpf;
+
 //	@Column(name="NOME_PESSOA")
 	private String nome;
 	

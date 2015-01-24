@@ -32,7 +32,7 @@ public class Relatorio implements Serializable {
 	/* RELACIONAMENTOS */
 	
 	@ManyToOne
-	@JoinColumn(referencedColumnName="cpf",name="fkAluno")
+	@JoinColumn(referencedColumnName="matricula",name="fkAluno")
 	private Aluno aluno;
 	
 	@ManyToOne	
