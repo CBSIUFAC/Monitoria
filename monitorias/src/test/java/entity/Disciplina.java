@@ -24,14 +24,21 @@ public class Disciplina implements Serializable {
 //	@Column(name="ID_DISCIPLINA")
 	private int idDisciplina;
 	
-//	@Column(name="COD_DISCIPLINA")
-	private String codigo;
-	
 //	@Column(name="NOME_DISCIPLINA")
-	private String nome;
+	private String codigoDisciplina;
 	
 //	@Column(name="CH_TOTAL")
 	private Integer cargaHoraria;
+	
+	private String nomeDisciplina;
+	
+	private int periodo;
+	
+	private int totalInscritos;
+	
+	private int ano;
+	
+	private String professor;
 	
 	/* RELACIONAMENTOS */
 
@@ -69,14 +76,6 @@ public class Disciplina implements Serializable {
 		return relatorios;
 	}
 	
-	public String getCodigo() {
-		return codigo;
-	}
-	
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
-	
 	public int getId() {
 		return idDisciplina;
 	}
@@ -84,15 +83,80 @@ public class Disciplina implements Serializable {
 	public void setId(int id) {
 		this.idDisciplina = id;
 	}
+	
+	public int getIdDisciplina() {
+		return idDisciplina;
+	}
 
-	public String getNome() {
-		return nome;
+	public void setIdDisciplina(int idDisciplina) {
+		this.idDisciplina = idDisciplina;
 	}
-	
-	public void setNome(String nome) {
-		this.nome = nome;
+
+	public String getCodigoDisciplina() {
+		return codigoDisciplina;
 	}
-	
+
+	public void setCodigoDisciplina(String codigoDisciplina) {
+		this.codigoDisciplina = codigoDisciplina;
+	}
+
+	public String getNomeDisciplina() {
+		return nomeDisciplina;
+	}
+
+	public void setNomeDisciplina(String nomeDisciplina) {
+		this.nomeDisciplina = nomeDisciplina;
+	}
+
+	public int getPeriodo() {
+		return periodo;
+	}
+
+	public void setPeriodo(int periodo) {
+		this.periodo = periodo;
+	}
+
+	public int getTotalInscritos() {
+		return totalInscritos;
+	}
+
+	public void setTotalInscritos(int totalInscritos) {
+		this.totalInscritos = totalInscritos;
+	}
+
+	public int getAno() {
+		return ano;
+	}
+
+	public void setAno(int ano) {
+		this.ano = ano;
+	}
+
+	public String getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(String professor) {
+		this.professor = professor;
+	}
+
+	public Collection<EditalDisciplina> getEditaisDisciplinas() {
+		return editaisDisciplinas;
+	}
+
+	public void setEditaisDisciplinas(
+			Collection<EditalDisciplina> editaisDisciplinas) {
+		this.editaisDisciplinas = editaisDisciplinas;
+	}
+
+	public void setInscricoes(List<Inscricao> inscricoes) {
+		this.inscricoes = inscricoes;
+	}
+
+	public void setRelatorios(List<Relatorio> relatorios) {
+		this.relatorios = relatorios;
+	}
+
 	public Integer getCargaHoraria() {
 		if(cargaHoraria == null) 
 			return 0;
@@ -104,9 +168,4 @@ public class Disciplina implements Serializable {
 		this.cargaHoraria = cargaHoraria;
 	}
 
-	@Override
-	public String toString() {
-		return "Disciplina [codigo=" + codigo + ", nome=" + nome
-				+ ", cargaHoraria=" + (cargaHoraria==null?0:cargaHoraria)+" "+ centro;
-	}
 }
