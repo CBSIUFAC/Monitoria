@@ -14,40 +14,31 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@NamedQueries({
-    @NamedQuery(name = "Disciplina.Query", query = "SELECT id, codigo, nome, cargaHoraria FROM Disciplina")})
+//@NamedQueries({
+//    @NamedQuery(name = "Disciplina.Query", query = "SELECT id, codigo, nome, cargaHoraria FROM Disciplina")})
 @Entity
-@Table(name="disciplinas", schema="DBSM")
+//@Table(name="disciplinas", schema="DBSM")
 public class Disciplina implements Serializable {
 	
 	@Id
-	@Column(name="ID_DISCIPLINA")
-	private int id;
+//	@Column(name="ID_DISCIPLINA")
+	private int idDisciplina;
 	
-	@Column(name="COD_DISCIPLINA")
+//	@Column(name="COD_DISCIPLINA")
 	private String codigo;
 	
-	@Column(name="NOME_DISCIPLINA")
+//	@Column(name="NOME_DISCIPLINA")
 	private String nome;
 	
-	@Column(name="CH_TOTAL")
+//	@Column(name="CH_TOTAL")
 	private Integer cargaHoraria;
 	
 	/* RELACIONAMENTOS */
 
 	@ManyToOne
-	@JoinColumn(referencedColumnName="ID_UNIDADE",name="ID_UNIDADE") //Por quê que uma teve de ser igual à outra?
+//	@JoinColumn(referencedColumnName="ID_UNIDADE",name="ID_UNIDADE") //Por quê que uma teve de ser igual à outra?
+	@JoinColumn(referencedColumnName="idCentro", name="fkCentro")
 	private Centro centro;
-	
-	public Centro getCentro() {
-		return centro;
-	}
-
-	public void setCentro(Centro centro) {
-		this.centro = centro;
-	}
-	
-	//Fim de alteração
 	
 	@OneToMany(mappedBy="disciplina")
 	private List<Inscricao> inscricoes;
@@ -58,7 +49,17 @@ public class Disciplina implements Serializable {
 	@OneToMany(mappedBy="disciplina")
 	private Collection<EditalDisciplina> editaisDisciplinas;
 	
+	
 	/* GETTERS AND SETTERS */
+	
+	public Centro getCentro() {
+		return centro;
+	}
+
+	public void setCentro(Centro centro) {
+		this.centro = centro;
+	}
+	
 	
 	public List<Inscricao> getInscricoes() {
 		return inscricoes;
@@ -77,11 +78,11 @@ public class Disciplina implements Serializable {
 	}
 	
 	public int getId() {
-		return id;
+		return idDisciplina;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.idDisciplina = id;
 	}
 
 	public String getNome() {

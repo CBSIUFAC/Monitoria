@@ -12,24 +12,24 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Table(name = "mnt_alunos", schema = "DBSM")
+//@Table(name = "mnt_alunos", schema = "DBSM")
 @Entity
 public class Aluno implements Serializable {
 	
 	@Id
-	@Column(name="MATRICULA")
-	private String matricula;
-	
-	@Column(name="CPF")
+//	@Column(name="CPF")
 	private String cpf;
 	
-	@Column(name="NOME_PESSOA")
+//	@Column(name="MATRICULA")
+	private String matricula;
+	
+//	@Column(name="NOME_PESSOA")
 	private String nome;
 	
-	@Column(name="RG")
+//	@Column(name="RG")
 	private String rg;
 	
-	@Column(name="DT_NASCIMENTO")
+//	@Column(name="DT_NASCIMENTO")
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 	

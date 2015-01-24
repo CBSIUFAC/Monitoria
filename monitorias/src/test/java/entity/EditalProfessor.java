@@ -8,21 +8,21 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Entity
+//@Entity
 public class EditalProfessor implements Serializable {
 
-	@Id
-	@GeneratedValue
+//	@Id
+//	@GeneratedValue
 	private int idEditalProfessor;
 	
 	/* RELACIONAMENTOS */
 	
-	@ManyToOne
-	@JoinColumn(referencedColumnName="idEdital", name="fkEdital")
+//	@ManyToOne
+//	@JoinColumn(referencedColumnName="idEdital", name="fkEdital")
 	private Edital edital;
 	
-	@ManyToOne
-	@JoinColumn(referencedColumnName="cpf", name="fkProfessor")
+//	@ManyToOne
+//	@JoinColumn(referencedColumnName="cpf", name="fkProfessor")
 	private Professor professor;
 
 	/* GETTERS AND SETTERS */

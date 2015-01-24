@@ -15,21 +15,21 @@ import javax.persistence.Table;
 import entity.EditalProfessor;
 import entity.Relatorio;
 
-@NamedQueries({
-    	@NamedQuery(name = "Professor.Query", query = "SELECT nome, rg, cpf FROM Professor")})
+//@NamedQueries({
+//    	@NamedQuery(name = "Professor.Query", query = "SELECT nome, rg, cpf FROM Professor")})
 
-@Table(name = "MNT_PROFESSORES", schema = "DBSM")
-@Entity
+//@Table(name = "MNT_PROFESSORES", schema = "DBSM")
+//@Entity
 public class Professor implements Serializable {
 
-	@Id
-	@Column(name="CPF")
+//	@Id
+//	@Column(name="CPF")
 	private String cpf;
 	
-	@Column(name="NOME_PESSOA")
+//	@Column(name="NOME_PESSOA")
 	private String nome;
 	
-	@Column(name="RG")
+//	@Column(name="RG")
 	private String rg;
 	
 	//RELACIONAMENTOS 
@@ -38,18 +38,18 @@ public class Professor implements Serializable {
 //	private List<Relatorio> relatorios;
 
 
-	@OneToMany(mappedBy="professor")
-	private Collection<EditalProfessor> editaisProfessores;
+//	@OneToMany(mappedBy="professor")
+//	private Collection<EditalProfessor> editaisProfessores;
 
 	 //GETTERS AND SETTERS
 	
-	public Collection<EditalProfessor> getEditaisProfessores() {
-		return editaisProfessores;
-	}
-
-	public void setEditaisProfessores(Collection<EditalProfessor> editaisProfessores) {
-		this.editaisProfessores = editaisProfessores;
-	}
+//	public Collection<EditalProfessor> getEditaisProfessores() {
+//		return editaisProfessores;
+//	}
+//
+//	public void setEditaisProfessores(Collection<EditalProfessor> editaisProfessores) {
+//		this.editaisProfessores = editaisProfessores;
+//	}
 
 //	public List<Relatorio> getRelatorios() {
 //		return relatorios;

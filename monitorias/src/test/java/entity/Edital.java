@@ -38,7 +38,7 @@ public class Edital implements Serializable {
 	/* RELACIONAMENTOS */
 	
 	@ManyToOne
-	@JoinColumn(referencedColumnName="ID_UNIDADE", name="centroId")
+	@JoinColumn(referencedColumnName="idCentro", name="fkCentro")
 	private Centro centro;
 	
 	@OneToMany(mappedBy="edital")
@@ -50,9 +50,9 @@ public class Edital implements Serializable {
 	@OneToMany(mappedBy="edital")
 	private Collection<EditalDisciplina> editaisDisciplinas;
 	
-	@OneToMany(mappedBy="edital")
-	private Collection<EditalProfessor> editaisProfessores;
-	
+//	@OneToMany(mappedBy="edital")
+//	private Collection<EditalProfessor> editaisProfessores;
+//	
 	/* GETTERS AND SETTERS */
 	
 	public List<Adendo> getAdendos() {
@@ -120,13 +120,13 @@ public class Edital implements Serializable {
 		this.editaisDisciplinas = editaisDisciplinas;
 	}
 
-	public Collection<EditalProfessor> getEditaisProfessores() {
-		return editaisProfessores;
-	}
-
-	public void setEditaisProfessores(Collection<EditalProfessor> editaisProfessores) {
-		this.editaisProfessores = editaisProfessores;
-	}
+//	public Collection<EditalProfessor> getEditaisProfessores() {
+//		return editaisProfessores;
+//	}
+//
+//	public void setEditaisProfessores(Collection<EditalProfessor> editaisProfessores) {
+//		this.editaisProfessores = editaisProfessores;
+//	}
 
 	public void setInscricoes(List<Inscricao> inscricoes) {
 		this.inscricoes = inscricoes;

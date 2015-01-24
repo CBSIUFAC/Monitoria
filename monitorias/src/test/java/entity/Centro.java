@@ -11,23 +11,23 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@NamedQueries({
-    @NamedQuery(name = "Centro.Query", query = "SELECT id, sigla, nome FROM Centro")})
+//@NamedQueries({
+//    @NamedQuery(name = "Centro.Query", query = "SELECT id, sigla, nome FROM Centro")})
 
 @Entity
-@Table(name="ORG_INSTITUICAO", schema="DBSM")
+//@Table(name="ORG_INSTITUICAO", schema="DBSM")
 public class Centro implements Serializable {
 
 	//Alterações
 	@Id
-	@Column(name = "ID_UNIDADE")
-	private Integer id;
+//	@Column(name = "ID_UNIDADE")
+	private Integer idCentro;
 
-	@Column(name = "SIGLA_UNIDADE")
-	private String sigla;
+//	@Column(name = "SIGLA_UNIDADE")
+	private String siglaCentro;
 	
-	@Column(name = "NOME_UNIDADE")
-	private String nome;
+//	@Column(name = "NOME_UNIDADE")
+	private String nomeCentro;
 		
 	//Fim de alterações
 	
@@ -47,30 +47,30 @@ public class Centro implements Serializable {
 	
 
 	public Integer getId() {
-		return id;
+		return idCentro;
 	}
 
 	public void setId(Integer centroId) {
-		this.id = centroId;
+		this.idCentro = centroId;
 	}
 	
 	public String getSigla() {
-		if(sigla == null) 
+		if(siglaCentro == null) 
 			return "- ? -";
 		else
-			return sigla;
+			return siglaCentro;
 	}
 	
 	public void setSigla(String sigla) {
-		this.sigla = sigla;
+		this.siglaCentro = sigla;
 	}
 	
 	public String getNome() {
-		return nome;
+		return nomeCentro;
 	}
 	
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nomeCentro = nome;
 	}
 
 	public void setDisciplinas(List<Disciplina> disciplinas) {
@@ -79,7 +79,7 @@ public class Centro implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Centro [id= "+id+", sigla=" + (sigla==null?" ":sigla) + ", nome=" + nome + "]";
+		return "Centro [id= "+idCentro+", sigla=" + (siglaCentro==null?" ":siglaCentro) + ", nome=" + nomeCentro + "]";
 	}	
 	
 }

@@ -22,7 +22,7 @@ public class EditalDisciplina implements Serializable {
 	private Edital edital;
 	
 	@ManyToOne
-	@JoinColumn(referencedColumnName="id_disciplina", name="id")
+	@JoinColumn(referencedColumnName="idDisciplina", name="fkDisciplina")
 	private Disciplina disciplina;
 
 	/* GETTERS AND SETTERS */

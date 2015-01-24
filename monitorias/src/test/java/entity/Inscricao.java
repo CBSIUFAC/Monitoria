@@ -29,7 +29,7 @@ public class Inscricao implements Serializable {
 	private Aluno aluno;
 	
 	@ManyToOne	
-	@JoinColumn(referencedColumnName="id_disciplina",name="id")
+	@JoinColumn(referencedColumnName="idDisciplina",name="fkDisciplina")
 	private Disciplina disciplina;
 	
 	@ManyToOne

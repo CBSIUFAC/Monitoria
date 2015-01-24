@@ -36,12 +36,12 @@ public class Relatorio implements Serializable {
 	private Aluno aluno;
 	
 	@ManyToOne	
-	@JoinColumn(referencedColumnName="id_disciplina", name="id")
+	@JoinColumn(referencedColumnName="idDisciplina", name="id")
 	private Disciplina disciplina;
 	
-	@ManyToOne
-	@JoinColumn(referencedColumnName="cpf",name="fkProfessor")
-	private Professor professor;
+//	@ManyToOne
+//	@JoinColumn(referencedColumnName="cpf",name="fkProfessor")
+//	private Professor professor;
 
 	/* GETTERS AND SETTERS */
 	
@@ -93,21 +93,20 @@ public class Relatorio implements Serializable {
 		this.disciplina = disciplina;
 	}
 
-	public Professor getProfessor() {
-		return professor;
-	}
-
-	public void setProfessor(Professor professor) {
-		this.professor = professor;
-	}
+//	public Professor getProfessor() {
+//		return professor;
+//	}
+//
+//	public void setProfessor(Professor professor) {
+//		this.professor = professor;
+//	}
 
 	@Override
 	public String toString() {
 		return "Relatorio [idRelatorio=" + idRelatorio + ", srcPdfAtividade="
 				+ srcPdfAtividade + ", srcPdfRelatorio=" + srcPdfRelatorio
 				+ ", dataRelatorio=" + dataRelatorio + ", aluno=" + aluno
-				+ ", disciplina=" + disciplina + ", professor=" + professor
-				+ "]";
+				+ ", disciplina=" + disciplina	+ "]";
 	}
 	
 }
