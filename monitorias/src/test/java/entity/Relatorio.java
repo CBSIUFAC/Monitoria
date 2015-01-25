@@ -38,10 +38,6 @@ public class Relatorio implements Serializable {
 	@ManyToOne	
 	@JoinColumn(referencedColumnName="idDisciplina", name="id")
 	private Disciplina disciplina;
-	
-//	@ManyToOne
-//	@JoinColumn(referencedColumnName="cpf",name="fkProfessor")
-//	private Professor professor;
 
 	/* GETTERS AND SETTERS */
 	

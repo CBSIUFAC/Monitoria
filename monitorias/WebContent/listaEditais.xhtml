@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Lista de Editais</title>
+</h:head>
+
+<ui:composition template="/template/principal.xhtml">
+<ui:define name="conteudo">
+
+<h:body>
+
+	<h:form id="formListaEditals">
+			<p:dataTable var="a" value="#{editalBean.lista}"  
+			rows="15" editable="false" paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                         rowsPerPageTemplate="10,20,30,50" emptyMessage="Não existem editais cadastrados com esse filtro." filteredValue="#{editalBean.listaFiltro}">>
+				
+				
+				<p:column headerText=" ID " filterBy="#{a.idEdital}" filterMatchMode="contains">
+					<p:outputLabel value="#{a.idEdital}"></p:outputLabel>
+				</p:column>
+				
+				<p:column headerText="Titulo" filterBy="#{a.titulo}" filterMatchMode="contains">
+					<p:outputLabel value="#{a.titulo}"></p:outputLabel>
+				</p:column>
+				
+				<p:column headerText="Inscrições" filterBy="#{a.dataInscricao}" filterMatchMode="contains">
+					<p:outputLabel value="#{a.dataInscricao}"></p:outputLabel>
+				</p:column>
+				
+				<p:column headerText="Resultado" filterBy="#{a.dataResultado}" filterMatchMode="contains">
+					<p:outputLabel value="#{a.dataResultado}"></p:outputLabel>
+				</p:column>
+				
+				<p:column headerText="Vagas" filterBy="#{a.totalVagas}" filterMatchMode="contains">
+					<p:outputLabel value="#{a.totalVagas}"></p:outputLabel>
+				</p:column>
+				
+				<p:column headerText="PDF Edital" filterBy="#{a.srcPDF}" filterMatchMode="contains">
+					<p:outputLabel value="#{a.srcPDF}"></p:outputLabel>
+				</p:column>
+				
+				<p:column headerText="Centro" filterBy="#{a.centro.nomeCentro}" filterMatchMode="contains">
+					<p:outputLabel value="#{a.centro.nomeCentro}"></p:outputLabel>
+				</p:column>
+				
+			</p:dataTable>
+		</h:form>
+		</h:body>
+		
+		</ui:define>
+
+</ui:composition>
+
+</html>
