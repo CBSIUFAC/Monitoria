@@ -45,15 +45,6 @@ public class Centro implements Serializable {
 		return disciplinas;
 	}
 	
-
-	public Integer getId() {
-		return idCentro;
-	}
-
-	public void setId(Integer centroId) {
-		this.idCentro = centroId;
-	}
-	
 	public String getSigla() {
 		if(siglaCentro == null) 
 			return "- ? -";
@@ -118,8 +109,37 @@ public class Centro implements Serializable {
 
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((idCentro == null) ? 0 : idCentro.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Centro other = (Centro) obj;
+		if (idCentro == null) {
+			if (other.idCentro != null)
+				return false;
+		} else if (!idCentro.equals(other.idCentro))
+			return false;
+		return true;
+	}
+
+
+	@Override
 	public String toString() {
-		return "Centro [id= "+idCentro+", sigla=" + (siglaCentro==null?" ":siglaCentro) + ", nome=" + nomeCentro + "]";
-	}	
+		return "Centro [idCentro=" + idCentro + "]";
+	}
+
 	
 }

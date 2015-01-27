@@ -25,17 +25,25 @@
             <p:panel header="Informações do Edital">
                 <p:messages />
                 <h:panelGrid columns="2" columnClasses="label, value">
-                    <h:outputText value="Título: *" />
-                    <p:inputText value="#{editalBean.edital.titulo}" required="true" label="titulo"/>
+                
+                 <h:outputText id="outputTitulo" value="Título: *" />
+                    <p:inputText id="inputTitulo" value="#{editalBean.edital.titulo}" required="true" label="titulo"/>
  
-                    <h:outputText value="Data de Inscrição:  *" />
-                    <p:inputText value="#{userWizard.user.lastname}" required="true" label="Lastname"/>
- 
-                    <h:outputText value="Age: " />
-                    <p:inputText value="#{userWizard.user.age}" />
- 
-                    <h:outputText value="Skip to last: " />
-                    <h:selectBooleanCheckbox value="#{userWizard.skip}" />
+ 					<h:outputLabel id="outputCentro" value="Centro: " for="centroLista"/> 
+       				 <p:autoComplete id="centroLista" value="#{editalBean.centro}" completeMethod="#{editalBean.completarCentro}"
+                        var="centro" itemLabel="#{centro.nome}" itemValue="#{centro}" converter="centroConverter" forceSelection="true" />
+ 					
+
+                    <p:outputLabel for="date" value="Início das inscrições: " />
+        			<p:inputMask id="date" value="#{editalBean.edital.dataInscricao}" mask="9999/99/99">
+        				<f:convertDateTime pattern="yyyy/MM/dd"/>
+        			</p:inputMask>
+        			
+        			<p:outputLabel for="dataTerminoInscricao" value="Término das inscrições: " />
+        			<p:inputMask id="dataTerminoInscricao" value="#{editalBean.edital.dataFimInscricao}" mask="9999/99/99">
+        				<f:convertDateTime pattern="yyyy/MM/dd"/>
+        			</p:inputMask>
+                    
                 </h:panelGrid>
             </p:panel>
         </p:tab>
@@ -79,8 +87,8 @@
             <p:panel header="Confirmation">
                 <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
                     <h:panelGrid columns="2" columnClasses="label, value">
-                        <h:outputText value="Firstname: " />
-                        <h:outputText value="#{userWizard.user.firstname}" styleClass="outputLabel"/>
+                        <h:outputText value="Centro " />
+                        <h:outputText value="#{editalBean.centro.nomeCentro}" styleClass="outputLabel"/>
  
                         <h:outputText value="Lastname: " />
                         <h:outputText value="#{userWizard.user.lastname}" styleClass="outputLabel"/>

@@ -9,7 +9,7 @@ import javax.faces.bean.SessionScoped;
 import DAO.CentroDAO;
 import entity.Centro;
 
-@ManagedBean(name="centroBean")
+@ManagedBean(name="centroBean", eager = true)
 @SessionScoped
 public class CentroBean {
 
@@ -18,7 +18,11 @@ public class CentroBean {
 	private List<Centro> lista;
 	private List<Centro> listaFiltro;
 
-
+	
+	public Centro getCentroPorId(int id) {
+		return centroDAO.getCentro(id);
+	}
+	
 	public void setCentro(Centro Centro) {
 		this.centro = Centro;
 	}
