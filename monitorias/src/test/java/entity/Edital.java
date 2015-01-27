@@ -27,7 +27,13 @@ public class Edital implements Serializable {
 	private Date dataInscricao;
 	
 	@Temporal(TemporalType.DATE)
+	private Date dataFimInscricao;
+	
+	@Temporal(TemporalType.DATE)
 	private Date dataResultado;
+	
+	@Temporal(TemporalType.DATE)
+	private Date dataCriacao;
 	
 	@Column(nullable=false)
 	private int totalVagas;
@@ -134,6 +140,30 @@ public class Edital implements Serializable {
 
 	public void setAdendos(List<Adendo> adendos) {
 		this.adendos = adendos;
+	}
+
+	public Date getDataFimInscricao() {
+		return dataFimInscricao;
+	}
+
+	public void setDataFimInscricao(Date dataFimInscricao) {
+		this.dataFimInscricao = dataFimInscricao;
+	}
+
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public Centro getCentro() {
+		return centro;
+	}
+
+	public void setCentro(Centro centro) {
+		this.centro = centro;
 	}
 
 	@Override

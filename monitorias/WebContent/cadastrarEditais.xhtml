@@ -8,7 +8,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
-	<title>Editais</title>
+	<title>Lista de Adendos</title>
 </h:head>
 
 <ui:composition template="/template/principal.xhtml">
@@ -16,20 +16,19 @@
 
 <h:body>
 
-
-	<h:form>
+<h:form>
                  
     <p:growl id="growl" sticky="true" showDetail="true"/>
  
     <p:wizard flowListener="#{userWizard.onFlowProcess}">
-        <p:tab id="personal" title="Personal">
-            <p:panel header="Personal Details">
+        <p:tab id="dadosEdital" title="Dados do Edital">
+            <p:panel header="Informações do Edital">
                 <p:messages />
                 <h:panelGrid columns="2" columnClasses="label, value">
-                    <h:outputText value="Firstname: *" />
-                    <p:inputText value="#{userWizard.user.firstname}" required="true" label="Firstname"/>
+                    <h:outputText value="Título: *" />
+                    <p:inputText value="#{editalBean.edital.titulo}" required="true" label="titulo"/>
  
-                    <h:outputText value="Lastname: *" />
+                    <h:outputText value="Data de Inscrição:  *" />
                     <p:inputText value="#{userWizard.user.lastname}" required="true" label="Lastname"/>
  
                     <h:outputText value="Age: " />
