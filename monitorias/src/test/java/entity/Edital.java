@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,6 +20,7 @@ import javax.persistence.TemporalType;
 public class Edital implements Serializable {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idEdital;
 	
 	@Column(nullable=false)
@@ -171,7 +174,7 @@ public class Edital implements Serializable {
 		return "Edital [idEdital=" + idEdital + ", titulo=" + titulo
 				+ ", dataInscricao=" + dataInscricao + ", dataResultado="
 				+ dataResultado + ", totalVagas=" + totalVagas + ", srcPDF="
-				+ srcPDF + "]";
+				+ srcPDF +" "+centro+"]";
 	}
 	
 	

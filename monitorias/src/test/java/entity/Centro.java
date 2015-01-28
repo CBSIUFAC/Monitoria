@@ -135,10 +135,10 @@ public class Centro implements Serializable {
 		return true;
 	}
 
-
 	@Override
 	public String toString() {
-		return "Centro [idCentro=" + idCentro + "]";
+		return "Centro [idCentro=" + idCentro + ", siglaCentro=" + siglaCentro
+				+ ", nomeCentro=" + nomeCentro + "]";
 	}
 
 	

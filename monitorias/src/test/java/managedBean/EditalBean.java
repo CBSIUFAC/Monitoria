@@ -3,9 +3,11 @@ package managedBean;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import DAO.CentroDAO;
 import DAO.EditalDAO;
@@ -98,5 +100,14 @@ public class EditalBean {
             }
         }
         return filtroCentros;
+    }
+    
+    public void inserirEdital(){
+    	edital.setCentro(centro);//Já eraaaaaaaaaaaa asuahsuahsuhaus
+
+    	FacesMessage msg = new FacesMessage("Successo?", ""+edital);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        
+    	editalDAO.inserirEdital(edital);
     }
 }

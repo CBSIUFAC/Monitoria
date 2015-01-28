@@ -36,7 +36,7 @@ public class Relatorio implements Serializable {
 	private Aluno aluno;
 	
 	@ManyToOne	
-	@JoinColumn(referencedColumnName="idDisciplina", name="id")
+	@JoinColumn(referencedColumnName="idDisciplina", name="fkDisciplina")
 	private Disciplina disciplina;
 
 	/* GETTERS AND SETTERS */

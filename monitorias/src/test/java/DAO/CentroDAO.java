@@ -28,7 +28,7 @@ public class CentroDAO extends MasterDAO {
 	
 	public List<Centro> getListaCentro(){
 		
-		List<Centro> centros = getLista("from Centro c");
+		List<Centro> centros = getLista("from Centro c where c.nomeCentro like '%Centro%'");
 		if (centros.isEmpty()){
 			return new ArrayList<Centro>();
 		}else
