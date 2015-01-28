@@ -5,7 +5,9 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import entity.Centro;
 import entity.Disciplina;
+import entity.Edital;
 
 public class DisciplinaDAO extends MasterDAO {
 	
@@ -24,9 +26,13 @@ public class DisciplinaDAO extends MasterDAO {
 	public Disciplina getDisciplina(int idDisciplina){
 		return getObjeto(Disciplina.class, idDisciplina);
 	}
-	
+
 	public List<Disciplina> getListaDisciplina(){
 		return getLista("from Disciplina d where d.codigoDisciplina like '%CN6%'");
+	}
+	
+	public List<Disciplina> getListaDisciplinaPorCentro(Centro centro){
+		return getLista("from Disciplina d where d.centro.idCentro = "+centro.getIdCentro());
 	}
 	
 	//Busca de disciplina por nome

@@ -101,7 +101,7 @@ public class Disciplina implements Serializable {
 	}
 
 	public String getNomeDisciplina() {
-		return nomeDisciplina;
+		return nomeDisciplina.trim();
 	}
 
 	public void setNomeDisciplina(String nomeDisciplina) {

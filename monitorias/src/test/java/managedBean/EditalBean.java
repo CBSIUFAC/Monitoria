@@ -10,9 +10,12 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import DAO.CentroDAO;
+import DAO.DisciplinaDAO;
 import DAO.EditalDAO;
 import entity.Centro;
+import entity.Disciplina;
 import entity.Edital;
+import entity.EditalDisciplina;
 
 @ManagedBean(name="editalBean")
 @SessionScoped
@@ -24,17 +27,32 @@ public class EditalBean {
 	private List<Edital> listaFiltro;
 	private Centro centro;
 	private CentroDAO centroDAO = new CentroDAO();
+	private DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+	private EditalDisciplinaBean editalDisciplinaBean = new EditalDisciplinaBean();
+	private EditalDisciplina editalDisciplina = new EditalDisciplina();
 	
-	@ManagedProperty("#{centroBean}")
-    private CentroBean centroBean;
+	private List<Disciplina> listaPorCentro;
 	
-	public CentroBean getCentroBean() {
-		return centroBean;
+	public EditalDisciplina getEditalDisciplina() {
+		return editalDisciplina;
 	}
 
-	public void setCentroBean(CentroBean centroBean) {
-		this.centroBean = centroBean;
+	public void setEditalDisciplina(EditalDisciplina editalDisciplina) {
+		this.editalDisciplina = editalDisciplina;
 	}
+
+	public List<Disciplina> getListaPorCentro() {
+		System.out.println(centro);
+		listaPorCentro = disciplinaDAO.getListaDisciplinaPorCentro(centro);
+		return listaPorCentro;
+	}
+
+	public void setListaPorCentro(List<Disciplina> listaPorCentro) {
+		this.listaPorCentro = listaPorCentro;
+	}
+
+	@ManagedProperty("#{disciplinaBean}")
+    private DisciplinaBean disciplinaBean;
 
 	public void setEdital(Edital edital) {
 		this.edital = edital;
@@ -88,9 +106,25 @@ public class EditalBean {
 		this.centroDAO = centroDAO;
 	}
 	
-    public List<Centro> completarCentro(String query) {
+    public EditalDisciplinaBean getEditalDisciplinaBean() {
+		return editalDisciplinaBean;
+	}
 
-        List<Centro> todosCentros = centroBean.getLista();
+	public void setEditalDisciplinaBean(EditalDisciplinaBean editalDisciplinaBean) {
+		this.editalDisciplinaBean = editalDisciplinaBean;
+	}
+
+	public DisciplinaBean getDisciplinaBean() {
+		return disciplinaBean;
+	}
+
+	public void setDisciplinaBean(DisciplinaBean disciplinaBean) {
+		this.disciplinaBean = disciplinaBean;
+	}
+
+	public List<Centro> completarCentro(String query) {
+
+        List<Centro> todosCentros = centroDAO.getListaCentro();
         List<Centro> filtroCentros = new ArrayList<Centro>();
          
         for (int i = 0; i < todosCentros.size(); i++) {
@@ -103,11 +137,18 @@ public class EditalBean {
     }
     
     public void inserirEdital(){
-    	edital.setCentro(centro);//Já eraaaaaaaaaaaa asuahsuahsuhaus
-
-    	FacesMessage msg = new FacesMessage("Successo?", ""+edital);
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-        
+    	
+    	edital.setCentro(centro);
     	editalDAO.inserirEdital(edital);
+    	
+    	for (Disciplina disciplina : disciplinaBean.getDroppedDisciplinas()) {
+    		editalDisciplina.setDisciplina(disciplina);
+    		editalDisciplina.setEdital(edital);
+			editalDisciplinaBean.inserirEditalDisciplina(editalDisciplina);
+		}
+
+    	FacesMessage msg = new FacesMessage("Sucesso!", "Edital criadoo!");
+    	FacesContext.getCurrentInstance().addMessage(null, msg);
+    	
     }
 }

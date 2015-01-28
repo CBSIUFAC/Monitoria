@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+
 import org.primefaces.event.DragDropEvent;
 
 import DAO.DisciplinaDAO;
+import DAO.EditalDAO;
 import entity.Centro;
 import entity.Disciplina;
+import entity.Edital;
 
 @ManagedBean(name="disciplinaBean")
 @SessionScoped
@@ -17,46 +21,37 @@ public class DisciplinaBean {
 
 	private Disciplina disciplina;
 	private Disciplina disciplinaSelecionada;
-	private List<Disciplina> droppedDisciplinas = new ArrayList<Disciplina>();;
-	
+	private List<Disciplina> droppedDisciplinas = new ArrayList<Disciplina>();
 	private DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
-	private List<Disciplina> lista;
 	private List<Disciplina> listaFiltro;
 	private String[] periodos = new String[]{"1º Semestre", "2º Semestre","DPLE"};
 
-	private Centro centro;
+	private EditalBean editalBean;
 
+	
+    public EditalBean getEditalBean() {
+		return editalBean;
+	}
+
+
+	public void setEditalBean(EditalBean editalBean) {
+		this.editalBean = editalBean;
+	}
+	
     public void init() {
-        lista = disciplinaDAO.getListaDisciplina();
         droppedDisciplinas = new ArrayList<Disciplina>();
     }
-	
-	public Centro getCentro() {
-		return centro;
-	}
 
-	public void setCentro(Centro centro) {
-		this.centro = centro;
-	}
-
+    
 	public void setDisciplina(Disciplina disciplina) {
 		this.disciplina = disciplina;
 	}
+
 
 	public Disciplina getDisciplina() {
 		if(disciplina == null)
 			disciplina = new Disciplina();
 		return disciplina;
-	}
-	
-	public void setLista(List<Disciplina> lista) {
-		this.lista = lista;
-	}
-	
-	public List<Disciplina> getLista() {
-		if(lista == null) 
-			lista = disciplinaDAO.getListaDisciplina();
-		return lista;
 	}
 	
 	public void setDisciplinaDAO(DisciplinaDAO disciplinaDAO) {
@@ -105,14 +100,10 @@ public class DisciplinaBean {
         if(droppedDisciplinas != null){
         	droppedDisciplinas.add(d);
         	System.out.println("DroppedDisciplinas.size(): "+droppedDisciplinas.size());
-        }else
+        }else {
         	System.out.println("droppedDisciplinas é nulo.");
-        
-        if(lista != null)
-        	lista.remove(d);
-        else
-        	System.out.println("lista nula");
-    }
+        }
+	}
 
 	public Disciplina getDisciplinaSelecionada() {
 		return disciplinaSelecionada;
@@ -129,4 +120,5 @@ public class DisciplinaBean {
 	public void setDroppedDisciplinas(List<Disciplina> droppedDisciplinas) {
 		this.droppedDisciplinas = droppedDisciplinas;
 	}
+	
 }

@@ -2,6 +2,7 @@ package entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,8 +17,19 @@ public class EditalDisciplina implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idEditalDisciplina;
 	
+	@Column
+	private int vagas;
+	
 	/* RELACIONAMENTOS */
 	
+	public int getVagas() {
+		return vagas;
+	}
+
+	public void setVagas(int vagas) {
+		this.vagas = vagas;
+	}
+
 	@ManyToOne
 	@JoinColumn(referencedColumnName="idEdital", name="fkEdital")
 	private Edital edital;

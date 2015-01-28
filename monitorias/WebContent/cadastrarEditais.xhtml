@@ -73,11 +73,6 @@
 									<f:convertDateTime pattern="yyyy/MM/dd" />
 								</p:inputMask>
 
-								<h:outputText id="totalVagas" value="Vagas:" />
-								<p:inputText id="inputVagas"
-									value="#{editalBean.edital.totalVagas}" required="true"
-									label="totalVagas" />
-
 								<h:outputText id="srcPDF" value="PDF:" />
 								<p:inputText id="inputSrcPDF"
 									value="#{editalBean.edital.srcPDF}" required="true"
@@ -87,17 +82,17 @@
 						</p:panel>
 					</p:tab>
 
-					<p:tab id="address" title="Disciplinas do Edital">
-						<p:panel header="Detalhes das disciplinas">
+					<p:tab id="disciplinas" title="Disciplinas do Edital">
+						<p:panel header="Escolha das disciplinas">
 							<p:messages />
 							<p:fieldset id="campoDisciplinasDisponiveis"
 								legend="Disciplinas disponíveis">
 								<p:dataTable id="tabelaDisciplinasDisponiveis" var="disciplina"
-									value="#{disciplinaBean.lista}">
+									value="#{editalBean.listaPorCentro}">
 
 									<p:column style="width:20px">
 										<h:outputText id="dragIcon"
-											styleClass="ui-icon ui-icon-arrow-4" />
+											styleClass="ui-icon ui-icon-arrow-4-diag" />
 										<p:draggable for="dragIcon" revert="true" helper="clone" />
 									</p:column>
 
@@ -139,6 +134,10 @@
 
 										<p:column headerText="Id">
 											<h:outputText value="#{disciplina.idDisciplina}" />
+										</p:column>
+										
+										<p:column headerText="Nome">
+											<h:outputText value="#{disciplina.nomeDisciplina}"/>
 										</p:column>
 
 										<p:column headerText="Código">
@@ -212,34 +211,17 @@
 						</p:panel>
 					</p:tab>
 
-					<p:tab id="contact" title="Contact">
-						<p:panel header="Contact Information">
-							<p:messages />
-							<h:panelGrid columns="2" columnClasses="label, value">
-								<h:outputText value="Email: *" />
-								<p:inputText value="#{userWizard.user.email}" required="true"
-									label="Email" />
-
-								<h:outputText value="Phone: " />
-								<p:inputText value="#{userWizard.user.phone}" />
-
-								<h:outputText value="Additional Info: " />
-								<p:inputText value="#{userWizard.user.info}" />
-							</h:panelGrid>
-						</p:panel>
-					</p:tab>
-
-					<p:tab id="confirm" title="Confirmation">
-						<p:panel header="Confirmation">
-							<h:panelGrid id="confirmation" columns="3"
-								columnClasses="grid,grid,grid">
+					<p:tab id="confirm" title="Confirmação">
+						<p:panel header="Confirmação">
+							<h:panelGrid id="confirmation" columns="2"
+								columnClasses="grid,grid">
 								<h:panelGrid columns="2" columnClasses="label, value">
 
 									<h:outputText value="Titulo: " />
 									<h:outputText value="#{editalBean.edital.titulo}"
 										styleClass="outputLabel" />
 
-									<h:outputText value="Inscrições: " />
+									<h:outputText value="Data Inscrição: " />
 									<h:outputText value="#{editalBean.edital.dataInscricao}"
 										styleClass="outputLabel" />
 
@@ -255,48 +237,31 @@
 									<h:outputText value="#{editalBean.edital.dataCriacao}"
 										styleClass="outputLabel" />
 
-									<h:outputText value="CentroID: " />
-									<h:outputText value="#{editalBean.centro.idCentro}"
-										styleClass="outputLabel" />
-
 									<h:outputText value="Centro: " />
 									<h:outputText value="#{editalBean.centro.nomeCentro}"
 										styleClass="outputLabel" />
 
-
 								</h:panelGrid>
-
-								<h:panelGrid columns="2" columnClasses="label, value">
-									<h:outputText value="Street: " />
-									<h:outputText value="#{userWizard.user.street}"
-										styleClass="outputLabel" />
-
-									<h:outputText value="Postal: " />
-									<h:outputText value="#{userWizard.user.postalCode}"
-										styleClass="outputLabel" />
-
-									<h:outputText value="City: " />
-									<h:outputText value="#{userWizard.user.city}"
-										styleClass="outputLabel" />
-								</h:panelGrid>
-
-								<h:panelGrid columns="2" columnClasses="label, value">
-									<h:outputText value="Email: " />
-									<h:outputText value="#{userWizard.user.email}"
-										styleClass="outputLabel" />
-
-									<h:outputText value="Phone " />
-									<h:outputText value="#{userWizard.user.phone}"
-										styleClass="outputLabel" />
-
-									<h:outputText value="Info: " />
-									<h:outputText value="#{userWizard.user.info}"
-										styleClass="outputLabel" />
-
-									<h:outputText />
-									<h:outputText />
-								</h:panelGrid>
-							</h:panelGrid>
+								
+						</h:panelGrid>
+								
+								<p:dataTable var="disciplina" value="#{disciplinaBean.droppedDisciplinas}">
+										<f:facet name="header">
+           									 Disciplinas Selecionadas
+       									</f:facet>
+									    <p:column headerText="Id">
+									        <h:outputText value="#{disciplina.idDisciplina}" />
+									    </p:column>
+									 
+									    <p:column headerText="Nome">
+									        <h:outputText value="#{disciplina.nomeDisciplina}" />
+									    </p:column>
+									 
+									    <p:column headerText="Professor">
+									        <h:outputText value="#{disciplina.professor}" />
+									    </p:column>
+									    
+									</p:dataTable>
 
 							<p:commandButton value="Submit"
 								actionListener="#{editalBean.inserirEdital}" update="growl"
