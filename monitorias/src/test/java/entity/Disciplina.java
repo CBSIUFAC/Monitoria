@@ -168,4 +168,9 @@ public class Disciplina implements Serializable {
 		this.cargaHoraria = cargaHoraria;
 	}
 
+	public String toString() {
+		return "Disciplina [idDisciplina=" + idDisciplina + ", nomeDisciplina="
+				+ nomeDisciplina + ", professor=" + professor + "]";
+	}
+
 }

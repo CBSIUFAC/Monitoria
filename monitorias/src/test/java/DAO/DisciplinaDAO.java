@@ -26,7 +26,7 @@ public class DisciplinaDAO extends MasterDAO {
 	}
 	
 	public List<Disciplina> getListaDisciplina(){
-		return getLista("from Disciplina d");
+		return getLista("from Disciplina d where d.codigoDisciplina like '%CN6%'");
 	}
 	
 	//Busca de disciplina por nome
