@@ -18,16 +18,64 @@ import entity.Edital;
 @ManagedBean(name="disciplinaBean")
 @SessionScoped
 public class DisciplinaBean {
-
+	
+	private boolean primeiroLoad = true;
+	
 	private Disciplina disciplina;
+	private Edital edital;
+	private Centro centro;
+	private int ano;
+	private int periodo;
+	
 	private Disciplina disciplinaSelecionada;
-	private List<Disciplina> droppedDisciplinas = new ArrayList<Disciplina>();
-	private DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 	private List<Disciplina> listaFiltro;
-	private String[] periodos = new String[]{"1º Semestre", "2º Semestre","DPLE"};
+	private List<Disciplina> droppedDisciplinas = new ArrayList<Disciplina>();
 	private List<Disciplina> lista;
-	private EditalBean editalBean;
+	private List<Disciplina> listaPorCentro;
+	private String[] periodos = new String[]{"1º Semestre", "2º Semestre","DPLE"};
+	
+	private DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 
+	private EditalBean editalBean;
+	
+	
+	
+    public void init() {
+        droppedDisciplinas = new ArrayList<Disciplina>();
+    }
+	
+	public Edital getEdital() {
+		return edital;
+	}
+
+
+	public void setEdital(Edital edital) {
+		this.edital = edital;
+	}
+
+
+	public Centro getCentro() {
+		return centro;
+	}
+
+
+	public void setCentro(Centro centro) {
+		this.centro = centro;
+	}
+	
+	public List<Disciplina> getListaPorCentro() {
+		if(primeiroLoad) {
+			listaPorCentro = disciplinaDAO.getListaDisciplinaPorCentro(ano, periodo, centro);
+			return listaPorCentro;
+		} else {
+			return listaPorCentro;
+		}
+	}
+
+	public void setListaPorCentro(List<Disciplina> listaPorCentro) {
+		this.listaPorCentro = listaPorCentro;
+	}
+	
 	
     public EditalBean getEditalBean() {
 		return editalBean;
@@ -37,10 +85,6 @@ public class DisciplinaBean {
 	public void setEditalBean(EditalBean editalBean) {
 		this.editalBean = editalBean;
 	}
-	
-    public void init() {
-        droppedDisciplinas = new ArrayList<Disciplina>();
-    }
 
     
 	public void setDisciplina(Disciplina disciplina) {
@@ -92,15 +136,11 @@ public class DisciplinaBean {
 	
 	public void onDisciplinaDrop(DragDropEvent ddEvent) {
         Disciplina d = ((Disciplina) ddEvent.getData());
-        if (d != null)
-        	System.out.println(d);
-        else
-        	System.out.println("d é nulo.");
-        
+        primeiroLoad = false;
         if(droppedDisciplinas != null){
         	droppedDisciplinas.add(d);
-        	System.out.println("DroppedDisciplinas.size(): "+droppedDisciplinas.size());
-        }else {
+        	listaPorCentro.remove(d);
+        } else {
         	System.out.println("droppedDisciplinas é nulo.");
         }
 	}
@@ -132,5 +172,13 @@ public class DisciplinaBean {
 	public void setLista(List<Disciplina> lista) {
 		this.lista = lista;
 	}
+
+
+	public void setAno(int ano) {	
+		this.ano = ano;
+	}
 	
+	public void setPeriodo(int periodo) {
+		this.periodo = periodo;
+	}
 }

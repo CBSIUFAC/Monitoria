@@ -18,7 +18,6 @@
 			<script type="text/javascript">
 				function handleDrop(event, ui) {
 					var droppedDisciplina = ui.draggable;
-
 					droppedDisciplina.fadeOut('fast');
 				}
 			</script>
@@ -98,7 +97,7 @@
 							<p:fieldset id="campoDisciplinasDisponiveis"
 								legend="Disciplinas disponíveis">
 								<p:dataTable id="tabelaDisciplinasDisponiveis" var="disciplina"
-									value="#{editalBean.listaPorCentro}">
+									value="#{disciplinaBean.listaPorCentro}">
 
 									<p:column style="width:20px">
 										<h:outputText id="dragIcon"

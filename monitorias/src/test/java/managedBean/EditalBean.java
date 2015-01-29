@@ -22,19 +22,21 @@ import entity.EditalDisciplina;
 @SessionScoped
 public class EditalBean {
 
-	private Edital edital;
-	private EditalDAO editalDAO = new EditalDAO();
-	private List<Edital> lista;
-	private List<Edital> listaFiltro;
+	private Edital edital ;
 	private Centro centro;
+	private EditalDisciplina editalDisciplina = new EditalDisciplina();
+
+	private List<Edital> lista;
+
 	private CentroDAO centroDAO = new CentroDAO();
+	private EditalDAO editalDAO = new EditalDAO();
 	private DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 	
 	private EditalDisciplinaBean editalDisciplinaBean = new EditalDisciplinaBean();
-	private EditalDisciplina editalDisciplina = new EditalDisciplina();
 	private EditalDisciplinaDAO editalDisciplinaDAO = new EditalDisciplinaDAO();
 	
-	private List<Disciplina> listaPorCentro;
+	@ManagedProperty("#{disciplinaBean}")
+    private DisciplinaBean disciplinaBean;
 	
 	public EditalDisciplina getEditalDisciplina() {
 		return editalDisciplina;
@@ -44,21 +46,9 @@ public class EditalBean {
 		this.editalDisciplina = editalDisciplina;
 	}
 
-	public List<Disciplina> getListaPorCentro() {
-		System.out.println("getListaPorCentro() "+edital.getAno()+" "+ centro);
-		listaPorCentro = disciplinaDAO.getListaDisciplinaPorCentro(edital.getAno(), edital.getPeriodo(), centro);
-		return listaPorCentro;
-	}
-
-	public void setListaPorCentro(List<Disciplina> listaPorCentro) {
-		this.listaPorCentro = listaPorCentro;
-	}
-
-	@ManagedProperty("#{disciplinaBean}")
-    private DisciplinaBean disciplinaBean;
-
 	public void setEdital(Edital edital) {
 		this.edital = edital;
+		System.out.println("ta indo"+edital);
 	}
 	
 	public Edital getEdital() {
@@ -85,20 +75,15 @@ public class EditalBean {
 		return editalDAO;
 	}
 
-	public List<Edital> getListaFiltro() {
-		return listaFiltro;
-	}
-
-	public void setListaFiltro(List<Edital> listaFiltro) {
-		this.listaFiltro = listaFiltro;
-	}
-
 	public Centro getCentro() {
 		return centro;
 	}
 
 	public void setCentro(Centro centro) {
 		this.centro = centro;
+		disciplinaBean.setCentro(centro);
+		disciplinaBean.setAno(edital.getAno());
+		disciplinaBean.setPeriodo(edital.getPeriodo());
 	}
 	
 	public CentroDAO getCentroDAO() {
@@ -149,8 +134,9 @@ public class EditalBean {
     	
     	edital.setCentro(centro);
     	editalDAO.inserirEdital(edital);
+    	List<Disciplina> listaSelecionados = disciplinaBean.getDroppedDisciplinas();
     	
-    	for (Disciplina disciplina : disciplinaBean.getDroppedDisciplinas()) {
+    	for (Disciplina disciplina : listaSelecionados) {
     		editalDisciplina.setDisciplina(disciplina);
     		editalDisciplina.setEdital(edital);
 			editalDisciplinaDAO.inserirEditalDisciplina(editalDisciplina);

@@ -64,7 +64,7 @@
 							<p:fieldset id="campoDisciplinasDisponiveis"
 								legend="Disciplinas disponíveis">
 								<p:dataTable id="tabelaDisciplinasDisponiveis" var="disciplina"
-									value="#{editalBean.listaPorCentro}">
+									value="#{disciplinaBean.listaPorCentro}">
 
 									<p:column style="width:20px">
 										<h:outputText id="dragIcon"
@@ -110,8 +110,8 @@
 										</p:column>
 
 										<p:column headerText="Período">
-											<h:outputLabel for="basic" value="Basic Spinner: " />
-        									<p:spinner id="basic" value="#{editalDisciplinaBean.editalDisciplina.vagas}" />
+											<h:outputLabel for="vagas" value="Vagas: " />
+        									<p:spinner id="vagas" value="#{editalDisciplinaBean.editalDisciplina.vagas}" />
         								</p:column>
 
 										<p:column style="width:32px">

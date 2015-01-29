@@ -57,7 +57,7 @@ public class Centro implements Serializable {
 	}
 	
 	public String getNome() {
-		return nomeCentro;
+		return nomeCentro.trim();
 	}
 	
 	public void setNome(String nome) {
