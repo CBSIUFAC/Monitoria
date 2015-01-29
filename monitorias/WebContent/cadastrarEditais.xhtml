@@ -35,9 +35,19 @@
 							<h:panelGrid columns="2" columnClasses="label, value">
 
 								<h:outputText id="outputTitulo" value="Título: *" />
-								<p:inputText id="inputTitulo"
-									value="#{editalBean.edital.titulo}" required="true"
-									label="titulo" />
+								<p:inputText id="inputTitulo" value="#{editalBean.edital.titulo}" 
+									required="true"	label="titulo" />
+									
+								<h:outputText id="outputAno" value="Ano: *" />
+        						<p:inputMask id="inputAno" value="#{editalBean.edital.ano}" mask="9999"/>
+								
+								
+								<h:outputText id="outPutPeriodo" value="Período: *" />
+								<p:selectOneMenu id="periodo" value="#{editalBean.edital.periodo}" style="width:125px">
+            						<f:selectItem itemLabel="1º Período" itemValue="201" />
+            						<f:selectItem itemLabel="2º Período" itemValue="202" />
+            						<f:selectItem itemLabel="3º Período" itemValue="203" />
+        						</p:selectOneMenu>
 
 								<h:outputLabel id="outputCentro" value="Centro: "
 									for="centroLista" />
@@ -117,7 +127,7 @@
 									</p:column>
 									
 									<p:column headerText="Período">
-										<h:outputText value="#{disciplina.periodo}" />
+										<p:outputLabel value="#{disciplinaBean.convertePeriodo(disciplina.periodo)}" />
 									</p:column>
 
 								</p:dataTable>
@@ -190,8 +200,7 @@
 											style="font-weight:bold" />
 										
 										<h:outputText value="Período:" />
-										<h:outputText value="#{disciplinaBean.disciplinaSelecionada.periodo}"
-											style="font-weight:bold" />
+										<p:outputLabel value="#{disciplinaBean.convertePeriodo(disciplinaBean.disciplinaSelecionada.periodo)}" />
 										
 										<h:outputText value="Professor:" />
 										<h:outputText value="#{disciplinaBean.disciplinaSelecionada.professor}"
@@ -219,6 +228,14 @@
 
 									<h:outputText value="Titulo: " />
 									<h:outputText value="#{editalBean.edital.titulo}"
+										styleClass="outputLabel" />
+										
+									<h:outputText value="Ano: " />
+									<h:outputText value="#{editalBean.edital.ano}"
+										styleClass="outputLabel" />
+										
+									<h:outputText value="Período: " />
+									<p:outputLabel value="#{editalBean.convertePeriodo(editalBean.edital.periodo)}"
 										styleClass="outputLabel" />
 
 									<h:outputText value="Data Inscrição: " />

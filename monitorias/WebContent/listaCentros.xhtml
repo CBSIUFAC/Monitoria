@@ -22,16 +22,16 @@
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 	                         rowsPerPageTemplate="10,20,30,50" emptyMessage="Não existem centros cadastrados com esse filtro." filteredValue="#{centroBean.listaFiltro}">>
 		
-			<p:column headerText="ID" filterBy="#{d.id}" filterMatchMode="contains">
-				<p:outputLabel value="#{d.id}"></p:outputLabel>
+			<p:column headerText="ID" filterBy="#{d.idCentro}" filterMatchMode="contains">
+				<p:outputLabel value="#{d.idCentro}"></p:outputLabel>
 			</p:column>
 			
-			<p:column headerText="Sigla" filterBy="#{d.sigla}" filterMatchMode="contains">
-				<p:outputLabel value="#{d.sigla}"></p:outputLabel>
+			<p:column headerText="Sigla" filterBy="#{d.siglaCentro}" filterMatchMode="contains">
+				<p:outputLabel value="#{d.siglaCentro}"></p:outputLabel>
 			</p:column>
 			
-			<p:column headerText="Nome" filterBy="#{d.nome}" filterMatchMode="contains">
-				<p:outputLabel value="#{d.nome}"></p:outputLabel>
+			<p:column headerText="Nome" filterBy="#{d.nomeCentro}" filterMatchMode="contains">
+				<p:outputLabel value="#{d.nomeCentro}"></p:outputLabel>
 			</p:column>
 			
 			

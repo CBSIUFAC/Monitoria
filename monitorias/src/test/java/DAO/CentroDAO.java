@@ -27,8 +27,8 @@ public class CentroDAO extends MasterDAO {
 	}
 	
 	public List<Centro> getListaCentro(){
-		
-		List<Centro> centros = getLista("from Centro c where c.nomeCentro like '%Centro%'");
+		String query = "from Centro c where c.nomeCentro like'%centro%' and c.nomeCentro not like '%secretaria%' and c.nomeCentro not like '%Antigos%'";		
+		List<Centro> centros = getLista(query);
 		if (centros.isEmpty()){
 			return new ArrayList<Centro>();
 		}else
@@ -36,11 +36,10 @@ public class CentroDAO extends MasterDAO {
 	}
 	
 	//Busca de centro por nome
-	public List<Centro> buscaCentro(String str){
+	public List<Centro> buscaCentros(String str){
 		Session s = getSession();
-		s.beginTransaction();
-		Query qr = s.createQuery("from Centro c where c.nome like :no");
-		qr.setParameter( "no","%"+str+"%");
+		s.beginTransaction();	
+		Query qr = s.createQuery("from Centro c where (c.nomeCentro like '%"+str +"%' or c.siglaCentro like '%"+str +"%') and c.nomeCentro not like '%secretaria%'");
 		List<Centro> listaCentro = qr.list();
 		s.getTransaction().commit();
 		s.close();

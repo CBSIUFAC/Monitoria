@@ -25,7 +25,7 @@ public class DisciplinaBean {
 	private DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 	private List<Disciplina> listaFiltro;
 	private String[] periodos = new String[]{"1º Semestre", "2º Semestre","DPLE"};
-
+	private List<Disciplina> lista;
 	private EditalBean editalBean;
 
 	
@@ -119,6 +119,18 @@ public class DisciplinaBean {
 
 	public void setDroppedDisciplinas(List<Disciplina> droppedDisciplinas) {
 		this.droppedDisciplinas = droppedDisciplinas;
+	}
+
+
+	public List<Disciplina> getLista() {
+		if(lista == null)
+			lista = disciplinaDAO.getListaDisciplina();
+		return lista;
+	}
+
+
+	public void setLista(List<Disciplina> lista) {
+		this.lista = lista;
 	}
 	
 }

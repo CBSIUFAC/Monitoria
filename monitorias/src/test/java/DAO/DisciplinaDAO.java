@@ -31,8 +31,8 @@ public class DisciplinaDAO extends MasterDAO {
 		return getLista("from Disciplina d where d.codigoDisciplina like '%CN6%'");
 	}
 	
-	public List<Disciplina> getListaDisciplinaPorCentro(Centro centro){
-		return getLista("from Disciplina d where d.centro.idCentro = "+centro.getIdCentro());
+	public List<Disciplina> getListaDisciplinaPorCentro(int ano, int periodo, Centro centro){		
+		return getLista("from Disciplina d where d.centro.idCentro = "+centro.getIdCentro()+" and d.periodo = "+ periodo +"and d.ano = "+ano);
 	}
 	
 	//Busca de disciplina por nome

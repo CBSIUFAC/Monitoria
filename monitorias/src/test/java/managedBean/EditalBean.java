@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import DAO.CentroDAO;
 import DAO.DisciplinaDAO;
 import DAO.EditalDAO;
+import DAO.EditalDisciplinaDAO;
 import entity.Centro;
 import entity.Disciplina;
 import entity.Edital;
@@ -28,8 +29,10 @@ public class EditalBean {
 	private Centro centro;
 	private CentroDAO centroDAO = new CentroDAO();
 	private DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+	
 	private EditalDisciplinaBean editalDisciplinaBean = new EditalDisciplinaBean();
 	private EditalDisciplina editalDisciplina = new EditalDisciplina();
+	private EditalDisciplinaDAO editalDisciplinaDAO = new EditalDisciplinaDAO();
 	
 	private List<Disciplina> listaPorCentro;
 	
@@ -42,8 +45,8 @@ public class EditalBean {
 	}
 
 	public List<Disciplina> getListaPorCentro() {
-		System.out.println(centro);
-		listaPorCentro = disciplinaDAO.getListaDisciplinaPorCentro(centro);
+		System.out.println("getListaPorCentro() "+edital.getAno()+" "+ centro);
+		listaPorCentro = disciplinaDAO.getListaDisciplinaPorCentro(edital.getAno(), edital.getPeriodo(), centro);
 		return listaPorCentro;
 	}
 
@@ -121,19 +124,25 @@ public class EditalBean {
 	public void setDisciplinaBean(DisciplinaBean disciplinaBean) {
 		this.disciplinaBean = disciplinaBean;
 	}
+	
+	public DisciplinaDAO getDisciplinaDAO() {
+		return disciplinaDAO;
+	}
 
+	public void setDisciplinaDAO(DisciplinaDAO disciplinaDAO) {
+		this.disciplinaDAO = disciplinaDAO;
+	}
+
+	public EditalDisciplinaDAO getEditalDisciplinaDAO() {
+		return editalDisciplinaDAO;
+	}
+
+	public void setEditalDisciplinaDAO(EditalDisciplinaDAO editalDisciplinaDAO) {
+		this.editalDisciplinaDAO = editalDisciplinaDAO;
+	}
+	
 	public List<Centro> completarCentro(String query) {
-
-        List<Centro> todosCentros = centroDAO.getListaCentro();
-        List<Centro> filtroCentros = new ArrayList<Centro>();
-         
-        for (int i = 0; i < todosCentros.size(); i++) {
-            Centro centro = todosCentros.get(i);
-            if(centro.getNome().toLowerCase().contains(query.toLowerCase())) {
-                filtroCentros.add(centro);
-            }
-        }
-        return filtroCentros;
+		  return centroDAO.buscaCentros(query);
     }
     
     public void inserirEdital(){
@@ -144,11 +153,25 @@ public class EditalBean {
     	for (Disciplina disciplina : disciplinaBean.getDroppedDisciplinas()) {
     		editalDisciplina.setDisciplina(disciplina);
     		editalDisciplina.setEdital(edital);
-			editalDisciplinaBean.inserirEditalDisciplina(editalDisciplina);
+			editalDisciplinaDAO.inserirEditalDisciplina(editalDisciplina);
 		}
 
     	FacesMessage msg = new FacesMessage("Sucesso!", "Edital criadoo!");
     	FacesContext.getCurrentInstance().addMessage(null, msg);
     	
     }
+
+    public String convertePeriodo(int id) {
+    	System.out.println("Entrou no convertePeriodo do editalBean id = "+id);
+		String periodo = "";
+		if(id == 201) {
+			periodo = "1º Semestre";
+		} else if (id == 202) {
+			periodo = "2º Semestre";
+		} else if (id == 203) {
+			periodo = "DPLE";
+		}
+		System.out.println("String de retorno = "+periodo);
+		return periodo;
+	}
 }

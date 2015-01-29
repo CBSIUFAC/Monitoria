@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Lista de Adendos</title>
+</h:head>
+
+<ui:composition template="/template/principal.xhtml">
+	<ui:define name="conteudo">
+
+		<h:body>
+			<script type="text/javascript">
+				function handleDrop(event, ui) {
+					var droppedDisciplina = ui.draggable;
+
+					droppedDisciplina.fadeOut('fast');
+				}
+			</script>
+
+
+			<h:form id="formDisciplina">
+
+				<p:growl id="growl" sticky="true" showDetail="true" />
+
+				<p:wizard flowListener="#{userWizard.onFlowProcess}">
+					<p:tab id="dadosEdital" title="Dados do Edital">
+						<p:panel header="Informações do Edital">
+							<p:messages />
+							<h:panelGrid columns="2" columnClasses="label, value">
+
+								<h:outputText id="outputAno" value="Ano: *" />
+								<p:inputMask id="inputAno" value="#{editalBean.edital.ano}"
+									mask="9999" />
+
+								<h:outputText id="outPutPeriodo" value="Período: *" />
+								<p:selectOneMenu id="periodo"
+									value="#{editalBean.edital.periodo}" style="width:125px">
+									<f:selectItem itemLabel="1º Período" itemValue="201" />
+									<f:selectItem itemLabel="2º Período" itemValue="202" />
+									<f:selectItem itemLabel="3º Período" itemValue="203" />
+								</p:selectOneMenu>
+
+								<h:outputLabel id="outputCentro" value="Centro: "
+									for="centroLista" />
+								<p:autoComplete maxResults="10" id="centroLista"
+									value="#{editalBean.centro}"
+									completeMethod="#{editalBean.completarCentro}" var="centro"
+									itemLabel="#{centro.nome}" itemValue="#{centro}"
+									converter="centroConverter" forceSelection="true" />
+
+							</h:panelGrid>
+						</p:panel>
+					</p:tab>
+
+					<p:tab id="disciplinas" title="Disciplinas do Edital">
+						<p:panel header="Escolha das disciplinas">
+							<p:messages />
+							<p:fieldset id="campoDisciplinasDisponiveis"
+								legend="Disciplinas disponíveis">
+								<p:dataTable id="tabelaDisciplinasDisponiveis" var="disciplina"
+									value="#{editalBean.listaPorCentro}">
+
+									<p:column style="width:20px">
+										<h:outputText id="dragIcon"
+											styleClass="ui-icon ui-icon-arrow-4-diag" />
+										<p:draggable for="dragIcon" revert="true" helper="clone" />
+									</p:column>
+
+									<p:column headerText="Nome">
+										<h:outputText value="#{disciplina.nomeDisciplina}" />
+									</p:column>
+
+									<p:column headerText="Ano">
+										<h:outputText value="#{disciplina.ano}" />
+									</p:column>
+
+									<p:column headerText="Período">
+										<p:outputLabel
+											value="#{disciplinaBean.convertePeriodo(disciplina.periodo)}" />
+									</p:column>
+
+								</p:dataTable>
+
+							</p:fieldset>
+
+
+							<p:fieldset id="disciplinasSelecionadas"
+								legend="Disciplinas Selecionadas" style="margin-top:20px">
+								<p:outputPanel id="dropArea">
+									<h:outputText value="Solte aqui a disciplina"
+										rendered="#{empty disciplinaBean.droppedDisciplinas}"
+										style="font-size:24px;" />
+
+									<p:dataTable id="tabelaDisciplinasSelelecionadas"
+										var="disciplina" value="#{disciplinaBean.droppedDisciplinas}"
+										rendered="#{not empty disciplinaBean.droppedDisciplinas}">
+
+										<p:column headerText="Nome">
+											<h:outputText value="#{disciplina.nomeDisciplina}" />
+										</p:column>
+
+										<p:column headerText="Ano">
+											<h:outputText value="#{disciplina.ano}" />
+										</p:column>
+
+										<p:column headerText="Período">
+											<h:outputLabel for="basic" value="Basic Spinner: " />
+        									<p:spinner id="basic" value="#{editalDisciplinaBean.editalDisciplina.vagas}" />
+        								</p:column>
+
+										<p:column style="width:32px">
+											<p:commandButton update=":formDisciplina:display"
+												oncomplete="PF('disciplinaDialog').show()"
+												icon="ui-icon-search">
+												<f:setPropertyActionListener value="#{disciplina}"
+													target="#{disciplinaBean.disciplinaSelecionada}" />
+											</p:commandButton>
+										</p:column>
+
+									</p:dataTable>
+								</p:outputPanel>
+							</p:fieldset>
+
+							<p:droppable for="disciplinasSelecionadas" tolerance="touch"
+								activeStyleClass="ui-state-highlight"
+								datasource="tabelaDisciplinasDisponiveis" onDrop="handleDrop">
+								<p:ajax listener="#{disciplinaBean.onDisciplinaDrop}"
+									update="dropArea tabelaDisciplinasDisponiveis" />
+							</p:droppable>
+
+							<p:dialog header="Detalhes da disciplina"
+								widgetVar="disciplinaDialog" resizable="false" draggable="false"
+								showEffect="fade" hideEffect="fade" modal="true">
+
+								<p:outputPanel id="display">
+									<h:panelGrid columns="2" cellpadding="4"
+										rendered="#{not empty disciplinaBean.disciplinaSelecionada}">
+
+										<h:outputText value="Id:" />
+										<h:outputText
+											value="#{disciplinaBean.disciplinaSelecionada.idDisciplina}"
+											style="font-weight:bold" />
+
+										<h:outputText value="Codigo:" />
+										<h:outputText
+											value="#{disciplinaBean.disciplinaSelecionada.codigoDisciplina}"
+											style="font-weight:bold" />
+
+										<h:outputText value="Nome:" />
+										<h:outputText
+											value="#{disciplinaBean.disciplinaSelecionada.nomeDisciplina}"
+											style="font-weight:bold" />
+
+										<h:outputText value="CH total:" />
+										<h:outputText
+											value="#{disciplinaBean.disciplinaSelecionada.cargaHoraria}"
+											style="font-weight:bold" />
+
+										<h:outputText value="Ano:" />
+										<h:outputText
+											value="#{disciplinaBean.disciplinaSelecionada.ano}"
+											style="font-weight:bold" />
+
+										<h:outputText value="Período:" />
+										<p:outputLabel
+											value="#{disciplinaBean.convertePeriodo(disciplinaBean.disciplinaSelecionada.periodo)}" />
+
+										<h:outputText value="Professor:" />
+										<h:outputText
+											value="#{disciplinaBean.disciplinaSelecionada.professor}"
+											style="font-weight:bold" />
+
+										<h:outputText value="Sigla do Centro:" />
+										<h:outputText
+											value="#{disciplinaBean.disciplinaSelecionada.centro.siglaCentro}"
+											style="font-weight:bold" />
+
+										<h:outputText value="Nome do Centro:" />
+										<h:outputText
+											value="#{disciplinaBean.disciplinaSelecionada.centro.nomeCentro}"
+											style="font-weight:bold" />
+
+									</h:panelGrid>
+								</p:outputPanel>
+							</p:dialog>
+						</p:panel>
+					</p:tab>
+
+					<p:tab id="confirm" title="Confirmação">
+						<p:panel header="Confirmação">
+							<h:panelGrid id="confirmation" columns="2"
+								columnClasses="grid,grid">
+								<h:panelGrid columns="2" columnClasses="label, value">
+
+									<h:outputText value="Ano: " />
+									<h:outputText value="#{editalBean.edital.ano}"
+										styleClass="outputLabel" />
+
+									<h:outputText value="Período: " />
+									<p:outputLabel
+										value="#{editalBean.convertePeriodo(editalBean.edital.periodo)}"
+										styleClass="outputLabel" />
+
+									<h:outputText value="Centro: " />
+									<h:outputText value="#{editalBean.centro.nomeCentro}"
+										styleClass="outputLabel" />
+
+								</h:panelGrid>
+
+							</h:panelGrid>
+
+							<p:dataTable var="disciplina"
+								value="#{disciplinaBean.droppedDisciplinas}">
+								<f:facet name="header">
+           									 Disciplinas Selecionadas
+       							</f:facet>
+								<p:column headerText="Id">
+									<h:outputText value="#{disciplina.idDisciplina}" />
+								</p:column>
+
+								<p:column headerText="Nome">
+									<h:outputText value="#{disciplina.nomeDisciplina}" />
+								</p:column>
+
+								<p:column headerText="vagas">
+									<h:outputText value="#{editalDisciplinaBean.editalDisciplina.vagas}" />
+								</p:column>
+
+								<p:column headerText="Professor">
+									<h:outputText value="#{disciplina.professor}" />
+								</p:column>
+
+							</p:dataTable>
+
+							<p:commandButton value="Submit"
+								actionListener="#{editalBean.inserirEdital}" update="growl"
+								process="@this" />
+						</p:panel>
+					</p:tab>
+				</p:wizard>
+
+			</h:form>
+		</h:body>
+
+	</ui:define>
+</ui:composition>
+
+</html>

@@ -37,18 +37,21 @@
 			<p:column headerText="Ano" filterBy="#{d.ano}" filterMatchMode="contains">
 				<p:outputLabel value="#{d.ano}"></p:outputLabel>
 			</p:column>
-			
-			 <p:column filterBy="#{disciplinaBean.convertePeriodo(d.periodo)}" headerText="Semestre" filterMatchMode="contains">
-			 	<f:facet name="filter">
-                	<p:selectOneMenu onchange="PF('tableListaDisciplinas').filter()" >
-                    	<f:selectItem itemLabel="Todos" itemValue="#{null}" noSelectionOption="true" />
-                    	<f:selectItems value="#{disciplinaBean.periodos}" />
-                	</p:selectOneMenu>
-                </f:facet>
-            <p:outputLabel value="#{disciplinaBean.convertePeriodo(d.periodo)}"></p:outputLabel>
-        </p:column>
-			
-			<p:column headerText="Carga Horária" filterBy="#{d.cargaHoraria}" filterMatchMode="contains">
+
+					<p:column filterBy="#{disciplinaBean.convertePeriodo(d.periodo)}"
+						headerText="Semestre" filterMatchMode="contains">
+						<f:facet name="filter">
+							<p:selectOneMenu onchange="PF('tableListaDisciplinas').filter()">
+								<f:selectItem itemLabel="Todos" itemValue="#{null}"
+									noSelectionOption="true" />
+								<f:selectItems value="#{disciplinaBean.periodos}" />
+							</p:selectOneMenu>
+						</f:facet>
+						<p:outputLabel
+							value="#{disciplinaBean.convertePeriodo(d.periodo)}"></p:outputLabel>
+					</p:column>
+
+					<p:column headerText="Carga Horária" filterBy="#{d.cargaHoraria}" filterMatchMode="contains">
 				<p:outputLabel value="#{d.cargaHoraria}"></p:outputLabel>
 			</p:column>
 			
