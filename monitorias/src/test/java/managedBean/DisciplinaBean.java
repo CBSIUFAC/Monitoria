@@ -63,6 +63,7 @@ public class DisciplinaBean {
 		this.centro = centro;
 	}
 	
+	
 	public List<Disciplina> getListaPorCentro() {
 		if(primeiroLoad) {
 			listaPorCentro = disciplinaDAO.getListaDisciplinaPorCentro(ano, periodo, centro);

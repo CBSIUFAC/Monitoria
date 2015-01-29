@@ -152,6 +152,12 @@
 										<p:column headerText="Código">
 											<h:outputText value="#{disciplina.codigoDisciplina}" />
 										</p:column>
+										
+										<p:column headerText="Período">
+											<h:outputLabel for="vagas" value="Vagas: " />
+        									<p:spinner id="vagas" value="#{editalDisciplinaBean.editalDisciplina.vagas}"  />
+        								</p:column>
+										
 
 										<p:column style="width:32px">
 											<p:commandButton update=":formDisciplina:display" oncomplete="PF('disciplinaDialog').show()" icon="ui-icon-search">

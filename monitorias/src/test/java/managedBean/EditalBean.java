@@ -157,7 +157,6 @@ public class EditalBean {
 		} else if (id == 203) {
 			periodo = "DPLE";
 		}
-		System.out.println("String de retorno = "+periodo);
 		return periodo;
 	}
 }
