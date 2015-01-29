@@ -109,9 +109,9 @@
 											<h:outputText value="#{disciplina.ano}" />
 										</p:column>
 
-										<p:column headerText="Período">
+										<p:column headerText="Vagas">
 											<h:outputLabel for="vagas" value="Vagas: " />
-        									<p:spinner id="vagas" value="#{editalDisciplinaBean.editalDisciplina.vagas}"  />
+        									<p:spinner id="vagas" value="#{disciplina.vagas}"  />
         								</p:column>
 
 										<p:column style="width:32px">
@@ -207,6 +207,7 @@
 										value="#{editalBean.convertePeriodo(editalBean.edital.periodo)}"
 										styleClass="outputLabel" />
 
+
 									<h:outputText value="Centro: " />
 									<h:outputText value="#{editalBean.centro.nomeCentro}"
 										styleClass="outputLabel" />
@@ -229,7 +230,7 @@
 								</p:column>
 
 								<p:column headerText="vagas">
-									<h:outputText value="#{editalDisciplinaBean.editalDisciplina.vagas}" />
+									<h:outputText value="#{disciplina.vagas}" />
 								</p:column>
 
 								<p:column headerText="Professor">

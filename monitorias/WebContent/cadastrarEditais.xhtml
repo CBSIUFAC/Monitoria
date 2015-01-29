@@ -155,7 +155,7 @@
 										
 										<p:column headerText="Período">
 											<h:outputLabel for="vagas" value="Vagas: " />
-        									<p:spinner id="vagas" value="#{editalDisciplinaBean.editalDisciplina.vagas}"  />
+        									<p:spinner id="vagas" value="#{disciplina.vagas}"  />
         								</p:column>
 										
 
@@ -281,6 +281,10 @@
 									 
 									    <p:column headerText="Professor">
 									        <h:outputText value="#{disciplina.professor}" />
+									    </p:column>
+									    
+									    <p:column headerText="Vagas">
+									        <h:outputText value="#{disciplina.vagas}" />
 									    </p:column>
 									    
 									</p:dataTable>

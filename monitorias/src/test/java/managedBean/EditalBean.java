@@ -137,6 +137,7 @@ public class EditalBean {
     	List<Disciplina> listaSelecionados = disciplinaBean.getDroppedDisciplinas();
     	
     	for (Disciplina disciplina : listaSelecionados) {
+    		editalDisciplina.setVagas(disciplina.getVagas());
     		editalDisciplina.setDisciplina(disciplina);
     		editalDisciplina.setEdital(edital);
 			editalDisciplinaDAO.inserirEditalDisciplina(editalDisciplina);

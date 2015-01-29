@@ -13,6 +13,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 //@NamedQueries({
 //    @NamedQuery(name = "Disciplina.Query", query = "SELECT id, codigo, nome, cargaHoraria FROM Disciplina")})
@@ -33,6 +34,17 @@ public class Disciplina implements Serializable {
 	private String nomeDisciplina;
 	
 	private int periodo;
+	
+	@Transient
+	private int vagas;
+	
+	public void setVagas(int vagas) {
+		this.vagas = vagas;
+	}
+	
+	public int getVagas() {
+		return vagas;
+	}
 	
 	private int totalInscritos;
 	
