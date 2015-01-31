@@ -12,13 +12,13 @@ import org.hibernate.Transaction;
 import util.HibernateUtil;
 
 public class MasterDAO {
-	
+
 	public Session getSession(){
 		return HibernateUtil.getSessionFactory().openSession();
 	}
-	
+
 	/* Foi adicionada uma verificação se a transação ocorreu ou não, para evitar deadlocks. */
-	
+
 	public void inserirObjeto(Object obj) {
 		Session s = null;
 		Transaction tx = null; 
@@ -28,12 +28,12 @@ public class MasterDAO {
 			s.save(obj);
 			tx.commit();
 		} catch (Exception e) {
-	        if (tx != null) tx.rollback();
-	    } finally {
-	        if (s != null) s.close();
-	    }
+			if (tx != null) tx.rollback();
+		} finally {
+			if (s != null) s.close();
+		}
 	}
-	
+
 	public void deletarObjeto(Object obj) {
 		Session s = null;
 		Transaction tx = null; 
@@ -43,12 +43,12 @@ public class MasterDAO {
 			s.delete(obj);
 			tx.commit();
 		} catch (Exception e) {
-	        if (tx != null) tx.rollback();
-	    } finally {
-	        if (s != null) s.close();
-	    }
+			if (tx != null) tx.rollback();
+		} finally {
+			if (s != null) s.close();
+		}
 	}
-	
+
 	public void atualizarObjeto(Object obj) {
 		Session s = null;
 		Transaction tx = null; 
@@ -58,12 +58,12 @@ public class MasterDAO {
 			s.update(obj);
 			tx.commit();
 		} catch (Exception e) {
-	        if (tx != null) tx.rollback();
-	    } finally {
-	        if (s != null) s.close();
-	    }
+			if (tx != null) tx.rollback();
+		} finally {
+			if (s != null) s.close();
+		}
 	}
-	
+
 	//Retorna qualquer objeto
 	public <T extends Serializable> T getObjeto(Class<T> classe, int id){
 		Session s = null;
@@ -81,7 +81,7 @@ public class MasterDAO {
 		}
 		return (T)retorno;
 	}
-	
+
 	//Retorna lista de qualquer objeto
 	public <T extends Serializable> List<T> getLista(String str){
 		Session s = null;
@@ -99,5 +99,15 @@ public class MasterDAO {
 			if( s!=null) s.close();
 		}
 		return retorno;
-	}	
+	}
+
+	public <T extends Serializable> List<T> getLista(Class<T> classe, String str){
+		Session s = getSession();
+		s.beginTransaction();
+		Query qr = s.createQuery(str);
+		List<T> retorno = qr.list();
+		s.getTransaction().commit();
+		s.close();
+		return retorno;
+	}
 }

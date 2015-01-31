@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>Bem vindo!</title>
+</h:head>
+<h:body>
+	<p:dialog header="Login" visible="true" closable="false" modal="true"
+		draggable="false" resizable="false" width="600">
+		<form id="formLogin" method="post" action="j_spring_security_check">
+			<p:panelGrid id="panelLogin" columns="3" style="margin-bottom:10px">
+				<h:outputLabel value="Username:" />
+				<p:inputText id="j_username" required="true"
+					requiredMessage="Usuário é obrigatório" />
+				<p:message for="j_username" />
+				<h:outputLabel value="Password: " />
+				<p:password id="j_password" required="true"
+					requiredMessage="Senha é obrigatória" />
+				<p:message for="j_password" />
+				<h:commandButton value="Login" type="submit"/>
+			</p:panelGrid>
+		</form>
+	</p:dialog>
+</h:body>
+</html>
