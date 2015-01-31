@@ -1,12 +1,17 @@
 package entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +20,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Fetch;
+import org.primefaces.event.SelectEvent;
 
 @Entity
 public class Edital implements Serializable {
@@ -62,7 +70,7 @@ public class Edital implements Serializable {
 	@OneToMany(mappedBy="edital")
 	private List<Adendo> adendos;
 
-	@OneToMany(mappedBy="edital")
+	@OneToMany(mappedBy="edital", fetch=FetchType.EAGER)
 	private Collection<EditalDisciplina> editaisDisciplinas;
 	
 //	@OneToMany(mappedBy="edital")
@@ -199,5 +207,10 @@ public class Edital implements Serializable {
 		this.periodo = periodo;
 	}
 	
+	public void aoEscolherData(SelectEvent event) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Data selecionada", format.format(event.getObject())));
+    }
 	
 }

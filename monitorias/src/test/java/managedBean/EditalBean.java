@@ -27,6 +27,7 @@ public class EditalBean {
 	private EditalDisciplina editalDisciplina = new EditalDisciplina();
 
 	private List<Edital> lista;
+	private List<Edital> listaFiltro;
 
 	private CentroDAO centroDAO = new CentroDAO();
 	private EditalDAO editalDAO = new EditalDAO();
@@ -130,19 +131,33 @@ public class EditalBean {
 		  return centroDAO.buscaCentros(query);
     }
     
-    public void inserirEdital(){
+
+	public List<Edital> getListaFiltro() {
+		return listaFiltro;
+	}
+
+	public void setListaFiltro(List<Edital> listaFiltro) {
+		this.listaFiltro = listaFiltro;
+	}
+	
+    public void inserirEdital(int totalVagas){
     	
     	edital.setCentro(centro);
+    	edital.setTotalVagas(totalVagas);
     	editalDAO.inserirEdital(edital);
+    	
     	List<Disciplina> listaSelecionados = disciplinaBean.getDroppedDisciplinas();
     	
     	for (Disciplina disciplina : listaSelecionados) {
+    		System.out.println(edital);
+    		
     		editalDisciplina.setVagas(disciplina.getVagas());
     		editalDisciplina.setDisciplina(disciplina);
     		editalDisciplina.setEdital(edital);
+    		
 			editalDisciplinaDAO.inserirEditalDisciplina(editalDisciplina);
 		}
-
+    	
     	FacesMessage msg = new FacesMessage("Sucesso!", "Edital criadoo!");
     	FacesContext.getCurrentInstance().addMessage(null, msg);
     	
@@ -160,4 +175,5 @@ public class EditalBean {
 		}
 		return periodo;
 	}
+    
 }

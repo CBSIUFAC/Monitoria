@@ -182,4 +182,12 @@ public class DisciplinaBean {
 	public void setPeriodo(int periodo) {
 		this.periodo = periodo;
 	}
+	
+	public int getTotalDeVagas(){
+		int totalDeVagas=0;
+		for (Disciplina d: droppedDisciplinas){
+			totalDeVagas += d.getVagas();
+		}
+		return totalDeVagas;
+	}
 }
