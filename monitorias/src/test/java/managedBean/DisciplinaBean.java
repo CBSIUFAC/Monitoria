@@ -21,6 +21,7 @@ public class DisciplinaBean {
 	
 	private boolean primeiroLoad = true;
 	
+	
 	private Disciplina disciplina;
 	private Edital edital;
 	private Centro centro;
@@ -28,10 +29,12 @@ public class DisciplinaBean {
 	private int periodo;
 	
 	private Disciplina disciplinaSelecionada;
+	private List<Disciplina> disciplinasSelecionadas;
 	private List<Disciplina> listaFiltro;
 	private List<Disciplina> droppedDisciplinas = new ArrayList<Disciplina>();
 	private List<Disciplina> lista;
 	private List<Disciplina> listaPorCentro;
+	private List<Disciplina> listaPorEdital;
 	private String[] periodos = new String[]{"1º Semestre", "2º Semestre","DPLE"};
 	
 	private DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
@@ -189,5 +192,37 @@ public class DisciplinaBean {
 			totalDeVagas += d.getVagas();
 		}
 		return totalDeVagas;
+	}
+
+	public boolean isPrimeiroLoad() {
+		return primeiroLoad;
+	}
+
+	public void setPrimeiroLoad(boolean primeiroLoad) {
+		this.primeiroLoad = primeiroLoad;
+	}
+
+	public List<Disciplina> getDisciplinasSelecionadas() {
+		return disciplinasSelecionadas;
+	}
+
+	public void setDisciplinasSelecionadas(List<Disciplina> disciplinasSelecionadas) {
+		this.disciplinasSelecionadas = disciplinasSelecionadas;
+	}
+
+	public List<Disciplina> getListaPorEdital() {
+		return listaPorEdital;
+	}
+
+	public void setListaPorEdital(List<Disciplina> listaPorEdital) {
+		this.listaPorEdital = listaPorEdital;
+	}
+
+	public int getAno() {
+		return ano;
+	}
+
+	public int getPeriodo() {
+		return periodo;
 	}
 }

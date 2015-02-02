@@ -12,11 +12,11 @@
 		<intercept-url pattern="/index.jsf" access="permitAll" />
 		<intercept-url pattern="/login.jsf" access="permitAll" />
 		<intercept-url pattern="/usuarios.jsf" access="permitAll" />
-		<intercept-url pattern="/testeDoDataTable.jsf" access="isAuthenticated()" />
+		<intercept-url pattern="/listamarcas.jsf" access="isAuthenticated()" />
 		<intercept-url pattern="/categorias.jsf" access="hasRole('admin')" />
-		<form-login login-page="/login.jsf" default-target-url="/usuarios.jsf"
+		<form-login login-page="/login.jsf" default-target-url="/realizarInscricoes.jsf"
 			authentication-failure-url="/login.jsf" />
-		<logout logout-success-url="/login.jsf" />
+		<logout logout-success-url="/usuarios.jsf" />
 	</http>
 	
 	<authentication-manager alias="authenticationManager">

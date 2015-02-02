@@ -4,11 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -17,6 +18,10 @@ import javax.persistence.TemporalType;
 public class Aluno implements Serializable {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int idAluno;
+	
+	
 //	@Column(name="MATRICULA")
 	private String matricula;
 		
@@ -34,6 +39,9 @@ public class Aluno implements Serializable {
 	private Date dataNascimento;
 	
 	/* RELACIONAMENTOS */
+	
+	@OneToOne(mappedBy="aluno")
+	private Usuario usuario;
 	
 	@OneToMany(mappedBy="aluno")
 	private List<Inscricao> inscricoes;
@@ -95,5 +103,29 @@ public class Aluno implements Serializable {
 		return "Aluno [cpf=" + cpf + ", nome=" + nome + ", rg=" + rg
 				+ ", matricula=" + matricula + ", dataNascimento="
 				+ dataNascimento + "]";
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public void setInscricoes(List<Inscricao> inscricoes) {
+		this.inscricoes = inscricoes;
+	}
+
+	public void setRelatorios(List<Relatorio> relatorios) {
+		this.relatorios = relatorios;
+	}
+
+	public int getIdAluno() {
+		return idAluno;
+	}
+
+	public void setIdAluno(int idAluno) {
+		this.idAluno = idAluno;
 	}
 }

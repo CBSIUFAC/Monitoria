@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Lista de Adendos</title>
+</h:head>
+
+<ui:composition template="/template/principal.xhtml">
+	<ui:define name="conteudo">
+
+		<h:body>
+			<h:form id="formEditais">
+
+				<p:growl id="growl" sticky="true" showDetail="true" />
+				<p:outputPanel id="dropArea">
+
+					<p:dataTable id="c" var="centro" value="#{centroBean.lista}"
+						rendered="#{not empty centroBean.lista}">
+
+						<p:column headerText="Nome" style="width:300px;text-align:center">
+							<h:outputText value="#{centro.nomeCentro}" />
+						</p:column>
+
+						<p:column style="width:32px;text-align:center">
+							<p:commandButton update=":formEditais:display"
+								oncomplete="PF('editalDialog').show()" icon="ui-icon-search">
+								<f:setPropertyActionListener value="#{centro}"
+									target="#{centroBean.centroSelecionado}" />
+							</p:commandButton>
+						</p:column>
+
+					</p:dataTable>
+				</p:outputPanel>
+				<p:dialog header="Editais" widgetVar="editalDialog"
+					resizable="false" draggable="false" showEffect="fade"
+					hideEffect="fade" modal="true">
+
+					<p:outputPanel id="display">
+						<h:panelGrid columns="2" cellpadding="4"
+							rendered="#{not empty centroBean.centroSelecionado}">
+
+							<p:dataTable id="tabela" var="e"
+								value="#{editalBean.listaEditaisPorCentro(centroBean.centroSelecionado)}"
+								emptyMessage="Não existem editais relacionados a esse centro."
+								scrollable="true" scrollHeight="100"
+								selection="#{editalBean.editalSelecionado}"
+								rowKey="#{e.idEdital}">
+								<f:facet name="header">
+            						Escolha um edital
+        						</f:facet>
+								<p:column selectionMode="single"
+									style="width:16px;text-align:center" />
+
+								<p:column headerText="Titulo">
+									<p:outputLabel value="#{e.titulo}"></p:outputLabel>
+								</p:column>
+
+								<p:column headerText="Ano">
+									<p:outputLabel value="#{e.ano}"></p:outputLabel>
+								</p:column>
+
+								<p:column headerText="Período">
+									<p:outputLabel value="#{e.periodo}"></p:outputLabel>
+								</p:column>
+
+								<p:column headerText="Download">
+									<p:outputLabel value="Clique"></p:outputLabel>
+								</p:column>
+
+								<f:facet name="footer">
+									<div align="left">
+										<p:commandButton process="tabela" icon="ui-icon-search"
+											value="Acessar" action="/realizarInscricoesDisciplinas.jsf" />
+									</div>
+								</f:facet>
+							</p:dataTable>
+						</h:panelGrid>
+					</p:outputPanel>
+				</p:dialog>
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>
+</html>

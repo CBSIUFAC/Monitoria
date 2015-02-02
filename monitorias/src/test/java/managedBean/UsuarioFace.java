@@ -3,7 +3,6 @@ package managedBean;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -14,16 +13,15 @@ import javax.faces.context.FacesContext;
 import org.hibernate.exception.ConstraintViolationException;
 import org.primefaces.event.RowEditEvent;
 
+import entity.Aluno;
 import entity.Usuario;
+import DAO.AlunoDAO;
 import DAO.UsuarioDAO;
-
 @ManagedBean(name="usuarioFace")
 @SessionScoped
 public class UsuarioFace {
-	
-	private UsuarioDAO usuDAO = new UsuarioDAO();
-	private Usuario usu = new Usuario();
-	private List<Usuario> listaUsuario = null;
+	UsuarioDAO usuDAO = new UsuarioDAO();
+	Usuario usu = new Usuario();
 	
 	public Usuario getUsu() {
 		return usu;
@@ -32,11 +30,15 @@ public class UsuarioFace {
 		this.usu = usu;
 	}
 
+	List<Usuario> listaUsuario = null;
+
 	public void setListaUsuario(List<Usuario> listaUsuario) {
 		this.listaUsuario = listaUsuario;
 	}
 
 	public String inserirUsuario(){
+		AlunoDAO a = new AlunoDAO();
+		usu.setAluno(a.getAluno(12886));
 		usu.setPassword(criptografarSenha(usu.getPassword()));
 		usuDAO.inserirUsuario(usu);
 		listaUsuario = null;
@@ -74,9 +76,8 @@ public class UsuarioFace {
 	}
 
 	public List<Usuario> getListaUsuario(){
-		if(listaUsuario==null){
+		if(listaUsuario==null)
 			listaUsuario = usuDAO.getListaUsuario();
-		}
 		return listaUsuario;
 	}
 	

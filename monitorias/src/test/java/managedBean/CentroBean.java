@@ -14,6 +14,8 @@ import entity.Centro;
 public class CentroBean {
 
 	private Centro centro;
+	private Centro centroSelecionado;
+	
 	private CentroDAO centroDAO = new CentroDAO();
 	private List<Centro> lista;
 	private List<Centro> listaFiltro;
@@ -58,5 +60,13 @@ public class CentroBean {
 
 	public void setListaFiltro(List<Centro> listaFiltro) {
 		this.listaFiltro = listaFiltro;
+	}
+
+	public Centro getCentroSelecionado() {
+		return centroSelecionado;
+	}
+
+	public void setCentroSelecionado(Centro centroSelecionado) {
+		this.centroSelecionado = centroSelecionado;
 	}
 }

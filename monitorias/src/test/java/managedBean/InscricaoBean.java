@@ -1,12 +1,20 @@
 package managedBean;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
+import org.primefaces.context.RequestContext;
+
+import DAO.AlunoDAO;
 import DAO.InscricaoDAO;
 import entity.Aluno;
+import entity.Centro;
 import entity.Disciplina;
 import entity.Edital;
 import entity.Inscricao;
@@ -24,6 +32,7 @@ public class InscricaoBean {
 	private Edital edital;
 	private Aluno aluno;
 	private Disciplina disciplina;
+	private Centro centro;
 	
 	public Inscricao getInscricao() {
 		if (inscricao == null)
@@ -92,5 +101,37 @@ public class InscricaoBean {
 	public void setDisciplina(Disciplina disciplina) {
 		this.disciplina = disciplina;
 	}
+
+	public Centro getCentro() {
+		if(centro == null)
+			return new Centro();
+		return centro;
+	}
+
+	public void setCentro(Centro centro) {
+		this.centro = centro;
+	}
 	
+	public void inserirInscricao(Edital e, List<Disciplina> disciplinas) {
+		inscricao = new Inscricao();
+		
+		AlunoDAO dao = new AlunoDAO();
+		Aluno a = dao.getAluno(12886);
+		
+		System.out.println(a);
+		
+		inscricao.setAluno(a);
+		inscricao.setEdital(e);
+		inscricao.setDataInscricao(new Date());
+		for (Disciplina disciplina : disciplinas) {
+			inscricao.setDisciplina(disciplina);
+			inscricaoDAO.inserirInscricao(inscricao);
+		}		
+        addMessage("Welcome to Primefaces!!");
+    }
+	
+	public void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
 }

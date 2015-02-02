@@ -9,6 +9,9 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
+
 import DAO.CentroDAO;
 import DAO.DisciplinaDAO;
 import DAO.EditalDAO;
@@ -23,7 +26,9 @@ import entity.EditalDisciplina;
 public class EditalBean {
 
 	private Edital edital ;
+	private Edital editalSelecionado;
 	private Centro centro;
+	private Centro centroSelecionado;
 	private EditalDisciplina editalDisciplina = new EditalDisciplina();
 
 	private List<Edital> lista;
@@ -35,6 +40,8 @@ public class EditalBean {
 	
 	private EditalDisciplinaBean editalDisciplinaBean = new EditalDisciplinaBean();
 	private EditalDisciplinaDAO editalDisciplinaDAO = new EditalDisciplinaDAO();
+	
+	private List<Edital> editaisPorCentro;
 	
 	@ManagedProperty("#{disciplinaBean}")
     private DisciplinaBean disciplinaBean;
@@ -161,9 +168,18 @@ public class EditalBean {
     	FacesMessage msg = new FacesMessage("Sucesso!", "Edital criadoo!");
     	FacesContext.getCurrentInstance().addMessage(null, msg);
     	
+    	limparCampos();
     }
 
-    public String convertePeriodo(int id) {
+    private void limparCampos() {
+    	edital = new Edital();
+    	centro = new Centro();
+    	editalDisciplina = new EditalDisciplina();
+    	lista = new ArrayList<Edital>();
+    	listaFiltro = new ArrayList<Edital>();
+	}
+
+	public String convertePeriodo(int id) {
     	System.out.println("Entrou no convertePeriodo do editalBean id = "+id);
 		String periodo = "";
 		if(id == 201) {
@@ -175,5 +191,47 @@ public class EditalBean {
 		}
 		return periodo;
 	}
-    
+	
+	public List<Edital> listaPorCentro(Centro c){
+		EditalDAO dao = new EditalDAO();
+		
+		return dao.getListaEdital(c); 
+				
+	}
+	
+	public void verEditais() {
+        RequestContext.getCurrentInstance().openDialog("verEditais");
+    }
+
+	public List<Edital> getEditaisPorCentro() {
+		return editaisPorCentro;
+	}
+
+	public void setEditaisPorCentro(Centro c) {
+		editaisPorCentro = editalDAO.getListaEdital(c);
+	}
+
+	public Centro getCentroSelecionado() {
+		return centroSelecionado;
+	}
+
+	public void setCentroSelecionado(Centro centroSelecionado) {
+		this.centroSelecionado = centroSelecionado;
+	}
+	
+	public List<Edital> listaEditaisPorCentro(Centro c){
+		return editalDAO.getListaEdital(c);
+	}
+
+	public Edital getEditalSelecionado() {
+		return editalSelecionado;
+	}
+
+	public void setEditalSelecionado(Edital editalSelecionado) {
+		this.editalSelecionado = editalSelecionado;
+	}
+
+	public void setEditaisPorCentro(List<Edital> editaisPorCentro) {
+		this.editaisPorCentro = editaisPorCentro;
+	}
 }

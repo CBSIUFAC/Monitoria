@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Usuario implements Serializable {
@@ -23,6 +25,9 @@ public class Usuario implements Serializable {
 	@Column
 	private String tipoUsuario;
 	
+	@OneToOne
+	@JoinColumn(referencedColumnName="matricula",name="fkAluno", nullable=false)
+	private Aluno aluno;
 	
 	public Integer getIdUsuario() {
 		return idUsuario;
@@ -80,5 +85,11 @@ public class Usuario implements Serializable {
 	}
 	public String toString(){
 		return username;
+	}
+	public Aluno getAluno() {
+		return aluno;
+	}
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
 	}
 }

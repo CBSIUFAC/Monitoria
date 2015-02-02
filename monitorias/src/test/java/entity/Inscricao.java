@@ -21,6 +21,9 @@ public class Inscricao implements Serializable {
 	
 	@Temporal(TemporalType.DATE)
 	private Date dataInscricao;
+	
+	@javax.persistence.Transient
+	private Centro centro;
 
 	/* RELACIONAMENTOS */
 	
@@ -85,6 +88,14 @@ public class Inscricao implements Serializable {
 		return "Inscricao [idInscricao=" + idInscricao + ", dataInscricao="
 				+ dataInscricao + ", aluno=" + aluno + ", disciplina="
 				+ disciplina + ", edital=" + edital + "]";
+	}
+
+	public Centro getCentro() {
+		return centro;
+	}
+
+	public void setCentro(Centro centro) {
+		this.centro = centro;
 	}
 	
 }

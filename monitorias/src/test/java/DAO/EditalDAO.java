@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import entity.Centro;
 import entity.Edital;
 
 public class EditalDAO extends MasterDAO {
@@ -23,6 +24,10 @@ public class EditalDAO extends MasterDAO {
 	
 	public Edital getEdital(int idEdital){
 		return getObjeto(Edital.class, idEdital);
+	}
+	
+	public List<Edital> getListaEdital(Centro c){
+		return getLista("from Edital e where fkCentro = "+c.getIdCentro());
 	}
 	
 	public List<Edital> getListaEdital(){
