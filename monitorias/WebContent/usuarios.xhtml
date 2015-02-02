@@ -4,8 +4,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-
 <h:head></h:head>
+
+
+<ui:composition template="/template/principal.xhtml">
+	<ui:define name="conteudo">
+
 <h:body>
 	<h:form>
 		<p:commandButton id="showDialogButton" value="Adicionar Usuário"
@@ -88,4 +92,6 @@
 		</p:dialog>
 	</h:form>
 </h:body>
+	</ui:define>
+</ui:composition>
 </html>
