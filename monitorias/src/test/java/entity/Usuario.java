@@ -26,7 +26,7 @@ public class Usuario implements Serializable {
 	private String tipoUsuario;
 	
 	@OneToOne
-	@JoinColumn(referencedColumnName="matricula",name="fkAluno", nullable=false)
+	@JoinColumn(referencedColumnName="matricula", name="fkAluno")
 	private Aluno aluno;
 	
 	public Integer getIdUsuario() {

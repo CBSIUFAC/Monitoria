@@ -42,7 +42,6 @@ public class Inscricao implements Serializable {
 	/* GETTERS AND SETTERS */
 	
 	
-
 	public int getIdInscricao() {
 		return idInscricao;
 	}

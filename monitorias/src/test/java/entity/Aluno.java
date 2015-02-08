@@ -18,11 +18,6 @@ import javax.persistence.TemporalType;
 public class Aluno implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idAluno;
-	
-	
-//	@Column(name="MATRICULA")
 	private String matricula;
 		
 //	@Column(name="CPF")
@@ -39,9 +34,6 @@ public class Aluno implements Serializable {
 	private Date dataNascimento;
 	
 	/* RELACIONAMENTOS */
-	
-	@OneToOne(mappedBy="aluno")
-	private Usuario usuario;
 	
 	@OneToMany(mappedBy="aluno")
 	private List<Inscricao> inscricoes;
@@ -106,27 +98,11 @@ public class Aluno implements Serializable {
 				+ dataNascimento + "]";
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
 	public void setInscricoes(List<Inscricao> inscricoes) {
 		this.inscricoes = inscricoes;
 	}
 
 	public void setRelatorios(List<Relatorio> relatorios) {
 		this.relatorios = relatorios;
-	}
-
-	public int getIdAluno() {
-		return idAluno;
-	}
-
-	public void setIdAluno(int idAluno) {
-		this.idAluno = idAluno;
 	}
 }

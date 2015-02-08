@@ -11,30 +11,22 @@ public class AlunoApp {
 	public static void main (String[] args ){
 		
 		AlunoApp alunoApp = new AlunoApp();
-		alunoApp.imprime();
 		
+		alunoApp.imprime();
 	}
+	
 	
 	public void imprime() {
-		AlunoDAO a = new AlunoDAO();
-		List<Aluno> al = a.getAlunoPorCPF("957.441.422-15");
-		for (Aluno aluno : al) {
-			System.out.println(aluno);
+		AlunoDAO alunoDAO = new AlunoDAO();		
+		List<Aluno> alunos = alunoDAO.buscaAlunoPorCpf("526.116.042-15");
+		if (alunos.size() == 0)
+			System.out.println("Não há aluno cadastrado no sistema.");
+		else{
+			System.out.println("Imprimindo Aluno(s):");	
+			for (Aluno a : alunos) {
+				System.out.println(a);
+			}
+			System.out.println("\n");
 		}
 	}
-	
-	
-//	public void imprime() {
-//		AlunoDAO alunoDAO = new AlunoDAO();		
-//		List<Aluno> alunos = alunoDAO.getListaAluno();
-//		if (alunos.size() == 0)
-//			System.out.println("Não há aluno cadastrado no sistema.");
-//		else{
-//			System.out.println("Imprimindo Aluno(s):");	
-//			for (Aluno a : alunos) {
-//				System.out.println(a);
-//			}
-//			System.out.println("\n");
-//		}
-//	}
 }

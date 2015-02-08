@@ -65,22 +65,23 @@ public class MasterDAO {
 	}
 
 	//Retorna qualquer objeto
-	public <T extends Serializable> T getObjeto(Class<T> classe, int id){
-		Session s = null;
-		Transaction tx = null;
-		Serializable retorno = null;
-		try {
-			s = getSession();
-			tx = s.beginTransaction();
-			retorno = (Serializable)s.get(classe, id);
-			s.getTransaction().commit();
-		} catch (Exception e) {
-			if(tx != null) tx.rollback();
-		} finally {
-			if(s != null) s.close();
+		public <T extends Serializable> T getObjeto(Class<T> classe, int id){
+			Session s = null;
+			Transaction tx = null;
+			Serializable retorno = null;
+			try {
+				s = getSession();
+				tx = s.beginTransaction();
+				retorno = (Serializable)s.get(classe, id);
+				s.getTransaction().commit();
+			} catch (Exception e) {
+				if(tx != null) tx.rollback();
+			} finally {
+				if(s != null) s.close();
+			}
+			return (T)retorno;
 		}
-		return (T)retorno;
-	}
+			
 
 	//Retorna lista de qualquer objeto
 	public <T extends Serializable> List<T> getLista(String str){
