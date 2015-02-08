@@ -1,6 +1,14 @@
 package managedBean;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -9,8 +17,15 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 import DAO.CentroDAO;
 import DAO.DisciplinaDAO;
@@ -20,6 +35,7 @@ import entity.Centro;
 import entity.Disciplina;
 import entity.Edital;
 import entity.EditalDisciplina;
+import entity.GeradorEdital;
 
 @ManagedBean(name="editalBean")
 @SessionScoped
@@ -31,6 +47,8 @@ public class EditalBean {
 	private Centro centroSelecionado;
 	private EditalDisciplina editalDisciplina = new EditalDisciplina();
 
+	GeradorEdital[] beanArray;
+	
 	private List<Edital> lista;
 	private List<Edital> listaFiltro;
 
@@ -147,13 +165,16 @@ public class EditalBean {
 		this.listaFiltro = listaFiltro;
 	}
 	
-    public void inserirEdital(int totalVagas){
+    public void inserirEdital(int totalVagas) throws JRException, IOException, ParseException{
     	
+    	int count = 0;
     	edital.setCentro(centro);
     	edital.setTotalVagas(totalVagas);
     	editalDAO.inserirEdital(edital);
     	
     	List<Disciplina> listaSelecionados = disciplinaBean.getDroppedDisciplinas();
+    	beanArray = new GeradorEdital[listaSelecionados.size()];
+    	
     	
     	for (Disciplina disciplina : listaSelecionados) {
     		System.out.println(edital);
@@ -161,16 +182,23 @@ public class EditalBean {
     		editalDisciplina.setVagas(disciplina.getVagas());
     		editalDisciplina.setDisciplina(disciplina);
     		editalDisciplina.setEdital(edital);
-    		
 			editalDisciplinaDAO.inserirEditalDisciplina(editalDisciplina);
+			System.out.println("entrou");
+			GeradorEdital g = new GeradorEdital(edital, editalDisciplina, disciplina);
+			System.out.println(g);
+			beanArray[count] = g;
+			count++;
 		}
     	
+    	System.out.println("passou daqui tb");
     	FacesMessage msg = new FacesMessage("Sucesso!", "Edital criadoo!");
-    	FacesContext.getCurrentInstance().addMessage(null, msg);
-    	
-    	limparCampos();
+    	FacesContext.getCurrentInstance().addMessage(null, msg);  	
+    	System.out.println("aqui tb");
+    	imprimirRelatorio(beanArray);
+    	System.out.println(beanArray.length);	
     }
-
+    
+    
     private void limparCampos() {
     	edital = new Edital();
     	centro = new Centro();
@@ -233,4 +261,68 @@ public class EditalBean {
 	public void setEditaisPorCentro(List<Edital> editaisPorCentro) {
 		this.editaisPorCentro = editaisPorCentro;
 	}
+
+    public void imprimirRelatorio(GeradorEdital[] g) throws IOException, ParseException {
+
+    	System.out.println("dentro do relatorio");
+        HashMap parametros = new HashMap();
+        parametros.put("ID_EDITAL", edital.getIdEdital());
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        System.out.println("Passou do context");
+        try {
+        	
+           JRBeanArrayDataSource arrayDs = new JRBeanArrayDataSource(g, false);
+           System.out.println("1");
+           String caminhoWebInf = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/WEB-INF/");
+           String caminhoReports = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/WEB-INF/reports");
+           
+           JasperPrint impressoraJasper = JasperFillManager.fillReport(caminhoWebInf+"\\reports\\Edital.jasper", parametros, arrayDs);
+           System.out.println("2");
+           System.out.println(edital);
+           	String caminhoFinal = "\\edital"+""+edital.getCentro().getNome();
+           	
+           	System.out.println(caminhoReports+caminhoFinal);
+           	
+            File pdf = new File(caminhoReports+caminhoFinal);
+            pdf.createNewFile();
+            FileOutputStream arquivo = new FileOutputStream(pdf);
+            System.out.println(pdf.getAbsolutePath());
+            
+            JasperExportManager.exportReportToPdfStream(impressoraJasper, arquivo);
+            
+            edital.setSrcPDF("//reports/"+caminhoFinal);
+            editalDAO.atualizarEdital(edital);
+            
+            arquivo.flush();
+            arquivo.close();
+            
+            
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private StreamedContent file;
+    
+//    public EditalBean() throws FileNotFoundException {        
+//       InputStream stream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream("/WEB-INF/reports/relatorio2.pdf");
+//        file = new DefaultStreamedContent(stream, "application/pdf", "relatorio2.pdf");
+//    	
+//    }
+
+    
+    public void setFile(StreamedContent file) {
+		this.file = file;
+	}
+    
+    public StreamedContent getFile() throws FileNotFoundException {
+    	
+    	String caminhoWebInf = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/WEB-INF/");
+    	InputStream stream = new FileInputStream(caminhoWebInf+editalSelecionado.getSrcPDF());  
+    	//InputStream stream = new FileInputStream("D:\\Workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp4\\wtpwebapps\\monitorias\\WEB-INF\\reports\\relatorio2.pdf");  
+        file = new DefaultStreamedContent(stream, "application/pdf", "relatorio2.pdf");  
+  
+        return file;  
+    } 
 }
+    
