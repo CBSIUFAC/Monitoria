@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import org.primefaces.event.DragDropEvent;
 
 import DAO.DisciplinaDAO;
-import DAO.EditalDAO;
 import entity.Centro;
 import entity.Disciplina;
 import entity.Edital;
@@ -34,7 +32,6 @@ public class DisciplinaBean {
 	private List<Disciplina> droppedDisciplinas = new ArrayList<Disciplina>();
 	private List<Disciplina> lista;
 	private List<Disciplina> listaPorCentro;
-	private List<Disciplina> listaPorEdital;
 	private String[] periodos = new String[]{"1º Semestre", "2º Semestre","DPLE"};
 	
 	private DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
@@ -211,11 +208,7 @@ public class DisciplinaBean {
 	}
 
 	public List<Disciplina> getListaPorEdital() {
-		return listaPorEdital;
-	}
-
-	public void setListaPorEdital(List<Disciplina> listaPorEdital) {
-		this.listaPorEdital = listaPorEdital;
+			return disciplinasSelecionadas;
 	}
 
 	public int getAno() {

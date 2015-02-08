@@ -1,5 +1,6 @@
 package DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -23,6 +24,17 @@ public class AlunoDAO extends MasterDAO{
 	
 	public Aluno getAluno(int idAluno){
 		return getObjeto(Aluno.class, idAluno);
+	}
+	
+	public List<Aluno> getAlunoPorCPF(String cpf){
+		Session s = getSession();
+		s.beginTransaction();
+		Query qr = s.createQuery("from Aluno a where a.cpf LIKE :no");
+		qr.setParameter("no", "%"+cpf+"%");
+		List<Aluno> listaAluno = qr.list();
+		s.getTransaction().commit();
+		s.close();
+		return listaAluno;
 	}
 	
 	public List<Aluno> getListaAluno(){

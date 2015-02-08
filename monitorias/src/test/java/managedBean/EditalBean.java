@@ -194,7 +194,6 @@ public class EditalBean {
 	
 	public List<Edital> listaPorCentro(Centro c){
 		EditalDAO dao = new EditalDAO();
-		
 		return dao.getListaEdital(c); 
 				
 	}

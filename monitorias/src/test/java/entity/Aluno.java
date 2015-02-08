@@ -87,6 +87,7 @@ public class Aluno implements Serializable {
 	}
 	
 	public void setMatricula(String matricula) {
+		System.out.println("Na entity Aluno: "+matricula);
 		this.matricula = matricula;
 	}
 	

@@ -29,9 +29,25 @@ public class InscricaoDAO extends MasterDAO {
 		return getLista("from Inscricao i");
 	}
 	
-	//Busca de inscricao por data aproximada: ideal seria aqui utilizar duas datas como parâmetros 
-	//para listar todos os editais que estão dentro daquele espaço de tempo, ou fazer isso em outro método.
-	//Enquanto a decisão não é tomada, essa busca é feita pelo ID ou parte dele.
+	public boolean estaInscrito(Inscricao i){
+		
+		Session s = getSession();
+		s.beginTransaction();
+		Query qr = s.createQuery("FROM Inscricao WHERE fkAluno= "+i.getAluno().getMatricula()+" and fkDisciplina="+ i.getDisciplina().getId() +" and fkEdital ="+ i.getEdital().getIdEdital());
+		List<Inscricao> listaInscricao = qr.list();
+		
+		s.getTransaction().commit();
+		s.close();
+		
+		boolean result = false;
+		
+		if (listaInscricao.size()>=1)
+			result = true;
+		
+		return result;
+		
+	}
+	
 	public List<Inscricao> buscaInscricao(String str){
 		Session s = getSession();
 		s.beginTransaction();

@@ -68,6 +68,9 @@
 				<h:outputLabel for="pass" value="Senha" />
 				<p:password id="pass" value="#{usuarioFace.usu.password}" redisplay="false" required="true"></p:password>
 				
+				<h:outputLabel for="cpf" value="CPF" />
+				<p:inputText id="cpf" value="#{usuarioFace.cpf}" required="true"></p:inputText>
+				
 				<h:outputLabel for="pass" value="Permissão" />
 				<p:selectOneMenu id="permissao" value="#{usuarioFace.usu.tipoUsuario}">
 					<f:selectItem itemLabel="Selecione a Permissão" itemDisabled="true"/>

@@ -12,6 +12,10 @@ import javax.faces.context.FacesContext;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.primefaces.event.RowEditEvent;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 
 import entity.Aluno;
 import entity.Usuario;
@@ -20,8 +24,23 @@ import DAO.UsuarioDAO;
 @ManagedBean(name="usuarioFace")
 @SessionScoped
 public class UsuarioFace {
-	UsuarioDAO usuDAO = new UsuarioDAO();
-	Usuario usu = new Usuario();
+	private UsuarioDAO usuDAO = new UsuarioDAO();
+	private Usuario usu = new Usuario();
+	private String cpf = new String();
+	
+	public UsuarioFace(){  
+        usu = new Usuario();  
+        SecurityContext context = SecurityContextHolder.getContext();  
+        if(context instanceof SecurityContext)  
+        {  
+            Authentication authentication = context.getAuthentication();  
+            if(authentication instanceof Authentication){
+            	String aux = ((User)authentication.getPrincipal()).getUsername();
+            	System.out.println(aux);
+                usu = usuDAO.getUsuario(aux);
+            }  
+        }  
+    }  
 	
 	public Usuario getUsu() {
 		return usu;
@@ -36,15 +55,24 @@ public class UsuarioFace {
 		this.listaUsuario = listaUsuario;
 	}
 
-	public String inserirUsuario(){
-		AlunoDAO a = new AlunoDAO();
-		usu.setAluno(a.getAluno(12886));
-		usu.setPassword(criptografarSenha(usu.getPassword()));
-		usuDAO.inserirUsuario(usu);
-		listaUsuario = null;
-		usu=null;
-		return "usuarios";
-	}
+//	public String inserirUsuario(){
+//		AlunoDAO alunoDAO = new AlunoDAO();
+//		System.out.println(cpf);
+//		Aluno a = alunoDAO.getAlunoPorCPF(cpf);
+//		
+//		usu.setAluno(a);
+//		usu.setPassword(criptografarSenha(usu.getPassword()));
+//		
+//		System.out.println("Usuario: "+usu);
+//		System.out.println("Aluno: "+a);
+//		
+//		usuDAO.inserirUsuario(usu);
+//		
+//		listaUsuario = null;
+//		usu=null;
+//		return "usuarios";
+//	}
+//	
 	public void atualizarUsuario(RowEditEvent event){
 		usu = (Usuario) event.getObject();
 		usuDAO.atualizarUsuario(usu);
@@ -108,5 +136,28 @@ public class UsuarioFace {
 	}
 	public void setSenhaCriptografada(String senhaCriptografada) {
 		this.senhaCriptografada = senhaCriptografada;
+	}
+
+	public UsuarioDAO getUsuDAO() {
+		return usuDAO;
+	}
+
+	@Override
+	public String toString() {
+		return "UsuarioFace [usuDAO=" + usuDAO + ", usu=" + usu
+				+ ", listaUsuario=" + listaUsuario
+				+ ", senhaCriptografada=" + senhaCriptografada + "]";
+	}
+
+	public void setUsuDAO(UsuarioDAO usuDAO) {
+		this.usuDAO = usuDAO;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 }
