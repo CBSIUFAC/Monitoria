@@ -25,25 +25,29 @@ import DAO.UsuarioDAO;
 @SessionScoped
 public class UsuarioFace {
 	private UsuarioDAO usuDAO = new UsuarioDAO();
-	private Usuario usu = new Usuario();
+	private Usuario usu;
 	private String cpf = new String();
-	
+
 	public UsuarioFace(){  
-        usu = new Usuario();  
-        SecurityContext context = SecurityContextHolder.getContext();  
-        if(context instanceof SecurityContext)  
-        {  
-            Authentication authentication = context.getAuthentication();  
-            if(authentication instanceof Authentication){
-            	String aux = ((User)authentication.getPrincipal()).getUsername();
-            	System.out.println(aux);
-                usu = usuDAO.getUsuario(aux);
-            }  
-        }  
-    }  
-	
+		getUsu();
+	}  
+
 	public Usuario getUsu() {
-		return usu;
+		if (usu == null){
+			usu = new Usuario();  
+			SecurityContext context = SecurityContextHolder.getContext();  
+			if(context instanceof SecurityContext)  
+			{  
+				Authentication authentication = context.getAuthentication();  
+				if(authentication instanceof Authentication){
+					String aux = ((User)authentication.getPrincipal()).getUsername();
+					System.out.println(aux);
+					usu = usuDAO.getUsuario(aux);
+					return usu;
+				}
+			}
+		}
+		return new Usuario();
 	}
 	public void setUsu(Usuario usu) {
 		this.usu = usu;
@@ -55,24 +59,23 @@ public class UsuarioFace {
 		this.listaUsuario = listaUsuario;
 	}
 
-//	public String inserirUsuario(){
-//		AlunoDAO alunoDAO = new AlunoDAO();
-//		System.out.println(cpf);
-//		Aluno a = alunoDAO.getAlunoPorCPF(cpf);
-//		
-//		usu.setAluno(a);
-//		usu.setPassword(criptografarSenha(usu.getPassword()));
-//		
-//		System.out.println("Usuario: "+usu);
-//		System.out.println("Aluno: "+a);
-//		
-//		usuDAO.inserirUsuario(usu);
-//		
-//		listaUsuario = null;
-//		usu=null;
-//		return "usuarios";
-//	}
-//	
+	public String inserirUsuario(){
+		AlunoDAO alunoDAO = new AlunoDAO();
+		Aluno a = alunoDAO.buscaAlunoPorCpf(cpf);
+
+		usu.setAluno(a);
+		usu.setPassword(criptografarSenha(usu.getPassword()));
+
+		System.out.println("Usuario: "+usu);
+		System.out.println("Aluno: "+a);
+
+		usuDAO.inserirUsuario(usu);
+
+		listaUsuario = null;
+		usu=null;
+		return "usuarios";
+	}
+
 	public void atualizarUsuario(RowEditEvent event){
 		usu = (Usuario) event.getObject();
 		usuDAO.atualizarUsuario(usu);
@@ -108,9 +111,9 @@ public class UsuarioFace {
 			listaUsuario = usuDAO.getListaUsuario();
 		return listaUsuario;
 	}
-	
-	
-//  criptografia "caelum"
+
+
+	//  criptografia "caelum"
 	private String senhaCriptografada;
 
 	public String criptografarSenha(String senha){
@@ -120,7 +123,7 @@ public class UsuarioFace {
 			byte messageDigest[] = algorithm.digest(senha.getBytes("UTF-8"));
 			StringBuilder hexString = new StringBuilder();
 			for (byte b : messageDigest) {
-			  hexString.append(String.format("%02x", b));
+				hexString.append(String.format("%02x", b));
 			}
 			sc = hexString.toString();
 		} catch (NoSuchAlgorithmException e) {
@@ -130,7 +133,7 @@ public class UsuarioFace {
 		}
 		return sc;
 	}
-	
+
 	public String getSenhaCriptografada() {
 		return senhaCriptografada;
 	}
@@ -160,4 +163,5 @@ public class UsuarioFace {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+
 }

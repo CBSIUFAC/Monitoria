@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -59,7 +60,7 @@ public class Disciplina implements Serializable {
 	@JoinColumn(referencedColumnName="idCentro", name="fkCentro")
 	private Centro centro;
 	
-	@OneToMany(mappedBy="disciplina")
+	@OneToMany(mappedBy="disciplina", fetch=FetchType.EAGER)
 	private List<Inscricao> inscricoes;
 	
 	@OneToMany(mappedBy="disciplina")

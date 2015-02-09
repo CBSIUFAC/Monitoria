@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import entity.Inscricao;
+import entity.Usuario;
 
 public class InscricaoDAO extends MasterDAO {
 	
@@ -46,6 +47,18 @@ public class InscricaoDAO extends MasterDAO {
 		
 		return result;
 		
+	}
+	
+	public List<Inscricao> getListaPorUsuario(Usuario usu){
+		Session s = getSession();
+		s.beginTransaction();
+		//("from Inscricao i where i.fkAluno like '%"+usu.getAluno().getMatricula()+"%'")
+		Query qr = s.createQuery("from Inscricao WHERE fkAluno like '%"+usu.getAluno().getMatricula()+"%'");
+		System.out.println(qr);
+		List<Inscricao> listaInscricao = qr.list();
+		s.getTransaction().commit();
+		s.close();
+		return listaInscricao;
 	}
 	
 	public List<Inscricao> buscaInscricao(String str){

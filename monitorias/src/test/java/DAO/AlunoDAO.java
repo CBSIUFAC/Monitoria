@@ -43,7 +43,7 @@ public class AlunoDAO extends MasterDAO{
 	}
 	
 	//Busca de aluno por nome
-		public List<Aluno> buscaAlunoPorCpf(String cpf){
+		public Aluno buscaAlunoPorCpf(String cpf){
 			Session s = getSession();
 			s.beginTransaction();
 			Query qr = s.createQuery("from Aluno a where a.cpf = :no");
@@ -51,7 +51,11 @@ public class AlunoDAO extends MasterDAO{
 			List<Aluno> listaAluno = qr.list();
 			s.getTransaction().commit();
 			s.close();
-			return listaAluno;
+			
+			if (listaAluno.size()>0)
+				return listaAluno.get(0);
+			else
+				return new Aluno();
 		}
 	
 }

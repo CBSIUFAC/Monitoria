@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Lista de Inscrições</title>
+</h:head>
+
+<ui:composition template="/template/principal.xhtml">
+<ui:define name="conteudo">
+
+<h:body>
+
+	<h:form id="formUsuario">
+			<h:panelGrid id="panelUsuario" columns="2"
+				style="margin-bottom:10px">
+				<h:outputLabel for="name" value="Login" />
+				<p:inputText id="name" value="#{usuarioFace.usu.username}" required="true">
+				</p:inputText>
+				
+				<h:outputLabel for="pass" value="Senha" />
+				<p:password id="pass" value="#{usuarioFace.usu.password}" redisplay="false" required="true"></p:password>
+				
+				<h:outputLabel for="cpf" value="CPF" />
+				<p:inputText id="cpf" value="#{usuarioFace.cpf}" required="true"></p:inputText>
+				
+				<h:outputLabel for="pass" value="Permissão" />
+				<p:selectOneMenu id="permissao" value="#{usuarioFace.usu.tipoUsuario}">
+					<f:selectItem itemLabel="Selecione a Permissão" itemDisabled="true"/>
+					<f:selectItem itemLabel="Admin" itemValue="admin"/>
+					<f:selectItem itemLabel="Usuario" itemValue="usuario"/>
+				</p:selectOneMenu>
+				
+				<h:outputLabel for="ativo" value="Ativo" />
+				<p:selectOneMenu id="ativo" value="#{usuarioFace.usu.ativo}">
+					<f:selectItem itemLabel="Selecione" itemDisabled="true"/>
+					<f:selectItem itemLabel="Ativo" itemValue="true"/>
+					<f:selectItem itemLabel="Inativo" itemValue="false"/>
+				</p:selectOneMenu>
+				
+				<p:commandButton update=":formUsu:tabelaUsu" action="#{usuarioFace.inserirUsuario}" 
+					value="Adicionar Usuário" ajax="false"/>
+			</h:panelGrid>
+	</h:form>
+</h:body>
+
+</ui:define>
+</ui:composition>
+
+</html>

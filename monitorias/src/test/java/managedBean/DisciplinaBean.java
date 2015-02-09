@@ -27,7 +27,7 @@ public class DisciplinaBean {
 	private int periodo;
 	
 	private Disciplina disciplinaSelecionada;
-	private List<Disciplina> disciplinasSelecionadas;
+	private List<Disciplina> disciplinasSelecionadas = new ArrayList<Disciplina>();
 	private List<Disciplina> listaFiltro;
 	private List<Disciplina> droppedDisciplinas = new ArrayList<Disciplina>();
 	private List<Disciplina> lista;

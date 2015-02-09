@@ -12,7 +12,7 @@
 	<ui:define name="conteudo">
 		<body>
 			<h:form id="form">
-				<p:growl id="growl" life="2000" />
+				<p:growl id="growl" life="8000" />
 
 				<p:dataTable
 					value="#{editalBean.editalSelecionado.editaisDisciplinas}"
@@ -20,11 +20,15 @@
 					rowKey="#{d.disciplina.idDisciplina}" style="margin-bottom:0"
 					var="d">
 					<f:facet name="header">
-					Disciplinas Disponíveis
+            		Teste
         			</f:facet>
 
 					<p:column selectionMode="multiple"
 						style="width:16px;text-align:center" />
+
+					<p:column headerText="Edital">
+						<h:outputText value="#{d.edital.titulo}" />
+					</p:column>
 
 					<p:column headerText="Vagas">
 						<h:outputText value="#{d.vagas}" />
@@ -35,20 +39,12 @@
 					</p:column>
 
 					<f:facet name="footer">
-						<p:commandButton value="Inscrever-se" id="ajax" update=":form:growl"
+						<p:commandButton value="Ajax Submit" id="ajax" update=":form:growl"
 							actionListener="#{inscricaoBean.inserirInscricao(disciplinaBean.disciplinasSelecionadas)}"
 							styleClass="ui-priority-primary" />
-							
-							    <p:commandButton value="Download do Edital" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
-        						<p:fileDownload value="#{editalBean.file}" />
-    							</p:commandButton>
 					</f:facet>
-				
-					
 				</p:dataTable>
-				
 			</h:form>
-			
 		</body>
 	</ui:define>
 </ui:composition>
