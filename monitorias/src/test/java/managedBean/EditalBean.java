@@ -279,7 +279,7 @@ public class EditalBean {
            JasperPrint impressoraJasper = JasperFillManager.fillReport(caminhoWebInf+"\\reports\\Edital.jasper", parametros, arrayDs);
            System.out.println("2");
            System.out.println(edital);
-           	String caminhoFinal = "\\edital"+""+edital.getCentro().getNome();
+           String caminhoFinal = "\\edital"+""+edital.getTitulo()+""+edital.getDataCriacao().getTime();
            	
            	System.out.println(caminhoReports+caminhoFinal);
            	
@@ -293,6 +293,9 @@ public class EditalBean {
             edital.setSrcPDF("//reports/"+caminhoFinal);
             editalDAO.atualizarEdital(edital);
             
+            edital = null;
+            disciplinaBean.setDroppedDisciplinas(null);
+            
             arquivo.flush();
             arquivo.close();
             
@@ -303,14 +306,7 @@ public class EditalBean {
     }
     
     private StreamedContent file;
-    
-//    public EditalBean() throws FileNotFoundException {        
-//       InputStream stream = ((ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream("/WEB-INF/reports/relatorio2.pdf");
-//        file = new DefaultStreamedContent(stream, "application/pdf", "relatorio2.pdf");
-//    	
-//    }
-
-    
+   
     public void setFile(StreamedContent file) {
 		this.file = file;
 	}
@@ -320,7 +316,7 @@ public class EditalBean {
     	String caminhoWebInf = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/WEB-INF/");
     	InputStream stream = new FileInputStream(caminhoWebInf+editalSelecionado.getSrcPDF());  
     	//InputStream stream = new FileInputStream("D:\\Workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp4\\wtpwebapps\\monitorias\\WEB-INF\\reports\\relatorio2.pdf");  
-        file = new DefaultStreamedContent(stream, "application/pdf", "relatorio2.pdf");  
+        file = new DefaultStreamedContent(stream, "application/pdf", editalSelecionado.getTitulo()+".pdf");  
   
         return file;  
     } 

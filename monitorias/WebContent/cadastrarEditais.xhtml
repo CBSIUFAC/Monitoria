@@ -27,7 +27,7 @@
 
 				<p:growl id="growl" sticky="true" showDetail="true" />
 
-				<p:wizard>
+				<p:wizard backLabel="Voltar" nextLabel="Avançar">
 					<p:tab id="dadosEdital" title="Dados do Edital">
 						<p:panel header="Informações do Edital">
 							<p:messages />
@@ -36,7 +36,7 @@
 								<h:outputText id="outputTitulo" value="Título: *" />
 								<p:inputText id="inputTitulo"
 									value="#{editalBean.edital.titulo}" required="true"
-									requiredMessage="Informe um título" label="titulo" />
+									requiredMessage="Informe um título." label="titulo" />
 
 								<p:outputLabel for="ano" value="Ano:" />
 								<p:selectOneMenu id="ano" value="#{editalBean.edital.ano}" required="true"
@@ -69,19 +69,19 @@
 								</p:calendar>
 								
 								<p:outputLabel for="fimInscricoes" value="Término das inscrições: " />
-								<p:calendar id="fimInscricoes" value="#{editalBean.edital.dataFimInscricao}" required="true">
+								<p:calendar id="fimInscricoes" value="#{editalBean.edital.dataFimInscricao}" required="true" requiredMessage="Informe uma data.">
 									<p:ajax event="dateSelect"
 										listener="#{editalBean.edital.aoEscolherData}" update="growl" />
 								</p:calendar>
 								
 								<p:outputLabel for="resultado" value="Resultado das inscrições: " />
-								<p:calendar id="resultado" value="#{editalBean.edital.dataResultado}" required="true">
+								<p:calendar id="resultado" value="#{editalBean.edital.dataResultado}" required="true" requiredMessage="Informe uma data.">
 									<p:ajax event="dateSelect"
 										listener="#{editalBean.edital.aoEscolherData}" update="growl" />
 								</p:calendar>
 								
 								<p:outputLabel for="criacao" value="Data de criação do edital: " />
-								<p:calendar id="criacao" value="#{editalBean.edital.dataCriacao}" required="true">
+								<p:calendar id="criacao" value="#{editalBean.edital.dataCriacao}" required="true" requiredMessage="Informe uma data.">
 									<p:ajax event="dateSelect"
 										listener="#{editalBean.edital.aoEscolherData}" update="growl" />
 								</p:calendar>
@@ -92,12 +92,7 @@
 									value="#{editalBean.centro}" required="true"
 									completeMethod="#{editalBean.completarCentro}" var="centro"
 									itemLabel="#{centro.nome}" itemValue="#{centro}"
-									converter="centroConverter" forceSelection="true" />
-
-								<h:outputText id="srcPDF" value="PDF:" />
-								<p:inputText id="inputSrcPDF"
-									value="#{editalBean.edital.srcPDF}" required="true"
-									label="srcPDF" />
+									converter="centroConverter" forceSelection="true" requiredMessage="Informe um centro."/>
 
 							</h:panelGrid>
 						</p:panel>
@@ -170,9 +165,8 @@
 											<h:outputText value="#{disciplina.codigoDisciplina}" />
 										</p:column>
 
-										<p:column headerText="Período">
-											<h:outputLabel for="vagas" value="Vagas: " />
-											<p:spinner id="vagas" value="#{disciplina.vagas}" />
+										<p:column headerText="Vagas">
+											<p:spinner id="vagas" value="#{disciplina.vagas}" min="0" max="10" />
 										</p:column>
 
 

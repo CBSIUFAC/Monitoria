@@ -122,11 +122,10 @@ public class InscricaoBean {
 	@ManagedProperty("#{usuarioFace}")
 	private UsuarioFace usuarioFace;
 
-	public void inserirInscricao(List<EditalDisciplina> ds) {
+	public String inserirInscricao(List<EditalDisciplina> ds) {
 		inscricao = new Inscricao();
 
 		System.out.println(ds==null?"nulo":"não nulo");
-
 
 		Usuario usu = new Usuario();
 
@@ -163,8 +162,12 @@ public class InscricaoBean {
 		if (erro){
 			FacesContext fContext = FacesContext.getCurrentInstance();
 			fContext.addMessage(null, new FacesMessage("Você já estava inscrito nas disciplinas: "+disciplinasNaoInscritas, "X y z") );
-			listaPorUsuario = null;
 		}
+		
+		listaPorUsuario = null;
+		
+		return "acompanharInscricoes";
+		
 	}
 
 	public UsuarioFace getUsuarioFace() {

@@ -155,6 +155,8 @@ public class DisciplinaBean {
 	}
 
 	public List<Disciplina> getDroppedDisciplinas() {
+		if(droppedDisciplinas == null)
+			droppedDisciplinas = new ArrayList<Disciplina>();
 		return droppedDisciplinas;
 	}
 

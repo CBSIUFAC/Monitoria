@@ -18,29 +18,34 @@
 					value="#{editalBean.editalSelecionado.editaisDisciplinas}"
 					selection="#{disciplinaBean.disciplinasSelecionadas}"
 					rowKey="#{d.disciplina.idDisciplina}" style="margin-bottom:0"
-					var="d">
+					var="d" widgetVar="teste">
+					
 					<f:facet name="header">
-            		Teste
+						<p:outputLabel value="#{editalDisciplinaBean.edital.titulo}" />
         			</f:facet>
+  
 
 					<p:column selectionMode="multiple"
 						style="width:16px;text-align:center" />
 
-					<p:column headerText="Edital">
-						<h:outputText value="#{d.edital.titulo}" />
-					</p:column>
-
-					<p:column headerText="Vagas">
-						<h:outputText value="#{d.vagas}" />
-					</p:column>
 
 					<p:column headerText="Disciplina">
 						<h:outputText value="#{d.disciplina.nomeDisciplina}" />
 					</p:column>
 
+
+					<p:column headerText="Vagas">
+						<h:outputText value="#{d.vagas}" />
+					</p:column>
+
 					<f:facet name="footer">
-						<p:commandButton value="Ajax Submit" id="ajax" update=":form:growl"
-							actionListener="#{inscricaoBean.inserirInscricao(disciplinaBean.disciplinasSelecionadas)}"
+					
+						<p:commandButton value="Download do Edital" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+    						 <p:fileDownload value="#{editalBean.file}" />
+						</p:commandButton>
+					
+						<p:commandButton value="Inscrever-se" id="ajax" update=":form:growl" ajax="false"
+							action="#{inscricaoBean.inserirInscricao(disciplinaBean.disciplinasSelecionadas)}"
 							styleClass="ui-priority-primary" />
 					</f:facet>
 				</p:dataTable>
