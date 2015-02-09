@@ -163,7 +163,7 @@ public class InscricaoBean {
 		if (erro){
 			FacesContext fContext = FacesContext.getCurrentInstance();
 			fContext.addMessage(null, new FacesMessage("Você já estava inscrito nas disciplinas: "+disciplinasNaoInscritas, "X y z") );
-
+			listaPorUsuario = null;
 		}
 	}
 
