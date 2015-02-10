@@ -62,18 +62,35 @@ public class UsuarioFace {
 
 	public String inserirUsuario(){
 		AlunoDAO alunoDAO = new AlunoDAO();
+		System.out.println(cpf);
 		Aluno a = alunoDAO.buscaAlunoPorCpf(cpf);
-		
-		System.out.println("---- "+a+" ----");
-		
-		novoUsuario.setAluno(a);
-		novoUsuario.setPassword(criptografarSenha(usu.getPassword()));
 
-		System.out.println("---- "+novoUsuario+" ----");
-		usuDAO.inserirUsuario(novoUsuario);
+		
+		if (a != null){
+			
+			System.out.println("Aluno nulo");
+			
+			if (usuDAO.getUsuarioPorMatricula(a.getMatricula()) == null){
+				System.out.println("Não existe login com esse aluno");
+				novoUsuario.setAluno(a);
+				novoUsuario.setPassword(criptografarSenha(novoUsuario.getPassword()));
 
-		listaUsuario = null;
-		novoUsuario = new Usuario();
+
+				usuDAO.inserirUsuario(novoUsuario);
+				
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Sucesso","Cadastro com sucesso: "+novoUsuario.getUsername());  
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				
+				listaUsuario = null;
+				novoUsuario = new Usuario();
+			}else{
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","Já existe um login cadastrado com essa matrícula.");  
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		}else{
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","Não existe aluno cadastrado com esse CPF.");  
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
 		return "usuarios";
 	}
 

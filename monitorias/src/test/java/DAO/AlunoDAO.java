@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import entity.Aluno;
+import entity.Usuario;
 
 public class AlunoDAO extends MasterDAO{
 	
@@ -42,20 +43,17 @@ public class AlunoDAO extends MasterDAO{
 		return listaAluno;
 	}
 	
-	//Busca de aluno por nome
-		public Aluno buscaAlunoPorCpf(String cpf){
-			Session s = getSession();
-			s.beginTransaction();
-			Query qr = s.createQuery("from Aluno a where a.cpf = :no");
-			qr.setParameter("no", cpf);
-			List<Aluno> listaAluno = qr.list();
-			s.getTransaction().commit();
-			s.close();
-			
-			if (listaAluno.size()>0)
-				return listaAluno.get(0);
-			else
-				return new Aluno();
-		}
-	
+	public Aluno buscaAlunoPorCpf(String cpf){
+		Session s = getSession();
+		s.beginTransaction();
+		Query qr = s.createQuery("from Aluno a where a.cpf like '%"+cpf+"%'");
+		List<Aluno> listaUsuarios = qr.list();
+		s.getTransaction().commit();
+		s.close();
+		
+		if (listaUsuarios.size()>0)
+			return listaUsuarios.get(0);
+		else
+			return null;
+	}
 }

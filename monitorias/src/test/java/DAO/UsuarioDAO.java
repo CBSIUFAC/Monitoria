@@ -41,5 +41,19 @@ public class UsuarioDAO extends MasterDAO{
 		else
 			return new Usuario();
 	}
+	
+	public Usuario getUsuarioPorMatricula(String matricula){
+		Session s = getSession();
+		s.beginTransaction();
+		Query qr = s.createQuery("from Usuario WHERE fkAluno = '"+matricula+"'");
+		List<Usuario> listaUsuarios = qr.list();
+		s.getTransaction().commit();
+		s.close();
+		
+		if (listaUsuarios.size()>0)
+			return listaUsuarios.get(0);
+		else
+			return null;
+	}
 		
 }

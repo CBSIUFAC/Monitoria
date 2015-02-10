@@ -70,7 +70,7 @@
 				<p:password id="pass" value="#{usuarioFace.novoUsuario.password}" redisplay="false" required="true"></p:password>
 				
 				<h:outputLabel for="cpf" value="CPF" />
-				<p:inputText id="cpf" value="#{usuarioFace.cpf}" required="true"></p:inputText>
+				<p:inputMask id="cpf" value="#{usuarioFace.cpf}" mask="999.999.999-99" required="true" requiredMessage="Entre com um cpf"/>
 				
 				<h:outputLabel for="pass" value="Permissão" />
 				<p:selectOneMenu id="permissao" value="#{usuarioFace.novoUsuario.tipoUsuario}">
@@ -80,7 +80,7 @@
 				</p:selectOneMenu>
 				
 				<h:outputLabel for="ativo" value="Ativo" />
-				<p:selectOneMenu id="ativo" value="#{usuarioFace.novoUsuario.ativo}">
+				<p:selectOneMenu id="ativo" value="#{usuarioFace.novoUsuario.ativo}" required="true" requiredMessage="Selecione o tipo de usuário">
 					<f:selectItem itemLabel="Selecione" itemDisabled="true"/>
 					<f:selectItem itemLabel="Ativo" itemValue="true"/>
 					<f:selectItem itemLabel="Inativo" itemValue="false"/>
