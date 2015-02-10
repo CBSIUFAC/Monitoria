@@ -118,13 +118,13 @@ public class InscricaoBean {
 	public void setCentro(Centro centro) {
 		this.centro = centro;
 	}
-
+	
+	//Injeção de um bean
 	@ManagedProperty("#{usuarioFace}")
 	private UsuarioFace usuarioFace;
 
 	public String inserirInscricao(List<EditalDisciplina> ds) {
 		inscricao = new Inscricao();
-
 
 		if (ds != null && ds.size()>0){
 
@@ -213,4 +213,18 @@ public class InscricaoBean {
 	public void setListaPorUsuario(List<Inscricao> listaPorUsuario) {
 		this.listaPorUsuario = listaPorUsuario;
 	}
+	
+
+	public String convertePeriodo(int id) {
+		String periodo = "";
+		if(id == 201) {
+			periodo = "1º Semestre";
+		} else if (id == 202) {
+			periodo = "2º Semestre";
+		} else if (id == 203) {
+			periodo = "DPLE";
+		}
+		return periodo;
+	}
+	
 }

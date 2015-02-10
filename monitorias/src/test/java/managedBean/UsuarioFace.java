@@ -88,7 +88,7 @@ public class UsuarioFace {
 		try{  
 			usuDAO.deletarUsuario(usu);
 			listaUsuario = null;
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","Excluído com Sucesso");  
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","Usuário excluído com sucesso!");  
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}catch (ConstraintViolationException ce){  
 			FacesContext msg = FacesContext.getCurrentInstance();  
@@ -99,8 +99,6 @@ public class UsuarioFace {
 		}
 		return "usuarios";
 	}
-
-
 
 	public void cancelar(RowEditEvent event){
 		FacesMessage msg = new FacesMessage("Cancelado");  
@@ -113,8 +111,7 @@ public class UsuarioFace {
 		return listaUsuario;
 	}
 
-
-	//  criptografia "caelum"
+	//Criptografia by Caelum
 	private String senhaCriptografada;
 
 	public String criptografarSenha(String senha){

@@ -20,25 +20,14 @@
 		<p:dataTable var="d" value="#{inscricaoBean.listaPorUsuario}" widgetVar="tableListaInscricoes"
 		rows="15" editable="false" paginator="true"
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-	                         rowsPerPageTemplate="10,20,30,50" emptyMessage="Não existem inscrições cadastradas com esse filtro." filteredValue="#{inscricaoBean.listaFiltro}">>
+	                         rowsPerPageTemplate="10,20,30,50" emptyMessage="Não existem inscrições cadastradas com esse filtro.">
 		
-			<p:column headerText="ID" filterBy="#{d.idInscricao}" filterMatchMode="contains">
-				<p:outputLabel value="#{d.idInscricao}"></p:outputLabel>
-			</p:column>
 			
-			<p:column headerText="Inscricao" filterBy="#{d.dataInscricao}" filterMatchMode="contains">
-				<p:outputLabel value="#{d.dataInscricao}"></p:outputLabel>
-			</p:column>
-						
-			<p:column headerText="Resultado" filterBy="#{d.edital.dataResultado}" filterMatchMode="contains">
-				<p:outputLabel value="#{d.edital.dataResultado}"></p:outputLabel>
-			</p:column>
-			
-			<p:column headerText="Titulo Edital" filterBy="#{d.edital.titulo}" filterMatchMode="contains">
+			<p:column headerText="Edital">
 				<p:outputLabel value="#{d.edital.titulo}"></p:outputLabel>
 			</p:column>
 			
-			<p:column headerText="Aluno" filterBy="#{d.aluno.nome}" filterMatchMode="contains">
+			<p:column headerText="Aluno">
 				<p:outputLabel value="#{d.aluno.nome}"></p:outputLabel>
 			</p:column>
 			

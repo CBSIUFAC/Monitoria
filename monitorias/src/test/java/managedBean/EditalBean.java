@@ -195,30 +195,9 @@ public class EditalBean {
 			count++;
 		}
 
-		FacesMessage msg = new FacesMessage("Sucesso!", "Edital criadoo!");
+		FacesMessage msg = new FacesMessage("Sucesso!", "Edital criado com sucesso!!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);  	
 		imprimirRelatorio(beanArray);	
-	}
-
-
-	private void limparCampos() {
-		edital = new Edital();
-		centro = new Centro();
-		editalDisciplina = new EditalDisciplina();
-		lista = new ArrayList<Edital>();
-		listaFiltro = new ArrayList<Edital>();
-	}
-
-	public String convertePeriodo(int id) {
-		String periodo = "";
-		if(id == 201) {
-			periodo = "1º Semestre";
-		} else if (id == 202) {
-			periodo = "2º Semestre";
-		} else if (id == 203) {
-			periodo = "DPLE";
-		}
-		return periodo;
 	}
 
 	public List<Edital> listaPorCentro(Centro c){
@@ -268,6 +247,7 @@ public class EditalBean {
 		HashMap parametros = new HashMap();
 		parametros.put("ID_EDITAL", edital.getIdEdital());
 		FacesContext facesContext = FacesContext.getCurrentInstance();
+		
 		try {
 
 			JRBeanArrayDataSource arrayDs = new JRBeanArrayDataSource(g, false);
@@ -309,7 +289,6 @@ public class EditalBean {
 
 		String caminhoWebInf = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/WEB-INF/");
 		InputStream stream = new FileInputStream(caminhoWebInf+editalSelecionado.getSrcPDF());  
-		//InputStream stream = new FileInputStream("D:\\Workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp4\\wtpwebapps\\monitorias\\WEB-INF\\reports\\relatorio2.pdf");  
 		file = new DefaultStreamedContent(stream, "application/pdf", editalSelecionado.getTitulo()+".pdf");  
 
 		return file;  
@@ -367,5 +346,27 @@ public class EditalBean {
 	public void setEditaisDisciplinasNaoInscritas(List<EditalDisciplina> editaisDisciplinasNaoInscritas) {
 		this.editaisDisciplinasNaoInscritas = editaisDisciplinasNaoInscritas;
 	}
+
+	private void limparCampos() {
+		edital = new Edital();
+		centro = new Centro();
+		editalDisciplina = new EditalDisciplina();
+		lista = new ArrayList<Edital>();
+		listaFiltro = new ArrayList<Edital>();
+	}
+
+	public String convertePeriodo(int id) {
+		String periodo = "";
+		if(id == 201) {
+			periodo = "1º Semestre";
+		} else if (id == 202) {
+			periodo = "2º Semestre";
+		} else if (id == 203) {
+			periodo = "DPLE";
+		}
+		return periodo;
+	}
+
+	
 }
 

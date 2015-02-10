@@ -7,26 +7,31 @@
 
 
 <h:head>
-	<title>Bem vindo!</title>
+	<title>Bem vindo ao Sistema de Gerenciamento de Monitorias</title>
 </h:head>
 <h:body>
-	<p:dialog header="Login" visible="true" closable="false" modal="true"
-		draggable="false" resizable="false" width="600">
+	<p:dialog header="" visible="true" closable="false" modal="true"
+		draggable="false" resizable="false" width="550">
+		
+		<ui:insert name="banner">
+		<p:graphicImage value="/imagens/banner.png"></p:graphicImage>
+		</ui:insert>
+		<center>
 		<form id="formLogin" method="post" action="j_spring_security_check">
 			<p:panelGrid id="panelLogin" columns="3" style="margin-bottom:10px">
-				<h:outputLabel value="Username:" />
+				<h:outputLabel value="Usuário:" />
 				<p:inputText id="j_username" required="true"
 					requiredMessage="Usuário é obrigatório" />
 				<p:message for="j_username" />
-				<h:outputLabel value="Password: " />
+				<h:outputLabel value="Senha: " />
 				<p:password id="j_password" required="true"
 					requiredMessage="Senha é obrigatória" />
 				<p:message for="j_password" />
-				<h:commandButton value="Login" type="submit" />
-				<h:commandButton value="Criar Login" icon="ui-icon-search"
-					action="/criarLogin.jsf"/>
-			</p:panelGrid>
+				</p:panelGrid>
+				<h:commandButton value="Logar" type="submit" />
+
 		</form>
+		</center>
 	</p:dialog>
 </h:body>
 </html>
