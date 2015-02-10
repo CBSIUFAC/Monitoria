@@ -26,6 +26,7 @@ import DAO.UsuarioDAO;
 public class UsuarioFace {
 	private UsuarioDAO usuDAO = new UsuarioDAO();
 	private Usuario usu;
+	private Usuario novoUsuario = new Usuario();
 	private String cpf = new String();
 
 	public UsuarioFace(){  
@@ -62,17 +63,17 @@ public class UsuarioFace {
 	public String inserirUsuario(){
 		AlunoDAO alunoDAO = new AlunoDAO();
 		Aluno a = alunoDAO.buscaAlunoPorCpf(cpf);
+		
+		System.out.println("---- "+a+" ----");
+		
+		novoUsuario.setAluno(a);
+		novoUsuario.setPassword(criptografarSenha(usu.getPassword()));
 
-		usu.setAluno(a);
-		usu.setPassword(criptografarSenha(usu.getPassword()));
-
-		System.out.println("Usuario: "+usu);
-		System.out.println("Aluno: "+a);
-
-		usuDAO.inserirUsuario(usu);
+		System.out.println("---- "+novoUsuario+" ----");
+		usuDAO.inserirUsuario(novoUsuario);
 
 		listaUsuario = null;
-		usu=null;
+		novoUsuario = new Usuario();
 		return "usuarios";
 	}
 
@@ -162,6 +163,14 @@ public class UsuarioFace {
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+
+	public Usuario getNovoUsuario() {
+		return novoUsuario;
+	}
+
+	public void setNovoUsuario(Usuario novoUsuario) {
+		this.novoUsuario = novoUsuario;
 	}
 
 }

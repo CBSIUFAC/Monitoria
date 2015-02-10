@@ -125,49 +125,57 @@ public class InscricaoBean {
 	public String inserirInscricao(List<EditalDisciplina> ds) {
 		inscricao = new Inscricao();
 
-		System.out.println(ds==null?"nulo":"não nulo");
 
-		Usuario usu = new Usuario();
+		if (ds != null && ds.size()>0){
 
-		SecurityContext context = SecurityContextHolder.getContext();  
-		if(context instanceof SecurityContext)  
-		{  
-			Authentication authentication = context.getAuthentication();  
-			if(authentication instanceof Authentication){
-				String aux = ((User)authentication.getPrincipal()).getUsername();
-				System.out.println(aux);
-				UsuarioDAO usuDAO = new UsuarioDAO();
-				usu = usuDAO.getUsuario(aux);
+			Usuario usu = new Usuario();
 
+			SecurityContext context = SecurityContextHolder.getContext();  
+			if(context instanceof SecurityContext)  
+			{  
+				Authentication authentication = context.getAuthentication();  
+				if(authentication instanceof Authentication){
+					String aux = ((User)authentication.getPrincipal()).getUsername();
+					System.out.println(aux);
+					UsuarioDAO usuDAO = new UsuarioDAO();
+					usu = usuDAO.getUsuario(aux);
+
+				}
 			}
-		}
 
 
-		inscricao.setAluno(usu.getAluno());
-		inscricao.setDataInscricao(new Date());
-		inscricao.setEdital(ds.get(0).getEdital());
+			inscricao.setAluno(usu.getAluno());
+			inscricao.setDataInscricao(new Date());
+			inscricao.setEdital(ds.get(0).getEdital());
 
-		boolean erro=false;
-		String disciplinasNaoInscritas = "";
-
-		for (EditalDisciplina ed : ds) {
-			inscricao.setDisciplina(ed.getDisciplina());
-			erro = inscricaoDAO.estaInscrito(inscricao); 
-			if (!erro)
-				inscricaoDAO.inserirInscricao(inscricao);
-			else
-				disciplinasNaoInscritas += ed.getDisciplina().getNomeDisciplina()+"\n";
-		}
-
-		if (erro){
+			boolean erro=false;
+			String disciplinasNaoInscritas = "";
+			boolean inscreveu = false;
+			for (EditalDisciplina ed : ds) {
+				inscricao.setDisciplina(ed.getDisciplina());
+				erro = inscricaoDAO.estaInscrito(inscricao); 
+				if (!erro){
+					inscricaoDAO.inserirInscricao(inscricao);
+					inscreveu = true;
+				}
+				else
+					disciplinasNaoInscritas += ed.getDisciplina().getNomeDisciplina()+"\n";
+			}
+			
 			FacesContext fContext = FacesContext.getCurrentInstance();
-			fContext.addMessage(null, new FacesMessage("Você já estava inscrito nas disciplinas: "+disciplinasNaoInscritas, "X y z") );
+			
+			if (!disciplinasNaoInscritas.equals("")){
+				fContext.addMessage(null, new FacesMessage("Você já estava inscrito nas disciplinas: "+disciplinasNaoInscritas, "X y z") );
+			}
+			else
+				fContext.addMessage(null, new FacesMessage("Inscrição realizada com sucesso! \n No menu clique em Inscrição e depois acompanhar, para visualizar suas inscrições. ", "X y z") );
+		}else{
+			FacesContext fContext = FacesContext.getCurrentInstance();
+			fContext.addMessage(null, new FacesMessage("Escolha pelo menos uma disciplina para poder se inscrever.", "Erro.") );
 		}
 		
 		listaPorUsuario = null;
-		
 		return "acompanharInscricoes";
-		
 	}
 
 	public UsuarioFace getUsuarioFace() {
@@ -182,20 +190,20 @@ public class InscricaoBean {
 		if (listaPorUsuario == null){
 			Usuario usu = new Usuario();
 			UsuarioDAO usuDAO = new UsuarioDAO();
-			
+
 			SecurityContext context = SecurityContextHolder.getContext();  
 			if(context instanceof SecurityContext)  
 			{  
 				Authentication authentication = context.getAuthentication();  
 				if(authentication instanceof Authentication){
 					String aux = ((User)authentication.getPrincipal()).getUsername();
-					
+
 					usu = usuDAO.getUsuario(aux);
 
 				}
 			}
 			System.out.println(usu.getAluno());
-			
+
 			listaPorUsuario = inscricaoDAO.getListaPorUsuario(usu);
 		}
 

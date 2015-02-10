@@ -142,7 +142,6 @@ public class DisciplinaBean {
         	droppedDisciplinas.add(d);
         	listaPorCentro.remove(d);
         } else {
-        	System.out.println("droppedDisciplinas é nulo.");
         }
 	}
 

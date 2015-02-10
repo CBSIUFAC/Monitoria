@@ -49,7 +49,7 @@ public class Edital implements Serializable {
 	@Column(nullable=false)
 	private int totalVagas;
 	
-	@Column(nullable=false)
+	@Column
 	private String srcPDF;
 	
 	@Column

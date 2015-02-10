@@ -13,33 +13,28 @@
 		<body>
 			<h:form id="form">
 				<p:growl id="growl" life="8000" />
-
-				<p:dataTable
-					value="#{editalBean.editalSelecionado.editaisDisciplinas}"
+				<p:dataTable 
+					value="#{editalBean.editaisDisciplinasNaoInscritas}"
 					selection="#{disciplinaBean.disciplinasSelecionadas}"
 					rowKey="#{d.disciplina.idDisciplina}" style="margin-bottom:0"
-					var="d" widgetVar="teste">
+					var="d" emptyMessage="Você já se inscreveu nas disciplinas desse edital." >
 					
 					<f:facet name="header">
-						<p:outputLabel value="#{editalDisciplinaBean.edital.titulo}" />
+            			Disciplinas do Edital
         			</f:facet>
-  
-
+        		
 					<p:column selectionMode="multiple"
 						style="width:16px;text-align:center" />
-
-
-					<p:column headerText="Disciplina">
-						<h:outputText value="#{d.disciplina.nomeDisciplina}" />
-					</p:column>
-
 
 					<p:column headerText="Vagas">
 						<h:outputText value="#{d.vagas}" />
 					</p:column>
 
+					<p:column headerText="Disciplina">
+						<h:outputText value="#{d.disciplina.nomeDisciplina}" />
+					</p:column>
+
 					<f:facet name="footer">
-					
 						<p:commandButton value="Download do Edital" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
     						 <p:fileDownload value="#{editalBean.file}" />
 						</p:commandButton>

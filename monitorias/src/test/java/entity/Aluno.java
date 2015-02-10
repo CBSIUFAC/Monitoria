@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,10 +36,10 @@ public class Aluno implements Serializable {
 	
 	/* RELACIONAMENTOS */
 	
-	@OneToMany(mappedBy="aluno")
+	@OneToMany(mappedBy="aluno", fetch=FetchType.EAGER)
 	private List<Inscricao> inscricoes;
 	
-	@OneToMany(mappedBy="aluno")
+	@OneToMany(mappedBy="aluno", fetch=FetchType.EAGER)
 	private List<Relatorio> relatorios;
 	
 	/* GETTERS AND SETTERS */
@@ -79,7 +80,6 @@ public class Aluno implements Serializable {
 	}
 	
 	public void setMatricula(String matricula) {
-		System.out.println("Na entity Aluno: "+matricula);
 		this.matricula = matricula;
 	}
 	
