@@ -67,7 +67,7 @@ public class UsuarioFace {
 
 		
 		if (a != null){
-			
+		
 			System.out.println("Aluno nulo");
 			
 			if (usuDAO.getUsuarioPorMatricula(a.getMatricula()) == null){
@@ -164,7 +164,7 @@ public class UsuarioFace {
 	public String toString() {
 		return "UsuarioFace [usuDAO=" + usuDAO + ", usu=" + usu
 				+ ", listaUsuario=" + listaUsuario
-				+ ", senhaCriptografada=" + senhaCriptografada + "]";
+				+ ", senhaCriptografada=" + senhaCriptografada + "]]";
 	}
 
 	public void setUsuDAO(UsuarioDAO usuDAO) {

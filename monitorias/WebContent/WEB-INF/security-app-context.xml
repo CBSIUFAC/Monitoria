@@ -15,7 +15,7 @@
 		<intercept-url pattern="/escolherEditais.jsf" access="isAuthenticated()" />
 		<intercept-url pattern="/listaAlunos.jsf" access="isAuthenticated()" />
 		<intercept-url pattern="/listaCentros.jsf" access="isAuthenticated()" />
-		<intercept-url pattern="/listaDisciplinas.jsf" access="isAuthenticated()" />
+		<intercept-url pattern="/listaDisciplinas.jsf" access="permitAll" />
 		<intercept-url pattern="/listaEditais.jsf" access="isAuthenticated()" />
 		<intercept-url pattern="/listaEditaisDisciplinas.jsf" access="isAuthenticated()" />
 		<intercept-url pattern="/realizarInscricoes.jsf" access="isAuthenticated()" />
