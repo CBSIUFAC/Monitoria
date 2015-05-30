@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:sec="http://www.springframework.org/security/tags"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
@@ -19,6 +20,7 @@
 </div>
 
 <div id="cabecalho">
+    			
     <ui:insert name="cabecalho">
     	<p:menubar>
     		<p:submenu label="Visualização">
@@ -28,7 +30,9 @@
     		</p:submenu>
     		<p:submenu label="Cadastro">
     			<p:menuitem value="Cadastro de Editais" url="/cadastrarEditais.jsf"></p:menuitem>
-    			<p:menuitem value="Cadastro de Usuário" url="/usuarios.jsf"></p:menuitem>
+    			
+    			<p:menuitem value="Cadastro de Usuário" url="/usuarios.jsf" rendered="#{p:ifGranted('admin')}"></p:menuitem>
+    			
     		</p:submenu>
     		<p:submenu label="Inscrição">
     			<p:menuitem value="Realizar Inscrição" url="/realizarInscricoes.jsf"></p:menuitem>
@@ -37,7 +41,7 @@
     	</p:menubar>    	
     </ui:insert>
 </div>
-
+    			
 
 <div id="conteudo">
   <ui:insert name="conteudo">
