@@ -20,9 +20,9 @@ public static void main (String[] args ){
 		Disciplina disciplina = new Disciplina();
 		Professor professor = new Professor();
 		
-		aluno.setCpf(10);
-		disciplina.setCodigo("CCET050");
-		professor.setCpf(0);
+		//aluno.setCpf(10);
+		//disciplina.setCodigo("CCET050");
+		//professor.setCpf(0);
 		
 		relatorio.setIdRelatorio(1);
 		relatorio.setDataRelatorio(new Date(new String("1090/02/20")));
@@ -30,14 +30,14 @@ public static void main (String[] args ){
 		relatorio.setSrcPdfRelatorio("http://pdf.relatorio/"); //E o pdf das faltas e tal?
 		relatorio.setAluno(aluno);
 		relatorio.setDisciplina(disciplina);
-		relatorio.setProfessor(professor);
+		//relatorio.setProfessor(professor);
 		relatorioDAO.inserirRelatorio(relatorio);
 	
 		relatorioApp.imprime();
 		
-		aluno.setCpf(10);
-		disciplina.setCodigo("CCET050");
-		professor.setCpf(10);
+		//aluno.setCpf(10);
+		//disciplina.setCodigo("CCET050");
+		//professor.setCpf(10);
 		
 		relatorio.setIdRelatorio(1);
 		relatorio.setDataRelatorio(new Date(new String("2014/11/26")));
@@ -45,7 +45,7 @@ public static void main (String[] args ){
 		relatorio.setSrcPdfRelatorio("http2://pdf2.relatorio/"); //E o pdf das faltas e tal?
 		relatorio.setAluno(aluno);
 		relatorio.setDisciplina(disciplina);
-		relatorio.setProfessor(professor);
+		//relatorio.setProfessor(professor);
 		relatorioDAO.atualizarRelatorio(relatorio);
 	
 		relatorioApp.imprime();

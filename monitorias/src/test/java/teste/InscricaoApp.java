@@ -20,9 +20,9 @@ public class InscricaoApp {
 		Edital edital = new Edital();
 		Disciplina disciplina = new Disciplina();
 		
-		aluno.setCpf(10);
+		//aluno.setCpf(10);
 		edital.setIdEdital(1);
-		disciplina.setCodigo("CCET050");
+		//disciplina.setCodigo("CCET050");
 		
 		inscricao.setIdInscricao(1);
 		inscricao.setDataInscricao(new Date("2014/11/26"));
@@ -33,9 +33,9 @@ public class InscricaoApp {
 	
 		inscricaoApp.imprime();
 		
-		aluno.setCpf(10);
+		//aluno.setCpf(10);
 		edital.setIdEdital(1);
-		disciplina.setCodigo("CCET050");
+		//disciplina.setCodigo("CCET050");
 		
 		inscricao.setDataInscricao(new Date("2015/03/05"));
 		inscricao.setAluno(aluno);

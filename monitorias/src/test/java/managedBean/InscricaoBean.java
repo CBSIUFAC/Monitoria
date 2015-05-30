@@ -14,7 +14,6 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
-import DAO.AlunoDAO;
 import DAO.InscricaoDAO;
 import DAO.UsuarioDAO;
 import entity.Aluno;
@@ -118,7 +117,7 @@ public class InscricaoBean {
 	public void setCentro(Centro centro) {
 		this.centro = centro;
 	}
-	
+
 	//Injeção de um bean
 	@ManagedProperty("#{usuarioFace}")
 	private UsuarioFace usuarioFace;
@@ -150,20 +149,18 @@ public class InscricaoBean {
 
 			boolean erro=false;
 			String disciplinasNaoInscritas = "";
-			boolean inscreveu = false;
 			for (EditalDisciplina ed : ds) {
 				inscricao.setDisciplina(ed.getDisciplina());
 				erro = inscricaoDAO.estaInscrito(inscricao); 
 				if (!erro){
 					inscricaoDAO.inserirInscricao(inscricao);
-					inscreveu = true;
 				}
 				else
 					disciplinasNaoInscritas += ed.getDisciplina().getNomeDisciplina()+"\n";
 			}
-			
+
 			FacesContext fContext = FacesContext.getCurrentInstance();
-			
+
 			if (!disciplinasNaoInscritas.equals("")){
 				fContext.addMessage(null, new FacesMessage("Você já estava inscrito nas disciplinas: "+disciplinasNaoInscritas, "X y z") );
 			}
@@ -173,7 +170,7 @@ public class InscricaoBean {
 			FacesContext fContext = FacesContext.getCurrentInstance();
 			fContext.addMessage(null, new FacesMessage("Escolha pelo menos uma disciplina para poder se inscrever.", "Erro.") );
 		}
-		
+
 		listaPorUsuario = null;
 		return "acompanharInscricoes";
 	}
@@ -187,33 +184,34 @@ public class InscricaoBean {
 	}
 
 	public List<Inscricao> getListaPorUsuario() {
-		if (listaPorUsuario == null){
-			Usuario usu = new Usuario();
-			UsuarioDAO usuDAO = new UsuarioDAO();
+		Usuario usu = new Usuario();
+		UsuarioDAO usuDAO = new UsuarioDAO();
 
-			SecurityContext context = SecurityContextHolder.getContext();  
-			if(context instanceof SecurityContext)  
-			{  
-				Authentication authentication = context.getAuthentication();  
-				if(authentication instanceof Authentication){
-					String aux = ((User)authentication.getPrincipal()).getUsername();
+		SecurityContext context = SecurityContextHolder.getContext();  
+		if(context instanceof SecurityContext)  
+		{  
+			Authentication authentication = context.getAuthentication();  
+			if(authentication instanceof Authentication){;
+				String aux = ((User)authentication.getPrincipal()).getUsername();
+				usu = usuDAO.getUsuario(aux);
 
-					usu = usuDAO.getUsuario(aux);
-
-				}
 			}
-			System.out.println(usu.getAluno());
-
-			listaPorUsuario = inscricaoDAO.getListaPorUsuario(usu);
 		}
-
+		
+		if (usu.getTipoUsuario().equals("admin")){
+			System.out.println("É ADMIN");
+			return inscricaoDAO.getListaInscricao();
+		}
+		System.out.println("NÃO É ADMIN");
+		listaPorUsuario = inscricaoDAO.getListaPorUsuario(usu);
+		System.out.println("User: "+usu.getAluno()+"\nLista.size: "+listaPorUsuario.size());
 		return listaPorUsuario;
 	}
 
 	public void setListaPorUsuario(List<Inscricao> listaPorUsuario) {
 		this.listaPorUsuario = listaPorUsuario;
 	}
-	
+
 
 	public String convertePeriodo(int id) {
 		String periodo = "";
@@ -226,5 +224,5 @@ public class InscricaoBean {
 		}
 		return periodo;
 	}
-	
+
 }
