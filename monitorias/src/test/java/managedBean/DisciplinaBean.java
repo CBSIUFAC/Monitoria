@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import org.primefaces.event.DragDropEvent;
+import org.primefaces.event.FlowEvent;
 
 import DAO.DisciplinaDAO;
 import entity.Centro;
@@ -18,7 +19,6 @@ import entity.Edital;
 public class DisciplinaBean {
 	
 	private boolean primeiroLoad = true;
-	
 	
 	private Disciplina disciplina;
 	private Edital edital;
@@ -38,7 +38,21 @@ public class DisciplinaBean {
 
 	private EditalBean editalBean;
 	
+	private boolean back;
 	
+	
+	public String onFlowProcess(FlowEvent event) {
+		
+		if(back) {
+			droppedDisciplinas.clear();
+			System.out.println("passou em cima");
+			return "confirm";
+		} else {
+			System.out.println("passou em baixo");
+			return event.getOldStep();
+		}
+		
+	}
 	
     public void init() {
         droppedDisciplinas = new ArrayList<Disciplina>();
@@ -66,9 +80,12 @@ public class DisciplinaBean {
 	
 	public List<Disciplina> getListaPorCentro() {
 		if(primeiroLoad) {
+			System.out.println("GetListaPorCentro: primeiro load true");
+			droppedDisciplinas.clear();
 			listaPorCentro = disciplinaDAO.getListaDisciplinaPorCentro(ano, periodo, centro);
 			return listaPorCentro;
-		} else {
+		} else{
+			System.out.println("GetListaPorCentro: primeiro load false");
 			return listaPorCentro;
 		}
 	}
@@ -141,7 +158,6 @@ public class DisciplinaBean {
         if(droppedDisciplinas != null){
         	droppedDisciplinas.add(d);
         	listaPorCentro.remove(d);
-        } else {
         }
 	}
 
@@ -218,5 +234,13 @@ public class DisciplinaBean {
 
 	public int getPeriodo() {
 		return periodo;
+	}
+
+	public boolean isBack() {
+		return back;
+	}
+
+	public void setBack(boolean back) {
+		this.back = back;
 	}
 }

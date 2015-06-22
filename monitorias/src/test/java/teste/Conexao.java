@@ -2,7 +2,6 @@ package teste;
 
 //importando as classes da api JDBC
 import java.sql.*;
-import com.ibm.db2.jcc.*;
 
 //Classe Conexao
 class Conexao {
