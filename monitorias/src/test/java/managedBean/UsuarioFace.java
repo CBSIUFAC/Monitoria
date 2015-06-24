@@ -17,13 +17,14 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
-import entity.Aluno;
-import entity.Usuario;
 import DAO.AlunoDAO;
 import DAO.UsuarioDAO;
+import entity.Aluno;
+import entity.Usuario;
 @ManagedBean(name="usuarioFace")
 @SessionScoped
 public class UsuarioFace {
+	
 	private UsuarioDAO usuDAO = new UsuarioDAO();
 	private Usuario usu;
 	private Usuario novoUsuario = new Usuario();
@@ -94,6 +95,7 @@ public class UsuarioFace {
 		return "usuarios";
 	}
 
+		
 	public void atualizarUsuario(RowEditEvent event){
 		usu = (Usuario) event.getObject();
 		usuDAO.atualizarUsuario(usu);
@@ -186,5 +188,4 @@ public class UsuarioFace {
 	public void setNovoUsuario(Usuario novoUsuario) {
 		this.novoUsuario = novoUsuario;
 	}
-
 }

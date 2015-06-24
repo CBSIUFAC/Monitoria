@@ -40,20 +40,6 @@ public class DisciplinaBean {
 	
 	private boolean back;
 	
-	
-	public String onFlowProcess(FlowEvent event) {
-		
-		if(back) {
-			droppedDisciplinas.clear();
-			System.out.println("passou em cima");
-			return "confirm";
-		} else {
-			System.out.println("passou em baixo");
-			return event.getOldStep();
-		}
-		
-	}
-	
     public void init() {
         droppedDisciplinas = new ArrayList<Disciplina>();
     }

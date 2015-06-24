@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+
+
+<ui:composition template="/template/principal.xhtml">
+	<ui:define name="conteudo">
+
+<h:body>
+		<h:form id="formCadastroUsuario">
+			<h:panelGrid id="panelUsuario" columns="2"
+				style="margin-bottom:10px">
+							
+				<p:outputLabel for="cpf" value="CPF" />
+				<p:inputMask id="cpf" value="#{cadastroBean.cpf}" mask="999.999.999-99" required="true" requiredMessage="Entre com um cpf"/>
+				
+				<h:outputLabel for="nascimento" value="Data Nascimento: " />
+								<p:calendar id="nascimento" value="#{cadastroBean.dataNascimento}" required="true" requiredMessage="Informe uma data." />
+				
+				<h:outputLabel for="pass" value="Senha" />
+				<p:password id="pass" value="#{cadastroBean.novoUsuario.password}" redisplay="false" required="true"></p:password>
+				
+				<p:commandButton action="#{cadastroBean.inserirProprioUsuario}" value="Adicionar Usuário" ajax="false"/>
+			</h:panelGrid>
+	</h:form>
+</h:body>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Usuario implements Serializable {
@@ -28,7 +30,7 @@ public class Usuario implements Serializable {
 	@OneToOne
 	@JoinColumn(referencedColumnName="matricula", name="fkAluno")
 	private Aluno aluno;
-	
+
 	public Integer getIdUsuario() {
 		return idUsuario;
 	}
