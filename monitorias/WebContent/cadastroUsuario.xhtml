@@ -10,24 +10,29 @@
 <ui:composition template="/template/principal.xhtml">
 	<ui:define name="conteudo">
 
-<h:body>
-		<h:form id="formCadastroUsuario">
-			<h:panelGrid id="panelUsuario" columns="2"
-				style="margin-bottom:10px">
-							
-				<p:outputLabel for="cpf" value="CPF" />
-				<p:inputMask id="cpf" value="#{cadastroBean.cpf}" mask="999.999.999-99" required="true" requiredMessage="Entre com um cpf"/>
-				
-				<h:outputLabel for="nascimento" value="Data Nascimento: " />
-								<p:calendar id="nascimento" value="#{cadastroBean.dataNascimento}" required="true" requiredMessage="Informe uma data." />
-				
-				<h:outputLabel for="pass" value="Senha" />
-				<p:password id="pass" value="#{cadastroBean.novoUsuario.password}" redisplay="false" required="true"></p:password>
-				
-				<p:commandButton action="#{cadastroBean.inserirProprioUsuario}" value="Adicionar Usuário" ajax="false"/>
-			</h:panelGrid>
-	</h:form>
-</h:body>
+		<h:body>
+			<h:form id="formCadastroUsuario">
+				<h:panelGrid id="panelUsuario" columns="2"
+					style="margin-bottom:10px">
+
+					<p:outputLabel for="cpf" value="CPF" />
+					<p:inputMask id="cpf" value="#{cadastroBean.cpf}"
+						mask="999.999.999-99" required="true"
+						requiredMessage="Entre com um cpf" />
+
+					<h:outputLabel for="nascimento" value="Data Nascimento: " />
+					<p:calendar id="nascimento" value="#{cadastroBean.dataNascimento}"
+						required="true" requiredMessage="Informe uma data." />
+
+					<h:outputLabel for="pass" value="Senha" />
+					<p:password id="pass" value="#{cadastroBean.novoUsuario.password}"
+						redisplay="false" required="true"></p:password>
+
+					<p:commandButton action="#{cadastroBean.inserirProprioUsuario}"
+						value="Adicionar Usuário" ajax="false" />
+				</h:panelGrid>
+			</h:form>
+		</h:body>
 	</ui:define>
 </ui:composition>
 </html>
