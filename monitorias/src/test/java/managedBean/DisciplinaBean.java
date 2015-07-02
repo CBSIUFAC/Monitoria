@@ -44,6 +44,13 @@ public class DisciplinaBean {
         droppedDisciplinas = new ArrayList<Disciplina>();
     }
 	
+    public void adicionaDisciplina(Disciplina d){
+    	System.out.println(d);
+    	droppedDisciplinas.add(d);
+    	listaPorCentro.remove(d);
+    	System.out.println(droppedDisciplinas);
+    }
+    
 	public Edital getEdital() {
 		return edital;
 	}
