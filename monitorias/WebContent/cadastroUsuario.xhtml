@@ -5,12 +5,28 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 <h:head></h:head>
-
-
-<ui:composition template="/template/principal.xhtml">
-	<ui:define name="conteudo">
-
 		<h:body>
+		
+		<p:growl id="messages" showDetail="true" />
+		<p:dialog header="" visible="true" closable="false" modal="true"
+		draggable="false" resizable="false" width="550">
+		
+		<ui:insert name="banner">
+		<p:graphicImage value="/imagens/banner.png"></p:graphicImage>
+		</ui:insert>
+		<center>
+		
+		
+   		 <h:outputText value="Instruções para cadastro no Sistema:" />
+   		 <br></br><br></br>
+   		 <h:outputText value="1) Insira o seu cpf;" />
+   		 <br></br>
+   		 <h:outputText value="2) Insira sua data de nascimento no formato dd/mm/aa;"/>
+   		 <br></br>
+   		 <h:outputText value="3) Insira uma senha e clique em cadastrar-se."/>
+   		 <br></br><br></br>
+		 <br></br>
+			
 			<h:form id="formCadastroUsuario">
 				<h:panelGrid id="panelUsuario" columns="2"
 					style="margin-bottom:10px">
@@ -22,17 +38,17 @@
 
 					<h:outputLabel for="nascimento" value="Data Nascimento: " />
 					<p:calendar id="nascimento" value="#{cadastroBean.dataNascimento}"
-						required="true" requiredMessage="Informe uma data." />
+						required="true" requiredMessage="Informe uma data." mask="99/99/99" />
 
 					<h:outputLabel for="pass" value="Senha" />
 					<p:password id="pass" value="#{cadastroBean.novoUsuario.password}"
 						redisplay="false" required="true"></p:password>
 
 					<p:commandButton action="#{cadastroBean.inserirProprioUsuario}"
-						value="Adicionar Usuário" ajax="false" />
+						value="Cadastrar" ajax="false" />
 				</h:panelGrid>
 			</h:form>
+		</center>
+	</p:dialog>
 		</h:body>
-	</ui:define>
-</ui:composition>
 </html>

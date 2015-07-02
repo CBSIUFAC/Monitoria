@@ -41,8 +41,8 @@ public class UsuarioFace {
 			if(context instanceof SecurityContext)  
 			{  
 				Authentication authentication = context.getAuthentication();  
-				if(authentication instanceof Authentication){
-					String aux = ((User)authentication.getPrincipal()).getUsername();
+				if(authentication instanceof Authentication) {
+					String aux = ((User) authentication.getPrincipal()).getUsername() == null?"É nulo":"Não é nulo";
 					System.out.println(aux);
 					usu = usuDAO.getUsuario(aux);
 					return usu;
