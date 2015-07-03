@@ -15,7 +15,6 @@
 	<ui:define name="conteudo">
 
 		<h:body>
-
 			<h:form id="formDisciplina">
 
 				<p:growl id="growl" sticky="true" showDetail="true" />
@@ -97,29 +96,26 @@
 							</h:panelGrid>
 						</p:panel>
 					</p:tab>
-
 					<p:tab id="disciplinas" title="Disciplinas do Edital">
 						<p:panel id="painel" header="Escolha das disciplinas">
 							<p:messages />
 							<p:fieldset id="campoDisciplinasDisponiveis"
 								legend="Disciplinas disponíveis">
-								<p:dataTable id="tabelaDisciplinasDisponiveis" var="disciplina"
-									rows="10" paginator="true" rowsPerPageTemplate="5,10,15"
-									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								<p:dataTable id="tabelaDisciplinasDisponiveis" var="disciplina" widgetVar="widgetTabela"
+									rows="5" paginator="true" rowsPerPageTemplate="5,10,15"
+									paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 									value="#{disciplinaBean.listaPorCentro}">
 
 									<p:column style="width:40px">
-										<p:commandButton value="Submit"
-											actionListener="#{disciplinaBean.adicionaDisciplina(disciplina)}"
-											process="@this"
-											/>
+										<p:commandButton value="+" action="#{disciplinaBean.adicionaDisciplina(disciplina)}" 
+										update=":formDisciplina" oncomplete="PF('widgetTabela').clearFilters()"/>
 									</p:column>
 
-									<p:column headerText="Código">
+									<p:column headerText="Código" filterBy="#{disciplina.codigoDisciplina}" filterMatchMode="contains">
 										<h:outputText value="#{disciplina.codigoDisciplina}" />
 									</p:column>
 
-									<p:column headerText="Nome">
+									<p:column headerText="Nome" filterBy="#{disciplina.nomeDisciplina}" filterMatchMode="contains">
 										<h:outputText value="#{disciplina.nomeDisciplina}" />
 									</p:column>
 
@@ -156,18 +152,15 @@
 										var="disciplina" value="#{disciplinaBean.droppedDisciplinas}"
 										rendered="#{not empty disciplinaBean.droppedDisciplinas}">
 
-										<p:column headerText="Id">
-											<h:outputText value="#{disciplina.idDisciplina}" />
+						
+										<p:column headerText="Código">
+											<h:outputText value="#{disciplina.codigoDisciplina}" />
 										</p:column>
 
 										<p:column headerText="Nome">
 											<h:outputText value="#{disciplina.nomeDisciplina}" />
 										</p:column>
-
-										<p:column headerText="Código">
-											<h:outputText value="#{disciplina.codigoDisciplina}" />
-										</p:column>
-
+										
 										<p:column headerText="Vagas">
 											<p:spinner id="vagas" value="#{disciplina.vagas}" min="0"
 												max="10" />

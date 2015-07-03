@@ -45,11 +45,14 @@ public class DisciplinaBean {
     }
 	
     public void adicionaDisciplina(Disciplina d){
-    	System.out.println(d);
+    	primeiroLoad = false;
+    	System.out.println("Primeiro load -- é? "+primeiroLoad);
     	droppedDisciplinas.add(d);
     	listaPorCentro.remove(d);
-    	System.out.println(droppedDisciplinas);
+    	System.out.println(droppedDisciplinas.size());
     }
+
+    
     
 	public Edital getEdital() {
 		return edital;
@@ -74,10 +77,9 @@ public class DisciplinaBean {
 	public List<Disciplina> getListaPorCentro() {
 		if(primeiroLoad) {
 			System.out.println("GetListaPorCentro: primeiro load true");
-			droppedDisciplinas.clear();
 			listaPorCentro = disciplinaDAO.getListaDisciplinaPorCentro(ano, periodo, centro);
 			return listaPorCentro;
-		} else{
+		} else {
 			System.out.println("GetListaPorCentro: primeiro load false");
 			return listaPorCentro;
 		}
@@ -143,15 +145,6 @@ public class DisciplinaBean {
 			periodo = "DPLE";
 		}
 		return periodo;
-	}
-	
-	public void onDisciplinaDrop(DragDropEvent ddEvent) {
-        Disciplina d = ((Disciplina) ddEvent.getData());
-        primeiroLoad = false;
-        if(droppedDisciplinas != null){
-        	droppedDisciplinas.add(d);
-        	listaPorCentro.remove(d);
-        }
 	}
 
 	public Disciplina getDisciplinaSelecionada() {

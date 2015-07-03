@@ -194,7 +194,8 @@ public class EditalBean {
 			beanArray[count] = g;
 			count++;
 		}
-
+		
+		disciplinaBean.setPrimeiroLoad(true);
 		FacesMessage msg = new FacesMessage("Sucesso!", "Edital criado com sucesso!!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);  	
 		imprimirRelatorio(beanArray);	
