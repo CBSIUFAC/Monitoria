@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 public class Inscricao implements Serializable {
@@ -27,15 +28,18 @@ public class Inscricao implements Serializable {
 	private Centro centro;
 	
 	@Column
-	private int status;
+	private Integer status;
+	
+	@Transient
+	private int vagas;
 
 	/* RELACIONAMENTOS */
 	public int getVagas() {
-		return status;
+		return vagas;
 	}
 
 	public void setVagas(int vagas) {
-		this.status = vagas;
+		this.vagas = vagas;
 	}
 
 	@ManyToOne
