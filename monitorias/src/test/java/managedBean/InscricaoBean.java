@@ -151,6 +151,7 @@ public class InscricaoBean {
 			String disciplinasNaoInscritas = "";
 			for (EditalDisciplina ed : ds) {
 				inscricao.setDisciplina(ed.getDisciplina());
+				inscricao.setStatus(0);
 				erro = inscricaoDAO.estaInscrito(inscricao); 
 				if (!erro){
 					inscricaoDAO.inserirInscricao(inscricao);

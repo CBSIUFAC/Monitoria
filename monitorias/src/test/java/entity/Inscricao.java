@@ -3,6 +3,7 @@ package entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,9 +25,20 @@ public class Inscricao implements Serializable {
 	
 	@javax.persistence.Transient
 	private Centro centro;
+	
+	@Column
+	private int status;
 
 	/* RELACIONAMENTOS */
 	
+	public int getVagas() {
+		return status;
+	}
+
+	public void setVagas(int vagas) {
+		this.status = vagas;
+	}
+
 	@ManyToOne
 	@JoinColumn(referencedColumnName="matricula",name="fkAluno")
 	private Aluno aluno;
@@ -82,19 +94,20 @@ public class Inscricao implements Serializable {
 		this.dataInscricao = dataInscricao;
 	}
 
-	@Override
-	public String toString() {
-		return "Inscricao [idInscricao=" + idInscricao + ", dataInscricao="
-				+ dataInscricao + ", aluno=" + aluno + ", disciplina="
-				+ disciplina + ", edital=" + edital + "]";
-	}
-
 	public Centro getCentro() {
 		return centro;
 	}
 
 	public void setCentro(Centro centro) {
 		this.centro = centro;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	
 }

@@ -31,7 +31,8 @@ public class CadastroBean {
 		
 		AlunoDAO alunoDAO = new AlunoDAO();
 		Aluno aluno = alunoDAO.buscaAlunoPorCpf(cpf);
-		System.out.println(aluno);
+		System.out.println("Aluno: "+aluno);
+		System.out.println("Cpf: "+cpf);
 		
 		if (aluno != null) {
 			
@@ -137,6 +138,7 @@ public class CadastroBean {
 
 
 	public void setDataNascimento(Date dataNascimento) {
+		System.out.println("Data nascimento"+ dataNascimento);
 		this.dataNascimento = dataNascimento;
 	}
 
