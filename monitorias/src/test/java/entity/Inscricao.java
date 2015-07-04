@@ -30,7 +30,6 @@ public class Inscricao implements Serializable {
 	private int status;
 
 	/* RELACIONAMENTOS */
-	
 	public int getVagas() {
 		return status;
 	}
