@@ -39,17 +39,10 @@ public class Aluno implements Serializable {
 	@OneToMany(mappedBy="aluno", fetch=FetchType.EAGER)
 	private List<Inscricao> inscricoes;
 	
-	@OneToMany(mappedBy="aluno", fetch=FetchType.EAGER)
-	private List<Relatorio> relatorios;
-	
 	/* GETTERS AND SETTERS */
 	
 	public List<Inscricao> getInscricoes() {
 		return inscricoes;
-	}
-	
-	public List<Relatorio> getRelatorios() {
-		return relatorios;
 	}
 	
 	public String getCpf() {
@@ -100,9 +93,5 @@ public class Aluno implements Serializable {
 
 	public void setInscricoes(List<Inscricao> inscricoes) {
 		this.inscricoes = inscricoes;
-	}
-
-	public void setRelatorios(List<Relatorio> relatorios) {
-		this.relatorios = relatorios;
 	}
 }

@@ -21,26 +21,30 @@ public class Relatorio implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idRelatorio;
 	
-	@Column(nullable=false)
-	private String srcPdfAtividade;
+	@Column(length=2)
+	int mes;
 	
-	@Column(nullable=false)
-	private String srcPdfRelatorio;
+	@Column(length=4)
+	int ano;
 	
-	@Temporal(TemporalType.DATE)
-	private Date dataRelatorio;
-
+	@Column
+	int status;
+	
 	/* RELACIONAMENTOS */
 	
-	@ManyToOne
-	@JoinColumn(referencedColumnName="matricula",name="fkAluno")
-	private Aluno aluno;
-	
 	@ManyToOne	
-	@JoinColumn(referencedColumnName="idDisciplina", name="fkDisciplina")
-	private Disciplina disciplina;
+	@JoinColumn(referencedColumnName="idInscricao", name="fkInscricao")
+	private Inscricao inscricao;
 
 	/* GETTERS AND SETTERS */
+	
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	
+	public int getStatus() {
+		return status;
+	}
 	
 	public int getIdRelatorio() {
 		return idRelatorio;
@@ -50,60 +54,35 @@ public class Relatorio implements Serializable {
 		this.idRelatorio = idRelatorio;
 	}
 
-	public String getSrcPdfAtividade() {
-		return srcPdfAtividade;
+	public int getMes() {
+		return mes;
 	}
 
-	public void setSrcPdfAtividade(String srcPdfAtividade) {
-		this.srcPdfAtividade = srcPdfAtividade;
+	public void setMes(int mes) {
+		this.mes = mes;
 	}
 
-	public String getSrcPdfRelatorio() {
-		return srcPdfRelatorio;
+	public int getAno() {
+		return ano;
 	}
 
-	public void setSrcPdfRelatorio(String srcPdfRelatorio) {
-		this.srcPdfRelatorio = srcPdfRelatorio;
+	public void setAno(int ano) {
+		this.ano = ano;
 	}
 
-	public Date getDataRelatorio() {
-		return dataRelatorio;
+	public Inscricao getInscricao() {
+		return inscricao;
 	}
 
-	public void setDataRelatorio(Date dataRelatorio) {
-		this.dataRelatorio = dataRelatorio;
+	public void setInscricao(Inscricao inscricao) {
+		this.inscricao = inscricao;
 	}
-
-	public Aluno getAluno() {
-		return aluno;
-	}
-
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
-	}
-
-	public Disciplina getDisciplina() {
-		return disciplina;
-	}
-
-	public void setDisciplina(Disciplina disciplina) {
-		this.disciplina = disciplina;
-	}
-
-//	public Professor getProfessor() {
-//		return professor;
-//	}
-//
-//	public void setProfessor(Professor professor) {
-//		this.professor = professor;
-//	}
 
 	@Override
 	public String toString() {
-		return "Relatorio [idRelatorio=" + idRelatorio + ", srcPdfAtividade="
-				+ srcPdfAtividade + ", srcPdfRelatorio=" + srcPdfRelatorio
-				+ ", dataRelatorio=" + dataRelatorio + ", aluno=" + aluno
-				+ ", disciplina=" + disciplina	+ "]";
+		return "Relatorio [idRelatorio=" + idRelatorio + ", mes=" + mes
+				+ ", ano=" + ano + ", inscricao="
+				+ inscricao + "]";
 	}
-	
+
 }

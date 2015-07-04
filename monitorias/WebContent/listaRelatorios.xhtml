@@ -15,39 +15,67 @@
 <ui:define name="conteudo">
 
 <h:body>
-
+<br></br>
 	<h:form id="formListaRelatorios">
-		<p:dataTable var="d" value="#{relatorioBean.lista}" widgetVar="tableListaRelatorios"
-		rows="15" editable="false" paginator="true"
-		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-	                         rowsPerPageTemplate="10,20,30,50" emptyMessage="Não existem relatorios cadastradas com esse filtro." filteredValue="#{relatorioBean.listaFiltro}">>
-		
-			<p:column headerText="ID" filterBy="#{d.idRelatorio}" filterMatchMode="contains">
-				<p:outputLabel value="#{d.idRelatorio}"></p:outputLabel>
-			</p:column>
+		<p:dataTable var="r" value="#{relatorioBean.listaPorUsuario}" widgetVar="tableListaRelatorios"
+		rows="15" editable="false" paginator="false">
 			
-			<p:column headerText="PDF Atividade" filterBy="#{d.srcPdfAtividade}" filterMatchMode="contains">
-				<p:outputLabel value="#{d.srcPdfAtividade}"></p:outputLabel>
-			</p:column>
-			
-			<p:column headerText="PDF Relatorio" filterBy="#{d.srcPdfRelatorio}" filterMatchMode="contains">
-				<p:outputLabel value="#{d.srcPdfRelatorio}"></p:outputLabel>
-			</p:column>
-			
-			<p:column headerText="Data do Relatorio" filterBy="#{d.dataRelatorio}" filterMatchMode="contains">
-				<p:outputLabel value="#{d.dataRelatorio}"></p:outputLabel>
+			<p:column headerText="Disciplina:">
+				<p:outputLabel value="#{r.inscricao.disciplina.nomeDisciplina}"></p:outputLabel>
 			</p:column>
 						
-			<p:column headerText="Matricula do Aluno" filterBy="#{d.aluno.matricula}" filterMatchMode="contains">
-				<p:outputLabel value="#{d.aluno.matricula}"></p:outputLabel>
+			<p:column headerText="Mês:">
+				<p:outputLabel value="#{r.mes}"></p:outputLabel>
+			</p:column>
+						
+			<p:column headerText="Ano:">
+				<p:outputLabel value="#{r.ano}"></p:outputLabel>
 			</p:column>
 			
-			<p:column headerText="Nome do Aluno" filterBy="#{d.aluno.nome}" filterMatchMode="contains">
-				<p:outputLabel value="#{d.aluno.nome}"></p:outputLabel>
+			<p:column headerText="Status: ">
+				<p:outputLabel value="#{r.status}"></p:outputLabel>
 			</p:column>
+			
+			<p:column headerText="Inserir Atividades: ">
+				<center><p:commandButton value="+"></p:commandButton></center>
+			</p:column>
+			
+			<p:column headerText="Gerar PDF">
+				<center><p:commandButton value="+"></p:commandButton></center>
+			</p:column>
+			
+			
 			
 		</p:dataTable>
+		<br></br>
+		<p:commandButton id="showCadastroDialog" value="Criar Relatório"
+			onclick="PF('dlgRelatorio').show()" 
+			update=":formListaRelatorios" process="@this">
+			<p:resetInput target=":formRelatorio" />
+		</p:commandButton>
+
 	</h:form>
+	
+		<h:form id="formRelatorio">
+		<p:dialog header="Criar Relatório" widgetVar="dlgRelatorio"
+			resizable="false" modal="true" showEffect="slide" width="500">
+			<h:panelGrid id="panelRelatorio" columns="2"
+				style="margin-bottom:10px">
+				
+				<h:outputLabel for="mes" value="Mês:" />
+				<p:inputText id="mes" value="#{relatorioBean.relatorio.mes}" required="true">
+				</p:inputText>
+				
+				<h:outputLabel for="ano" value="Ano: " />
+				<p:inputText id="ano" value="#{relatorioBean.relatorio.ano}" required="true"/>
+			
+				<p:commandButton update=":formListaRelatorios" oncomplete="PF('dlgRelatorio').hide()"
+					action="#{relatorioBean.criarRelatorio}" value="Criar Relatório" ajax="false"/>
+			</h:panelGrid>
+		</p:dialog>
+	</h:form>
+	
+	
 </h:body>
 
 </ui:define>

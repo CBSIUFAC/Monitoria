@@ -64,9 +64,6 @@ public class Disciplina implements Serializable {
 	private List<Inscricao> inscricoes;
 	
 	@OneToMany(mappedBy="disciplina")
-	private List<Relatorio> relatorios;
-	
-	@OneToMany(mappedBy="disciplina")
 	private Collection<EditalDisciplina> editaisDisciplinas;
 	
 	
@@ -85,9 +82,6 @@ public class Disciplina implements Serializable {
 		return inscricoes;
 	}
 	
-	public List<Relatorio> getRelatorios() {
-		return relatorios;
-	}
 	
 	public int getId() {
 		return idDisciplina;
@@ -166,9 +160,6 @@ public class Disciplina implements Serializable {
 		this.inscricoes = inscricoes;
 	}
 
-	public void setRelatorios(List<Relatorio> relatorios) {
-		this.relatorios = relatorios;
-	}
 
 	public Integer getCargaHoraria() {
 		if(cargaHoraria == null) 

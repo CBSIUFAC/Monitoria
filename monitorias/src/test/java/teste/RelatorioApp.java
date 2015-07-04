@@ -3,10 +3,10 @@ package teste;
 import java.util.Date;
 import java.util.List;
 
+import DAO.InscricaoDAO;
 import DAO.RelatorioDAO;
 import entity.Aluno;
-import entity.Disciplina;
-import entity.Professor;
+import entity.Inscricao;
 import entity.Relatorio;
 
 public class RelatorioApp {
@@ -14,43 +14,20 @@ public class RelatorioApp {
 public static void main (String[] args ){
 		
 		RelatorioDAO relatorioDAO = new RelatorioDAO();
+		InscricaoDAO inscricaoDAO = new InscricaoDAO();
 		Relatorio relatorio = new Relatorio();
 		RelatorioApp relatorioApp = new RelatorioApp();
 		Aluno aluno  = new Aluno();
-		Disciplina disciplina = new Disciplina();
-		Professor professor = new Professor();
+		Inscricao inscricao = inscricaoDAO.getInscricao(27);
 		
-		//aluno.setCpf(10);
-		//disciplina.setCodigo("CCET050");
-		//professor.setCpf(0);
-		
-		relatorio.setIdRelatorio(1);
-		relatorio.setDataRelatorio(new Date(new String("1090/02/20")));
-		relatorio.setSrcPdfAtividade("http://pdf.atividades/"); //E o pdf das faltas e tal?
-		relatorio.setSrcPdfRelatorio("http://pdf.relatorio/"); //E o pdf das faltas e tal?
-		relatorio.setAluno(aluno);
-		relatorio.setDisciplina(disciplina);
-		//relatorio.setProfessor(professor);
+		relatorio.setAno(2015);
+		relatorio.setInscricao(inscricao);
+		relatorio.setMes(03);
+		relatorio.setStatus(0);
 		relatorioDAO.inserirRelatorio(relatorio);
 	
 		relatorioApp.imprime();
-		
-		//aluno.setCpf(10);
-		//disciplina.setCodigo("CCET050");
-		//professor.setCpf(10);
-		
-		relatorio.setIdRelatorio(1);
-		relatorio.setDataRelatorio(new Date(new String("2014/11/26")));
-		relatorio.setSrcPdfAtividade("http2://pdf2.atividades/"); //E o pdf das faltas e tal?
-		relatorio.setSrcPdfRelatorio("http2://pdf2.relatorio/"); //E o pdf das faltas e tal?
-		relatorio.setAluno(aluno);
-		relatorio.setDisciplina(disciplina);
-		//relatorio.setProfessor(professor);
-		relatorioDAO.atualizarRelatorio(relatorio);
-	
-		relatorioApp.imprime();
-		relatorioDAO.deletarRelatorio(relatorio);	
-		relatorioApp.imprime();		
+			
 	}
 	
 	public void imprime(){
