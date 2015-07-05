@@ -1,43 +1,37 @@
 package teste;
 
-import java.util.Date;
+import java.sql.Time;
 import java.util.List;
 
-import DAO.InscricaoDAO;
+import DAO.RegistroDAO;
 import DAO.RelatorioDAO;
-import entity.Aluno;
-import entity.Inscricao;
+import entity.Registro;
 import entity.Relatorio;
 
 public class RelatorioApp {
 	
 public static void main (String[] args ){
 		
+		RegistroDAO registroDAO = new RegistroDAO();
 		RelatorioDAO relatorioDAO = new RelatorioDAO();
-		InscricaoDAO inscricaoDAO = new InscricaoDAO();
-		Relatorio relatorio = new Relatorio();
-		RelatorioApp relatorioApp = new RelatorioApp();
-		Aluno aluno  = new Aluno();
-		Inscricao inscricao = inscricaoDAO.getInscricao(27);
 		
-		relatorio.setAno(2015);
-		relatorio.setInscricao(inscricao);
-		relatorio.setMes(03);
-		relatorio.setStatus(0);
-		relatorioDAO.inserirRelatorio(relatorio);
+		Relatorio relatorio = relatorioDAO.getRelatorio(18);
+		
+		RelatorioApp app = new RelatorioApp();
+
+		app.imprime(relatorio);
+		
+		
+}
 	
-		relatorioApp.imprime();
-			
-	}
-	
-	public void imprime(){
-		RelatorioDAO relatorioDAO = new RelatorioDAO();		
-		List<Relatorio> relatorios = relatorioDAO.getListaRelatorio();
-		if (relatorios.size() == 0)
+	public void imprime(Relatorio r){
+		RegistroDAO registroDAO = new RegistroDAO();;		
+		List<Registro> registros = registroDAO.getListaPorRelatorio(r);
+		if (registros.size() == 0)
 			System.out.println("Não há relatorio cadastrado no sistema.");
 		else{
 			System.out.println("Imprimindo Relatorio(s):");	
-			for (Relatorio a : relatorios) {
+			for (Registro a : registros) {
 				System.out.println(a);
 			}	
 			System.out.println("\n");

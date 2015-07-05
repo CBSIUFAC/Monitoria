@@ -37,17 +37,35 @@
 			</p:column>
 			
 			<p:column headerText="Inserir Atividades: ">
-				<center><p:commandButton value="+"></p:commandButton></center>
+				<center>		
+				<p:commandButton id="showInserirRegistro" value="+"
+					onclick="PF('dlgRegistro').show()"  action="#{registroBean.setRelatorio(r)}"
+					update=":formListaRelatorios" process="@this">
+				<p:resetInput target=":formRegistro" />
+				</p:commandButton>
+		</center>
 			</p:column>
+			
+			
+			<p:column headerText="Visualizar Atividades: ">
+				<center>		
+				<p:commandButton id="showVisualizarAtividades" value="+"
+					onclick="PF('dlgVisualizarAtividades').show()"  action="#{registroBean.setRelatorio(r)}"
+					update=":formListaRelatorios" process="@this">
+				</p:commandButton>
+		</center>
+			</p:column>
+			
+			
 			
 			<p:column headerText="Gerar PDF">
 				<center><p:commandButton value="+"></p:commandButton></center>
 			</p:column>
 			
 			
-			
 		</p:dataTable>
 		<br></br>
+		
 		<p:commandButton id="showCadastroDialog" value="Criar Relatório"
 			onclick="PF('dlgRelatorio').show()" 
 			update=":formListaRelatorios" process="@this">
@@ -72,6 +90,66 @@
 				<p:commandButton update=":formListaRelatorios" oncomplete="PF('dlgRelatorio').hide()"
 					action="#{relatorioBean.criarRelatorio}" value="Criar Relatório" ajax="false"/>
 			</h:panelGrid>
+		</p:dialog>
+	</h:form>
+	
+
+		<h:form id="formRegistro">
+		<p:dialog header="Inserir Registro ao Relatório" widgetVar="dlgRegistro"
+			resizable="false" modal="true" showEffect="slide" width="600">
+			<h:panelGrid id="panelRegistro" columns="2"
+				style="margin-bottom:10px">
+				
+				<h:outputLabel for="dataRegistro" value="Data:" />
+				
+				<p:calendar id="dataRegistro"
+						value="#{registroBean.registro.data}" required="true"
+						requiredMessage="Informe uma data.">
+				</p:calendar>				
+				
+				<h:outputLabel for="horaEntrada" value="Hora entrada: " />
+				<p:inputMask id="horaEntrada" value="#{registroBean.registro.horaEntrada}" mask="99:99" required="true"
+						requiredMessage="Informe uma data" />
+							
+				<h:outputLabel for="horaSaida" value="Hora saída: " />
+				<p:inputMask id="horaSaida" value="#{registroBean.registro.horaSaida}" mask="99:99" required="true"
+						requiredMessage="Informe uma data" />
+				<h:outputLabel for="descricao" value="Descrição da Atividade: " />
+				<p:inputTextarea id="descricao" rows="5" cols="30" counter="caixaDescricao" maxlength="254" counterTemplate="{0} caracteres restantes." autoResize="false" value="#{registroBean.registro.descricao}" required="true"/>
+				<br></br>
+				<h:outputText id="caixaDescricao" />
+				
+				<p:commandButton update=":formListaRelatorios" oncomplete="PF('dlgRegistro').hide()"
+					action="#{registroBean.insereRegistro}" value="Inserir Registro" ajax="false"/>
+			</h:panelGrid>
+		</p:dialog>
+	</h:form>
+	
+			<h:form id="formAtividades">
+		<p:dialog header="Atividades inseridas no relatório:" widgetVar="dlgVisualizarAtividades"
+			resizable="false" modal="true" showEffect="slide" height="600">
+			
+			<p:dataTable var="registro" value="#{registroBean.listaRegistroPorRelatorio}">
+				
+				<p:column headerText="Data ">
+					<h:outputText value="#{registro.data}" />
+				</p:column>
+			
+				<p:column headerText="Entrada: ">
+					<h:outputText value="#{registro.horaEntrada}" />
+				</p:column>
+			
+				<p:column headerText="Saida: ">
+					<h:outputText value="#{registro.horaSaida}" />
+				</p:column>
+			
+					<p:column headerText="Descrição da Atividade: ">
+					<h:outputText value="#{registro.descricao}" />
+				</p:column>
+			
+			
+			</p:dataTable>
+			
 		</p:dialog>
 	</h:form>
 	
