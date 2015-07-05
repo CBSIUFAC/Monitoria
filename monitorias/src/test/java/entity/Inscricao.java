@@ -112,5 +112,13 @@ public class Inscricao implements Serializable {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+
+	@Override
+	public String toString() {
+		return "Inscricao [idInscricao=" + idInscricao + ", dataInscricao="
+				+ dataInscricao + ", centro=" + centro + ", status=" + status
+				+ ", vagas=" + vagas + ", aluno=" + aluno + ", disciplina="
+				+ disciplina + ", edital=" + edital + "]";
+	}
 	
 }

@@ -26,18 +26,18 @@ public class CadastroBean {
 	private Usuario novoUsuario = new Usuario();
 	private String cpf;
 	private Date dataNascimento;
-	
+
 	public String inserirProprioUsuario(){
-		
+
 		AlunoDAO alunoDAO = new AlunoDAO();
 		Aluno aluno = alunoDAO.buscaAlunoPorCpf(cpf);
 		System.out.println("Aluno: "+aluno);
 		System.out.println("Cpf: "+cpf);
-		
+
 		if (aluno != null) {
-			
+			System.out.println("1");
 			if(aluno.getDataNascimento().equals(getDataNascimento())) {
-				
+				System.out.println("2");
 				if (usuDAO.getUsuarioPorMatricula(aluno.getMatricula()) == null) {
 					System.out.println("Entrou aqui?");
 					System.out.println("Não existe login com esse aluno");
@@ -47,33 +47,33 @@ public class CadastroBean {
 					novoUsuario.setAtivo(true);
 					novoUsuario.setTipoUsuario("usuario");
 					usuDAO.inserirUsuario(novoUsuario);
-				
+
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Sucesso", "Cadastro realizado com sucesso!");  
 					FacesContext.getCurrentInstance().addMessage(null, msg);
-					
+
 					novoUsuario = new Usuario();
-					
+
 					return "login";
-					
+
 				} else {
-					
+					System.out.println("3");
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Aviso","Já existe um login cadastrado com essa matrícula.");  
 					FacesContext.getCurrentInstance().addMessage(null, msg);
 				} 
-				
+
 			} else {
-				
+
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Aviso","Não existe alunos cadastrados com esse cpf.");  
 				FacesContext.getCurrentInstance().addMessage(null, msg);		
 			}
-			
+
 		} else {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Aviso","Data de nascimento invalida.");  
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 		return "";
 	}
-	
+
 	//Criptografia by Caelum
 	private String senhaCriptografada;
 

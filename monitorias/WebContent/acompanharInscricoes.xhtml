@@ -17,7 +17,7 @@
 <h:body>
 
 	<h:form id="formListaInscricoes">
-		<p:dataTable var="d" value="#{inscricaoBean.listaPorUsuario}" widgetVar="tableListaInscricoes"
+		<p:dataTable id="tabelaInscricoes" var="d" value="#{inscricaoBean.listaPorUsuario}" widgetVar="tableListaInscricoes"
 		rows="15" editable="false" paginator="true"
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 	                         rowsPerPageTemplate="10,20,30,50" emptyMessage="Não existem inscrições cadastradas com esse filtro.">
@@ -35,6 +35,18 @@
 				<p:outputLabel value="#{d.disciplina.nomeDisciplina}"></p:outputLabel>
 			</p:column>
 			
+			<p:column headerText="Status" filterBy="#{d.status}" filterMatchMode="contains" rendered="#{p:ifGranted('usuario')}">
+				<p:outputLabel value="#{d.status}"></p:outputLabel>
+			</p:column>
+			
+			<p:column headerText="StatusAdmin" filterBy="#{d.status}" filterMatchMode="contains" rendered="#{p:ifGranted('admin')}" >
+				<p:selectOneMenu id="statusSelectOneMenu" value="#{d.status}" style="width:125px" 
+					onchange="submit()" valueChangeListener="#{inscricaoBean.editarInscricao}">
+            		<f:selectItem itemLabel="Solicitada" itemValue="#{inscricaoBean.editarInscricao(d, 0)}" />
+            		<f:selectItem itemLabel="Deferida" itemValue="1" />
+            		<f:selectItem itemLabel="Indeferida" itemValue="2" />  
+        		</p:selectOneMenu>
+			</p:column>
 		</p:dataTable>
 	</h:form>
 </h:body>

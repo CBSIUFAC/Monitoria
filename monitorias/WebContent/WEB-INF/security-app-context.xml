@@ -11,7 +11,7 @@
 		access-denied-page="/negado.jsf">
 		<intercept-url pattern="/login.jsf" access="permitAll" />
 		<intercept-url pattern="/cadastroUsuario.jsf" access="permitAll" />
-		<intercept-url pattern="/usuarios.jsf" access="hasRole('admin')" />
+		<intercept-url pattern="/usuarios.jsf" access="permitAll" />
 		<intercept-url pattern="/cadastrarEditais.jsf" access="isAuthenticated()" />
 		<intercept-url pattern="/escolherEditais.jsf" access="isAuthenticated()" />
 		<intercept-url pattern="/listaAlunos.jsf" access="isAuthenticated()" />

@@ -28,8 +28,8 @@
     			<p:menuitem value="Centros" url="/listaCentros.jsf"></p:menuitem>
     			<p:menuitem value="Disciplinas" url="/listaDisciplinas.jsf"></p:menuitem>
     		</p:submenu>
-    		<p:submenu label="Cadastro">
-    			<p:menuitem value="Cadastro de Editais" url="/cadastrarEditais.jsf"></p:menuitem>
+    		<p:submenu label="Cadastro" rendered="#{p:ifGranted('admin')}">
+    			<p:menuitem value="Cadastro de Editais" url="/cadastrarEditais.jsf" rendered="#{p:ifGranted('admin')}"></p:menuitem>
     			
     			<p:menuitem value="Cadastro de Usuário" url="/usuarios.jsf" rendered="#{p:ifGranted('admin')}"></p:menuitem>
     			

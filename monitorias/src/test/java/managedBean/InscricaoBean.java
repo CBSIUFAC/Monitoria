@@ -1,5 +1,6 @@
 package managedBean;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -30,6 +32,8 @@ import entity.Usuario;
 public class InscricaoBean {
 
 	private Inscricao inscricao;
+	private Inscricao inscricaoTemp = new Inscricao();
+	private List<Inscricao> listaTemp = new ArrayList<Inscricao>();
 	private InscricaoDAO inscricaoDAO = new InscricaoDAO();
 	private List<Inscricao> lista;
 	private List<Inscricao> listaPorUsuario;
@@ -176,6 +180,24 @@ public class InscricaoBean {
 		return "acompanharInscricoes";
 	}
 
+	public void editarInscricao(ValueChangeEvent vce) {
+		System.out.println(lista+"\n"+listaFiltro+"\n"+listaPorUsuario+"\n"+listaTemp);
+		int status = Integer.parseInt(vce.getNewValue().toString());
+		inscricaoTemp.setStatus(status);
+		
+		//0=solicitada, 1=deferido, 2=indeferido, 3=monitor, 4=ex monitor
+		System.out.println(inscricaoTemp);
+		inscricaoDAO.atualizarInscricao(inscricaoTemp);
+		
+	}
+
+	public String editarInscricao(Object i, int status){
+		inscricaoTemp = (Inscricao) i;
+		inscricaoTemp.setStatus(status);
+		listaTemp.add(inscricaoTemp);
+		return "0";
+	}
+	
 	public UsuarioFace getUsuarioFace() {
 		return usuarioFace;
 	}
@@ -193,12 +215,12 @@ public class InscricaoBean {
 		{  
 			Authentication authentication = context.getAuthentication();  
 			if(authentication instanceof Authentication){;
-				String aux = ((User)authentication.getPrincipal()).getUsername();
-				usu = usuDAO.getUsuario(aux);
+			String aux = ((User)authentication.getPrincipal()).getUsername();
+			usu = usuDAO.getUsuario(aux);
 
 			}
 		}
-		
+
 		if (usu.getTipoUsuario().equals("admin")){
 			System.out.println("É ADMIN");
 			return inscricaoDAO.getListaInscricao();
@@ -224,6 +246,14 @@ public class InscricaoBean {
 			periodo = "DPLE";
 		}
 		return periodo;
+	}
+
+	public List<Inscricao> getListaTemp() {
+		return listaTemp;
+	}
+
+	public void setListaTemp(List<Inscricao> listaTemp) {
+		this.listaTemp = listaTemp;
 	}
 
 }
