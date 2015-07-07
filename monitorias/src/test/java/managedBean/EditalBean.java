@@ -60,6 +60,7 @@ public class EditalBean {
 
 	private List<Edital> lista;
 	private List<Edital> listaFiltro;
+	private List<Edital> listaPorCentro;
 
 	private CentroDAO centroDAO = new CentroDAO();
 	private EditalDAO editalDAO = new EditalDAO();
@@ -182,7 +183,7 @@ public class EditalBean {
 
 		List<Disciplina> listaSelecionados = disciplinaBean.getDroppedDisciplinas();
 		beanArray = new GeradorEdital[listaSelecionados.size()];
-		
+
 		for (Disciplina disciplina : listaSelecionados) {
 
 			editalDisciplina.setVagas(disciplina.getVagas());
@@ -194,7 +195,7 @@ public class EditalBean {
 			beanArray[count] = g;
 			count++;
 		}
-		
+
 		disciplinaBean.setPrimeiroLoad(true);
 		FacesMessage msg = new FacesMessage("Sucesso!", "Edital criado com sucesso!!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);  	
@@ -203,10 +204,14 @@ public class EditalBean {
 
 	public List<Edital> listaPorCentro(Centro c){
 		EditalDAO dao = new EditalDAO();
+		if(c==null){
+			System.out.println("centro nulo");
+			return dao.getListaEdital();
+		}
+		System.out.println("listaporcentro... centro="+c.getIdCentro());
 		return dao.getListaEdital(c); 
-
 	}
-
+	
 	public void verEditais() {
 		RequestContext.getCurrentInstance().openDialog("verEditais");
 	}
@@ -248,7 +253,7 @@ public class EditalBean {
 		HashMap parametros = new HashMap();
 		parametros.put("ID_EDITAL", edital.getIdEdital());
 		FacesContext facesContext = FacesContext.getCurrentInstance();
-		
+
 		try {
 
 			JRBeanArrayDataSource arrayDs = new JRBeanArrayDataSource(g, false);
@@ -256,7 +261,7 @@ public class EditalBean {
 			String caminhoReports = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/WEB-INF/reports");
 
 			JasperPrint impressoraJasper = JasperFillManager.fillReport(caminhoWebInf+"\\reports\\Edital.jasper", parametros, arrayDs);
-		
+
 			String caminhoFinal = "\\edital"+""+edital.getTitulo()+""+edital.getDataCriacao().getTime();
 
 			File pdf = new File(caminhoReports+caminhoFinal);
@@ -267,7 +272,7 @@ public class EditalBean {
 
 			edital.setSrcPDF("//reports/"+caminhoFinal);
 			editalDAO.atualizarEdital(edital);
-			
+
 			edital = null;
 			disciplinaBean.setDroppedDisciplinas(null);
 
@@ -298,17 +303,17 @@ public class EditalBean {
 	public List<EditalDisciplina> editaisDisciplinasNaoInscritas(Collection<EditalDisciplina> todas, List<Inscricao> doAluno){
 		List<EditalDisciplina> resultado = new ArrayList<EditalDisciplina>();
 		List<EditalDisciplina> ed = new ArrayList<EditalDisciplina>();
-		
+
 		for (EditalDisciplina ed1 : todas) {
 			ed.add(ed1);
 		}
-		
+
 		if (doAluno==null) 
 			return ed;
 		else
 			if (doAluno.size()<1)
 				return ed;
-		
+
 		for (int i = 0; i < ed.size(); i++) {
 			boolean achouIgual=false;
 			for (int j = 0; j < doAluno.size(); j++) {
@@ -367,7 +372,5 @@ public class EditalBean {
 		}
 		return periodo;
 	}
-
-	
 }
 

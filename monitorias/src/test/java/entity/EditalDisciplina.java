@@ -4,11 +4,13 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class EditalDisciplina implements Serializable {
@@ -34,10 +36,9 @@ public class EditalDisciplina implements Serializable {
 	@JoinColumn(referencedColumnName="idEdital", name="fkEdital")
 	private Edital edital;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(referencedColumnName="idDisciplina", name="fkDisciplina")
 	private Disciplina disciplina;
-
 	/* GETTERS AND SETTERS */
 	
 	public int getIdEditalDisciplina() {

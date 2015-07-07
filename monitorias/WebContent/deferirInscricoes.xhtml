@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Lista de Inscrições</title>
+</h:head>
+
+<ui:composition template="/template/principal.xhtml">
+	<ui:define name="conteudo">
+
+		<h:body>
+
+			<h:form id="form">
+				<p:growl id="msgs" showDetail="true"/>
+				<p:dataTable var="i" value="#{inscricaoBean.lista}" scrollRows="20"
+					scrollable="true" liveScroll="true" editable="true"
+					style="margin-bottom:0">
+					<f:facet name="header">
+           				Tabela de Inscrições
+       				</f:facet>
+
+					<p:ajax event="rowEdit" listener="#{inscricaoBean.onRowEdit}"	update=":form:msgs" />
+					<p:ajax event="rowEditCancel" listener="#{inscricaoBean.onRowCancel}" update=":form:msgs" />
+
+					<p:column headerText="Centro" footerText="centro">
+						<h:outputText value="#{i.aluno.nome}" />
+					</p:column>
+
+					<p:column headerText="Centro" footerText="centro">
+						<h:outputText value="#{i.edital.centro.siglaCentro}" />
+					</p:column>
+
+					<p:column headerText="Edital" footerText="edital">
+						<h:outputText value="#{i.edital.titulo}" />
+					</p:column>
+
+					<p:column headerText="Código da disciplina" footerText="código">
+						<h:outputText value="#{i.disciplina.codigoDisciplina}" />
+					</p:column>
+
+					<p:column headerText="Disciplina" footerText="Disciplina">
+						<h:outputText value="#{i.disciplina.nomeDisciplina}" />
+					</p:column>
+					
+					<p:column headerText="Status">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{inscricaoBean.converteStatus(i.status)}" />
+							</f:facet>
+							<f:facet name="input">
+								<h:selectOneMenu value="#{i.status}" style="width:100%">
+									<f:selectItems value="#{inscricaoBean.listaDeStatus}" var="s"
+										itemLabel="#{inscricaoBean.converteStatus(s)}" itemValue="#{s}" />
+								</h:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					
+					<p:column style="width:32px">
+           				<p:rowEditor />
+       				</p:column>
+
+				</p:dataTable>
+
+			</h:form>
+		</h:body>
+
+	</ui:define>
+</ui:composition>
+
+</html>

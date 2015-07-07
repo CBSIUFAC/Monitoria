@@ -10,6 +10,8 @@
 	<http auto-config="true" use-expressions="true"
 		access-denied-page="/negado.jsf">
 		<intercept-url pattern="/login.jsf" access="permitAll" />
+		<intercept-url pattern="/deferirInscricoes.jsf" access="hasRole('admin')"/>
+		<intercept-url pattern="/deferirInscricoesCentro.jsf" access="hasRole('secretario')"/>
 		<intercept-url pattern="/cadastroUsuario.jsf" access="permitAll" />
 		<intercept-url pattern="/usuarios.jsf" access="permitAll" />
 		<intercept-url pattern="/cadastrarEditais.jsf" access="isAuthenticated()" />

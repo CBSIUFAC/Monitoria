@@ -9,13 +9,20 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
+import javax.swing.JSpinner.ListEditor;
 
+import org.primefaces.event.RowEditEvent;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
+import DAO.CentroDAO;
+import DAO.DisciplinaDAO;
+import DAO.EditalDAO;
+import DAO.EditalDisciplinaDAO;
 import DAO.InscricaoDAO;
 import DAO.UsuarioDAO;
 import entity.Aluno;
@@ -33,16 +40,24 @@ public class InscricaoBean {
 
 	private Inscricao inscricao;
 	private Inscricao inscricaoTemp = new Inscricao();
-	private List<Inscricao> listaTemp = new ArrayList<Inscricao>();
 	private InscricaoDAO inscricaoDAO = new InscricaoDAO();
+	private EditalDAO editalDAO = new EditalDAO();
+	private CentroDAO centroDAO = new CentroDAO();
+	private DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+	private EditalDisciplinaDAO editalDisciplinaDAO = new EditalDisciplinaDAO();
 	private List<Inscricao> lista;
 	private List<Inscricao> listaPorUsuario;
+	private List<Edital> listaEditalPorCentro;
+	private List<Disciplina> listaDisciplinaPorEditalCentro;
 	private List<Inscricao> listaFiltro;
-
+	private int[] listaDeStatus = {-1,0,1,2,3};
 	private Edital edital;
 	private Aluno aluno;
 	private Disciplina disciplina;
 	private Centro centro;
+	private Centro centroSelecionado;
+	private Edital editalSelecionado;
+	private Disciplina disciplinaSelecionada;
 
 	public Inscricao getInscricao() {
 		if (inscricao == null)
@@ -63,8 +78,11 @@ public class InscricaoBean {
 	}
 
 	public List<Inscricao> getLista() {
-		if (lista == null)
+		if (lista == null){
+			System.out.println("Lista de inscrições nula");
 			lista = inscricaoDAO.getListaInscricao();
+		}
+		System.out.println("Lista: "+lista);
 		return lista;
 	}
 
@@ -180,24 +198,26 @@ public class InscricaoBean {
 		return "acompanharInscricoes";
 	}
 
-	public void editarInscricao(ValueChangeEvent vce) {
-		System.out.println(lista+"\n"+listaFiltro+"\n"+listaPorUsuario+"\n"+listaTemp);
-		int status = Integer.parseInt(vce.getNewValue().toString());
-		inscricaoTemp.setStatus(status);
-		
-		//0=solicitada, 1=deferido, 2=indeferido, 3=monitor, 4=ex monitor
-		System.out.println(inscricaoTemp);
-		inscricaoDAO.atualizarInscricao(inscricaoTemp);
-		
+	public void editarInscricao(Inscricao i) {
+		if (i==null)
+			System.out.println("nulo.");
+		else
+			System.out.println(i.getIdInscricao()+" "+i.getStatus());		
 	}
 
-	public String editarInscricao(Object i, int status){
-		inscricaoTemp = (Inscricao) i;
-		inscricaoTemp.setStatus(status);
-		listaTemp.add(inscricaoTemp);
-		return "0";
+	public Inscricao getIn(int i){
+		System.out.println(i);
+		return new Inscricao();
 	}
-	
+
+	//	public String editarInscricao(Object i, int status){
+	//		inscricaoTemp = (Inscricao) i;
+	//		System.out.println("Inscrição: "+inscricaoTemp);
+	//		inscricaoTemp.setStatus(status);
+	//		listaTemp.add(inscricaoTemp);
+	//		return "0";
+	//	}
+
 	public UsuarioFace getUsuarioFace() {
 		return usuarioFace;
 	}
@@ -248,12 +268,148 @@ public class InscricaoBean {
 		return periodo;
 	}
 
-	public List<Inscricao> getListaTemp() {
-		return listaTemp;
+	public Centro getCentroSelecionado() {
+		return centroSelecionado;
 	}
 
-	public void setListaTemp(List<Inscricao> listaTemp) {
-		this.listaTemp = listaTemp;
+	public void setCentroSelecionado(Centro centroSelecionado) {
+		this.centroSelecionado = centroSelecionado;
 	}
+
+	public Edital getEditalSelecionado() {
+		return editalSelecionado;
+	}
+
+	public void setEditalSelecionado(Edital editalSelecionado) {
+		this.editalSelecionado = editalSelecionado;
+	}
+
+	public Disciplina getDisciplinaSelecionada() {
+		return disciplinaSelecionada;
+	}
+
+	public void setDisciplinaSelecionada(Disciplina disciplinaSelecionada) {
+		this.disciplinaSelecionada = disciplinaSelecionada; 
+	}
+
+	public List<Edital> getListaEditalPorCentro() {
+		System.out.println("GetLista: "+centroSelecionado);
+		listaEditalPorCentro = editalDAO.getListaEdital(centroSelecionado);
+		return listaEditalPorCentro;
+	}
+
+	public void setListaEditalPorCentro(List<Edital> listaEditalPorCentro) {
+		this.listaEditalPorCentro = listaEditalPorCentro;
+	}
+
+	public void aoSelecionarCentro(){
+		System.out.println("Centro: "+ centroSelecionado);
+		listaEditalPorCentro = editalDAO.getListaEdital(centroSelecionado);
+	}
+	
+	public void aoSelecionarEdital(){
+		System.out.println("Edital: "+ editalSelecionado);
+	}
+	
+	public void loadEditais(){
+		System.out.println("Centro: "+centroSelecionado);
+		listaEditalPorCentro = editalDAO.getListaEdital(centroSelecionado);
+		for (Edital edital : listaEditalPorCentro) {
+			List<EditalDisciplina> eds = editalDisciplinaDAO.getListaPorEdital(edital);
+
+			for (EditalDisciplina editalDisciplina : eds) {
+				listaDisciplinaPorEditalCentro.add(editalDisciplina.getDisciplina());
+			}
+		}
+	}
+
+	public void loadDisciplinas(){
+		System.out.println("Edital: "+editalSelecionado);
+		List<EditalDisciplina> eds = editalDisciplinaDAO.getListaPorEdital(editalSelecionado);
+
+		for (EditalDisciplina editalDisciplina : eds) {
+			listaDisciplinaPorEditalCentro.add(editalDisciplina.getDisciplina());
+		}
+	}
+
+
+	public List<Disciplina> getListaDisciplinaPorEditalCentro() {
+		List<EditalDisciplina> eds = editalDisciplinaDAO.getListaPorEdital(editalSelecionado);
+
+		for (EditalDisciplina editalDisciplina : eds) {
+			listaDisciplinaPorEditalCentro.add(editalDisciplina.getDisciplina());
+		}
+		return listaDisciplinaPorEditalCentro;
+	}
+
+	public void setListaDisciplinaPorEditalCentro(
+			List<Disciplina> listaDisciplinaPorEditalCentro) {
+		this.listaDisciplinaPorEditalCentro = listaDisciplinaPorEditalCentro;
+	}
+
+	public Inscricao getInscricaoTemp() {
+		return inscricaoTemp;
+	}
+
+	public void setInscricaoTemp(Inscricao inscricaoTemp) {
+		this.inscricaoTemp = inscricaoTemp;
+	}
+
+	public EditalDAO getEditalDAO() {
+		return editalDAO;
+	}
+
+	public void setEditalDAO(EditalDAO editalDAO) {
+		this.editalDAO = editalDAO;
+	}
+
+	public CentroDAO getCentroDAO() {
+		return centroDAO;
+	}
+
+	public void setCentroDAO(CentroDAO centroDAO) {
+		this.centroDAO = centroDAO;
+	}
+
+	public void setDisciplinaDAO(DisciplinaDAO disciplinaDAO) {
+		this.disciplinaDAO = disciplinaDAO;
+	}
+
+	public int[] getListaDeStatus() {
+		return listaDeStatus;
+	}
+
+	public void setListaDeStatus(int[] listaDeStatus) {
+		this.listaDeStatus = listaDeStatus;
+	}
+	
+	public String converteStatus(int i){
+		switch (i){
+			case 0:
+				return "Solicitada";
+			case 1:
+				return "Deferida";
+			case -1:
+				return "Indeferida";
+			case 2:
+				return "Monitor Ativo";
+			case 3:
+				return "Monitor Desativado";
+			default:
+				return "";
+		}
+	}
+	
+	public void onRowEdit(RowEditEvent event) {
+		Inscricao i = (Inscricao) event.getObject();
+		inscricaoDAO.atualizarInscricao(i);
+        FacesMessage msg = new FacesMessage("Inscrição editada", i.getIdInscricao()+"");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+     
+    public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edição cancelada", ((Inscricao) event.getObject()).getIdInscricao()+"");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
 
 }

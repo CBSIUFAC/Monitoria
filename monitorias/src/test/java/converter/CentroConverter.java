@@ -11,7 +11,7 @@ import DAO.CentroDAO;
 import entity.Centro;
 
 @FacesConverter("centroConverter")
-public class centroConverter implements Converter {
+public class CentroConverter implements Converter {
 
 	public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
 		if(value != null && value.trim().length() > 0) {
@@ -19,24 +19,15 @@ public class centroConverter implements Converter {
 				CentroDAO centroDAO = new CentroDAO();
 				Integer id = Integer.parseInt(value);
 				Centro centro = centroDAO.getCentro(id);
-
-				//Centro centro = (Centro) fc.getExternalContext().getApplicationMap().get("centro");
-				System.out.println((fc.getExternalContext()));
-				System.out.println("FacesContext: "+fc);
-				System.out.println("UIComponent "+uic);
-				System.out.println("Value "+value);
-
-				System.out.println("centro é nulo?"+(centro==null?"nulo":"não nulo"));
 				return centro;
 
 			} catch(Exception e) {
-				System.out.println("Problema no centroConverter.!");
-				throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de conversão", "Not a valid theme."));
+				System.err.println("Problema no centroConverter.!");
+				return null;
 			}
 		}
-		else {
+		else
 			return null;
-		}
 	}
 
 	public String getAsString(FacesContext fc, UIComponent uic, Object object) {
@@ -44,7 +35,6 @@ public class centroConverter implements Converter {
 			Centro c = new Centro();
 			c = (Centro) object;
 			return ""+c.getIdCentro();
-			// return String.valueOf(((Centro) object).getIdCentro());
 		}
 		else {
 			return null;

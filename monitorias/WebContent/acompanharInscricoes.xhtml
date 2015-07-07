@@ -37,14 +37,13 @@
 			
 			<p:column headerText="Status" filterBy="#{d.status}" filterMatchMode="contains" rendered="#{p:ifGranted('usuario')}">
 				<p:outputLabel value="#{d.status}"></p:outputLabel>
-			</p:column>
+			</p:column>							
 			
 			<p:column headerText="StatusAdmin" filterBy="#{d.status}" filterMatchMode="contains" rendered="#{p:ifGranted('admin')}" >
 				<p:selectOneMenu id="statusSelectOneMenu" value="#{d.status}" style="width:125px" 
-					onchange="submit()" valueChangeListener="#{inscricaoBean.editarInscricao}">
-            		<f:selectItem itemLabel="Solicitada" itemValue="#{inscricaoBean.editarInscricao(d, 0)}" />
-            		<f:selectItem itemLabel="Deferida" itemValue="1" />
-            		<f:selectItem itemLabel="Indeferida" itemValue="2" />  
+					onchange="submit()" valueChangeListener="#{inscricaoBean.editarInscricao}" >
+            		<f:selectItem itemLabel="Solicitada" itemValue="0" />
+            		<f:selectItem itemLabel="Deferida" itemValue="1" />	
         		</p:selectOneMenu>
 			</p:column>
 		</p:dataTable>

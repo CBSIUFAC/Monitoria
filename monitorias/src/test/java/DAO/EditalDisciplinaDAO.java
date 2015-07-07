@@ -1,10 +1,12 @@
 package DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import entity.Edital;
 import entity.EditalDisciplina;
 
 public class EditalDisciplinaDAO extends MasterDAO {
@@ -39,6 +41,12 @@ public class EditalDisciplinaDAO extends MasterDAO {
 		s.getTransaction().commit();
 		s.close();
 		return listaEditalDisciplina;
+	}
+
+	public List<EditalDisciplina> getListaPorEdital(Edital edital) {
+		if (edital == null)
+			return new ArrayList<EditalDisciplina>();
+		return getLista("from EditalDisciplina ed where ed.edital.idEdital = "+edital.getIdEdital());
 	}
 
 }
