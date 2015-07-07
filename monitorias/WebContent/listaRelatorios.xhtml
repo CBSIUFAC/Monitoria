@@ -46,12 +46,11 @@
 		</center>
 			</p:column>
 			
-			
 			<p:column headerText="Visualizar Atividades: ">
 				<center>		
 				<p:commandButton id="showVisualizarAtividades" value="+"
-					onclick="PF('dlgVisualizarAtividades').show()"  action="#{registroBean.setRelatorio(r)}"
-					update=":formListaRelatorios" process="@this">
+					onclick="PF('dlgVisualizarAtividades').show()" action="#{registroBean.setRelatorio(r)}"
+					update=":formAtividades:dataAtividades">
 				</p:commandButton>
 		</center>
 			</p:column>
@@ -129,7 +128,7 @@
 		<p:dialog header="Atividades inseridas no relatório:" widgetVar="dlgVisualizarAtividades"
 			resizable="false" modal="true" showEffect="slide" height="600">
 			
-			<p:dataTable var="registro" value="#{registroBean.listaRegistroPorRelatorio}">
+			<p:dataTable id="dataAtividades" var="registro" value="#{registroBean.listaRegistroPorRelatorio}">
 				
 				<p:column headerText="Data ">
 					<h:outputText value="#{registro.data}" />

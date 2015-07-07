@@ -37,7 +37,7 @@ public class RegistroBean {
 		
 		//Pegando o id passado do relatório.
 		
-		if(relatorio!=null) {
+		if(relatorio != null) {
 			
 			registro.setRelatorio(relatorio);
 			registroDAO.inserirRegistro(registro);
@@ -54,9 +54,9 @@ public class RegistroBean {
 	
 	public List<Registro> getListaRegistroPorRelatorio() {
 		if(relatorio != null) {
-			System.out.println("Relatório não é nulo." + relatorio.getIdRelatorio());
+			listaRegistroPorRelatorio = null;
 			listaRegistroPorRelatorio = registroDAO.getListaPorRelatorio(relatorio);
-			System.out.println("O retorno da lista foi: "+listaRegistroPorRelatorio);
+			System.out.println("O relatório foi gettado!"+ listaRegistroPorRelatorio);
 		} else {
 			listaRegistroPorRelatorio = new ArrayList<Registro>();
 			System.out.println("O relatório ta vindo nulo.");
