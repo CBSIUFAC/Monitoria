@@ -17,38 +17,79 @@
 		<h:body>
 
 			<h:form id="form">
-				<p:growl id="msgs" showDetail="true"/>
-				<p:dataTable var="i" value="#{inscricaoBean.lista}" scrollRows="20"
-					scrollable="true" liveScroll="true" editable="true"
-					style="margin-bottom:0">
+				<p:growl id="msgs" showDetail="true" />
+				<p:menuButton value="Exportar">
+
+					<p:menuitem value="Excel (XLS)" ajax="false">
+						<p:dataExporter type="xls" target="tabelaInscricoes" fileName="documentos" />
+					</p:menuitem>
+
+					<p:menuitem value="PDF" ajax="false">
+						<p:dataExporter type="pdf" target="tabelaInscricoes" fileName="documentos" />
+					</p:menuitem>
+				</p:menuButton>
+				
+				<p:dataTable id="tabelaInscricoes" var="i"
+					value="#{inscricaoBean.lista}" scrollRows="20"
+					widgetVar="inscricaoTable" scrollable="true" liveScroll="true"
+					editable="true" emptyMessage="Inscrições não encontradas."
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					paginator="true" rows="10" style="margin-bottom:20px"
+					rowsPerPageTemplate="10,15,20, 25"
+					selection="#{inscricaoBean.listaFiltro}" rowKey="#{i.idInscricao}"
+					rowIndexVar="rowIndex">
 					<f:facet name="header">
            				Tabela de Inscrições
        				</f:facet>
-
-					<p:ajax event="rowEdit" listener="#{inscricaoBean.onRowEdit}"	update=":form:msgs" />
-					<p:ajax event="rowEditCancel" listener="#{inscricaoBean.onRowCancel}" update=":form:msgs" />
-
-					<p:column headerText="Centro" footerText="centro">
+					<p:ajax event="rowEdit" listener="#{inscricaoBean.onRowEdit}"
+						update=":form:msgs" />
+					<p:ajax event="rowEditCancel"
+						listener="#{inscricaoBean.onRowCancel}" update=":form:msgs" />
+					
+					<p:column selectionMode="multiple" style="width:16px;text-align:center" />
+					
+					<p:column headerText="Selecione">
+						<h:outputText value="#{i.idInscricao}" />
+					</p:column>
+					
+					<p:column headerText="Aluno" filterBy="#{i.aluno.nome}"
+						filterMatchMode="contains">
 						<h:outputText value="#{i.aluno.nome}" />
 					</p:column>
 
-					<p:column headerText="Centro" footerText="centro">
+					<p:column headerText="Centro"
+						filterBy="#{i.edital.centro.siglaCentro}"
+						filterMatchMode="contains">
 						<h:outputText value="#{i.edital.centro.siglaCentro}" />
 					</p:column>
 
-					<p:column headerText="Edital" footerText="edital">
+					<p:column headerText="Edital" filterBy="#{i.edital.titulo}"
+						filterMatchMode="contains">
 						<h:outputText value="#{i.edital.titulo}" />
 					</p:column>
 
-					<p:column headerText="Código da disciplina" footerText="código">
+					<p:column headerText="Código da disciplina"
+						filterBy="#{i.disciplina.codigoDisciplina}"
+						filterMatchMode="contains">
 						<h:outputText value="#{i.disciplina.codigoDisciplina}" />
 					</p:column>
 
-					<p:column headerText="Disciplina" footerText="Disciplina">
+					<p:column headerText="Disciplina"
+						filterBy="#{i.disciplina.nomeDisciplina}"
+						filterMatchMode="contains">
 						<h:outputText value="#{i.disciplina.nomeDisciplina}" />
 					</p:column>
-					
-					<p:column headerText="Status">
+
+					<p:column headerText="Status" filterBy="#{i.status}"
+						filterMatchMode="exact">
+						<f:facet name="filter">
+							<p:selectOneMenu onchange="PF('inscricaoTable').filter()">
+								<f:selectItem itemLabel="Escolha um status" itemValue="#{null}"
+									noSelectionOption="true" />
+								<f:selectItems value="#{inscricaoBean.listaDeStatus}" var="s"
+									itemLabel="#{inscricaoBean.converteStatus(s)}" />
+							</p:selectOneMenu>
+						</f:facet>
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{inscricaoBean.converteStatus(i.status)}" />
@@ -56,18 +97,17 @@
 							<f:facet name="input">
 								<h:selectOneMenu value="#{i.status}" style="width:100%">
 									<f:selectItems value="#{inscricaoBean.listaDeStatus}" var="s"
-										itemLabel="#{inscricaoBean.converteStatus(s)}" itemValue="#{s}" />
+										itemLabel="#{inscricaoBean.converteStatus(s)}"
+										itemValue="#{s}" />
 								</h:selectOneMenu>
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					
+
 					<p:column style="width:32px">
-           				<p:rowEditor />
-       				</p:column>
-
+						<p:rowEditor />
+					</p:column>
 				</p:dataTable>
-
 			</h:form>
 		</h:body>
 
