@@ -21,14 +21,14 @@
 				<p:menuButton value="Exportar">
 
 					<p:menuitem value="Excel (XLS)" ajax="false">
-						<p:dataExporter type="xls" target="tabelaInscricoes" fileName="documentos" />
+						<p:dataExporter type="xls" target="tabelaInscricoes" fileName="documentos" encoding="iso-8859-1"/>
 					</p:menuitem>
 
 					<p:menuitem value="PDF" ajax="false">
-						<p:dataExporter type="pdf" target="tabelaInscricoes" fileName="documentos" />
+						<p:dataExporter type="pdf" target="tabelaInscricoes" fileName="documentos" encoding="iso-8859-1"/>
 					</p:menuitem>
 				</p:menuButton>
-				
+
 				<p:dataTable id="tabelaInscricoes" var="i"
 					value="#{inscricaoBean.lista}" scrollRows="20"
 					widgetVar="inscricaoTable" scrollable="true" liveScroll="true"
@@ -45,13 +45,10 @@
 						update=":form:msgs" />
 					<p:ajax event="rowEditCancel"
 						listener="#{inscricaoBean.onRowCancel}" update=":form:msgs" />
-					
-					<p:column selectionMode="multiple" style="width:16px;text-align:center" />
-					
-					<p:column headerText="Selecione">
-						<h:outputText value="#{i.idInscricao}" />
-					</p:column>
-					
+
+					<p:column selectionMode="multiple"
+						style="width:16px;text-align:center" exportable="false"/>
+
 					<p:column headerText="Aluno" filterBy="#{i.aluno.nome}"
 						filterMatchMode="contains">
 						<h:outputText value="#{i.aluno.nome}" />
@@ -104,13 +101,34 @@
 						</p:cellEditor>
 					</p:column>
 
-					<p:column style="width:32px">
+					<p:column style="width:32px" exportable="false">
 						<p:rowEditor />
 					</p:column>
+					<f:facet name="footer">
+						<p:commandButton process="tabelaInscricoes" action="#{inscricaoBean.atualizaInscricoes}"
+							update=":form" icon="ui-icon-search"
+							value="Alterar"	/>
+						<p:selectOneMenu value="inscricaoBean.statusSelecionado" 
+							onchange="submit()" valueChangeListener="#{inscricaoBean.editaStatus}">
+							<f:selectItem itemLabel="Escolha um status" itemValue="#{null}"
+								noSelectionOption="true" />
+							<f:selectItems value="#{inscricaoBean.listaDeStatus}" itemValue="#{s}" var="s"
+								itemLabel="#{inscricaoBean.converteStatus(s)}" />
+						</p:selectOneMenu>
+					</f:facet>
 				</p:dataTable>
+				<p:dialog header="Inscrições selecionadas" widgetVar="multiInscricoesDialog"
+					modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+					width="200">
+					<p:outputPanel id="multiInscricaoDetail" style="text-align:center;">
+						<ui:repeat value="#{inscricaoBean.listaFiltro}" var="i">
+							<h:outputText value="#{i.idInscricao} - #{i.status}"
+								style="display:block" />
+						</ui:repeat>
+					</p:outputPanel>
+				</p:dialog>
 			</h:form>
 		</h:body>
-
 	</ui:define>
 </ui:composition>
 

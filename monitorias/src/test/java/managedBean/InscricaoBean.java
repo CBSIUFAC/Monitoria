@@ -12,6 +12,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
+import javax.faces.event.ValueChangeListener;
 import javax.servlet.ServletContext;
 import javax.swing.JSpinner.ListEditor;
 
@@ -52,7 +53,7 @@ public class InscricaoBean {
 	private List<Edital> listaEditalPorCentro;
 	private List<Disciplina> listaDisciplinaPorEditalCentro;
 	private List<Inscricao> listaFiltro;
-	private int[] listaDeStatus = {-1,0,1,2,3};
+	private int[] listaDeStatus = {0,1,2,3,4};
 	private Edital edital;
 	private Aluno aluno;
 	private Disciplina disciplina;
@@ -60,6 +61,7 @@ public class InscricaoBean {
 	private Centro centroSelecionado;
 	private Edital editalSelecionado;
 	private Disciplina disciplinaSelecionada;
+	private Integer statusSelecionado = null;
 
 	public Inscricao getInscricao() {
 		if (inscricao == null)
@@ -81,10 +83,8 @@ public class InscricaoBean {
 
 	public List<Inscricao> getLista() {
 		if (lista == null){
-			System.out.println("Lista de inscrições nula");
 			lista = inscricaoDAO.getListaInscricao();
 		}
-		System.out.println("Lista: "+lista);
 		return lista;
 	}
 
@@ -159,7 +159,6 @@ public class InscricaoBean {
 				Authentication authentication = context.getAuthentication();  
 				if(authentication instanceof Authentication){
 					String aux = ((User)authentication.getPrincipal()).getUsername();
-					System.out.println(aux);
 					UsuarioDAO usuDAO = new UsuarioDAO();
 					usu = usuDAO.getUsuario(aux);
 
@@ -200,25 +199,13 @@ public class InscricaoBean {
 		return "acompanharInscricoes";
 	}
 
-	public void editarInscricao(Inscricao i) {
-		if (i==null)
-			System.out.println("nulo.");
-		else
-			System.out.println(i.getIdInscricao()+" "+i.getStatus());		
+	public void editaStatus(ValueChangeEvent vce) {
+		try{
+			statusSelecionado = Integer.parseInt((String) vce.getNewValue());
+		}catch(Exception e){
+			statusSelecionado = null;
+		}
 	}
-
-	public Inscricao getIn(int i){
-		System.out.println(i);
-		return new Inscricao();
-	}
-
-	//	public String editarInscricao(Object i, int status){
-	//		inscricaoTemp = (Inscricao) i;
-	//		System.out.println("Inscrição: "+inscricaoTemp);
-	//		inscricaoTemp.setStatus(status);
-	//		listaTemp.add(inscricaoTemp);
-	//		return "0";
-	//	}
 
 	public UsuarioFace getUsuarioFace() {
 		return usuarioFace;
@@ -244,12 +231,9 @@ public class InscricaoBean {
 		}
 
 		if (usu.getTipoUsuario().equals("admin")){
-			System.out.println("É ADMIN");
 			return inscricaoDAO.getListaInscricao();
 		}
-		System.out.println("NÃO É ADMIN");
 		listaPorUsuario = inscricaoDAO.getListaPorUsuario(usu);
-		System.out.println("User: "+usu.getAluno()+"\nLista.size: "+listaPorUsuario.size());
 		return listaPorUsuario;
 	}
 
@@ -295,7 +279,6 @@ public class InscricaoBean {
 	}
 
 	public List<Edital> getListaEditalPorCentro() {
-		System.out.println("GetLista: "+centroSelecionado);
 		listaEditalPorCentro = editalDAO.getListaEdital(centroSelecionado);
 		return listaEditalPorCentro;
 	}
@@ -305,16 +288,10 @@ public class InscricaoBean {
 	}
 
 	public void aoSelecionarCentro(){
-		System.out.println("Centro: "+ centroSelecionado);
 		listaEditalPorCentro = editalDAO.getListaEdital(centroSelecionado);
 	}
-	
-	public void aoSelecionarEdital(){
-		System.out.println("Edital: "+ editalSelecionado);
-	}
-	
+
 	public void loadEditais(){
-		System.out.println("Centro: "+centroSelecionado);
 		listaEditalPorCentro = editalDAO.getListaEdital(centroSelecionado);
 		for (Edital edital : listaEditalPorCentro) {
 			List<EditalDisciplina> eds = editalDisciplinaDAO.getListaPorEdital(edital);
@@ -326,7 +303,6 @@ public class InscricaoBean {
 	}
 
 	public void loadDisciplinas(){
-		System.out.println("Edital: "+editalSelecionado);
 		List<EditalDisciplina> eds = editalDisciplinaDAO.getListaPorEdital(editalSelecionado);
 
 		for (EditalDisciplina editalDisciplina : eds) {
@@ -392,14 +368,14 @@ public class InscricaoBean {
 				return "Solicitada";
 			case 1:
 				return "Deferida";
-			case -1:
-				return "Indeferida";
 			case 2:
-				return "Monitor Ativo";
+				return "Indeferida";
 			case 3:
+				return "Monitor Ativo";
+			case 4:
 				return "Monitor Desativado";
 			default:
-				return "";
+				return "status inválido";
 		}
 	}
 	
@@ -414,4 +390,30 @@ public class InscricaoBean {
         FacesMessage msg = new FacesMessage("Edição cancelada", ((Inscricao) event.getObject()).getIdInscricao()+"");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
+    
+    public void atualizaInscricoes(){
+    	if (statusSelecionado == null){
+    		FacesMessage msg = new FacesMessage("Erro:", "Escolha um status válido.");
+    		FacesContext.getCurrentInstance().addMessage(null, msg);
+    	}else
+    		if (listaFiltro.size()<1){
+    			FacesMessage msg = new FacesMessage("Erro:", "Escolha pelo menos uma inscrição.");
+    			FacesContext.getCurrentInstance().addMessage(null, msg);
+    		}else{
+    			for (int i=0; i<listaFiltro.size(); i++){
+    				listaFiltro.get(i).setStatus(statusSelecionado);
+    				inscricaoDAO.atualizarInscricao(listaFiltro.get(i));
+    			}
+    			FacesMessage msg = new FacesMessage("Sucesso:",(listaFiltro.size()>1?"Foram modificadas ":"Foi modificada ")+listaFiltro.size()+" "+(listaFiltro.size()>1?"inscrições.":"inscrição."));
+    			FacesContext.getCurrentInstance().addMessage(null, msg);
+    		}
+    }
+
+	public int getStatusSelecionado() {
+		return statusSelecionado;
+	}
+
+	public void setStatusSelecionado(int statusSelecionado) {
+		this.statusSelecionado = statusSelecionado;
+	}
 }

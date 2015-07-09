@@ -19,7 +19,6 @@ public class InscricaoDAO extends MasterDAO {
 	}
 	
 	public void atualizarInscricao(Inscricao inscricao){
-		System.out.println("RES: "+inscricao);
 		atualizarObjeto(inscricao);
 	}
 	
