@@ -1,5 +1,6 @@
 package managedBean;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
+import javax.servlet.ServletContext;
 import javax.swing.JSpinner.ListEditor;
 
 import org.primefaces.event.RowEditEvent;
@@ -384,6 +386,7 @@ public class InscricaoBean {
 	}
 	
 	public String converteStatus(int i){
+		
 		switch (i){
 			case 0:
 				return "Solicitada";
@@ -411,5 +414,4 @@ public class InscricaoBean {
         FacesMessage msg = new FacesMessage("Edição cancelada", ((Inscricao) event.getObject()).getIdInscricao()+"");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-
 }
