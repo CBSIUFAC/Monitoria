@@ -23,21 +23,22 @@
     			
     <ui:insert name="cabecalho">
     	<p:menubar>
-    		<p:submenu label="Visualização">
-    			<p:menuitem value="Alunos" url="/listaAlunos.jsf"></p:menuitem>
-    			<p:menuitem value="Centros" url="/listaCentros.jsf"></p:menuitem>
-    			<p:menuitem value="Disciplinas" url="/listaDisciplinas.jsf"></p:menuitem>
-    		</p:submenu>
-    		<p:submenu label="Cadastro" rendered="#{p:ifGranted('admin')}">
+    			<p:menuitem value="Inicio" url="/realizarInscricoes.jsf" icon="ui-icon-home"></p:menuitem>
+    			<p:submenu label="Cadastro" rendered="#{p:ifGranted('admin')}" icon=" ui-icon-plus">
     			<p:menuitem value="Cadastro de Editais" url="/cadastrarEditais.jsf" rendered="#{p:ifGranted('admin')}"></p:menuitem>
-    			
     			<p:menuitem value="Cadastro de Usuário" url="/usuarios.jsf" rendered="#{p:ifGranted('admin')}"></p:menuitem>
     			
     		</p:submenu>
-    		<p:submenu label="Inscrição">
-    			<p:menuitem value="Realizar Inscrição" url="/realizarInscricoes.jsf"></p:menuitem>
-    			<p:menuitem value="Acompanhar Inscrição" url="/acompanharInscricoes.jsf"></p:menuitem>
+    		<p:submenu label="Inscrição" icon="ui-icon-pencil">
+    			<p:menuitem value="Realizar Inscrição" url="/realizarInscricoes.jsf" rendered="#{p:ifGranted('usuario')}"></p:menuitem>
+    			<p:menuitem value="Acompanhar Inscrição" url="/acompanharInscricoes.jsf" rendered="#{p:ifGranted('usuario')}"></p:menuitem>
+    			<p:menuitem value="Gerenciar Inscrições" url="/deferirInscricoes.jsf" rendered="#{p:ifGranted('admin')}"></p:menuitem>
     		</p:submenu>
+    		
+    		  <p:submenu label="Relatório" icon="ui-icon-clipboard" rendered="#{p:ifGranted('usuario')}"> 
+    			<p:menuitem value="Gerenciar Relatórios" url="/listaRelatorios.jsf" rendered="#{p:ifGranted('usuario')}"></p:menuitem>
+    		</p:submenu>
+    		
     		<p:menuitem value="Sair" outcome="logout" icon="ui-icon-power" styleClass="botaoLogout" align="right"/>
     	</p:menubar>    	
     	

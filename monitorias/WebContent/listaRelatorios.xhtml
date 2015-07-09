@@ -16,6 +16,19 @@
 
 <h:body>
 <br></br>
+
+<p:fieldset legend="Gerenciar Relatórios" style="margin-bottom:20px" toggleable="true">
+						<h:panelGrid columns="1" cellpadding="5">
+
+					<h:outputText value="- Para criar um relatório, clique no botão Criar Relatório e insira o mês e o ano (mm/aaaa). " />
+					<h:outputText value="- Para inserir uma atividade, clique no botão Inserir Atividade do respectivo relatório e preencha com as informações necessárias, lembrando
+								que o horário deve ser no formato: HH:mm. ex: 15:40 " />
+								
+					<h:outputText
+								value="- Para imprimir o relatório você deverá clicar em Visualizar Atividades do respectivo relatório e clicar em Download do Relatório, e o relatório será salvo no seu computador.  " />
+						</h:panelGrid>
+					</p:fieldset>
+
 	<h:form id="formListaRelatorios">
 		<p:dataTable var="r" value="#{relatorioBean.listaPorUsuario}" widgetVar="tableListaRelatorios"
 		rows="15" editable="false" paginator="false">
@@ -31,11 +44,7 @@
 			<p:column headerText="Ano:">
 				<p:outputLabel value="#{r.ano}"></p:outputLabel>
 			</p:column>
-			
-			<p:column headerText="Status: ">
-				<p:outputLabel value="#{r.status}"></p:outputLabel>
-			</p:column>
-			
+		
 			<p:column headerText="Inserir Atividades: ">
 				<center>		
 				<p:commandButton id="showInserirRegistro" value="+"
@@ -48,7 +57,7 @@
 			
 			<p:column headerText="Visualizar Atividades: ">
 				<center>		
-				<p:commandButton id="showVisualizarAtividades" value="+"
+				<p:commandButton id="showVisualizarAtividades" icon="ui-icon-search"
 					onclick="PF('dlgVisualizarAtividades').show()" action="#{registroBean.setRelatorio(r)}"
 					update=":formAtividades:dataAtividades">
 				</p:commandButton>

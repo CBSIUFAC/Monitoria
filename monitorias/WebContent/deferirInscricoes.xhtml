@@ -15,6 +15,18 @@
 	<ui:define name="conteudo">
 
 		<h:body>
+<br></br>
+			<p:fieldset legend="Gerenciar Inscrições" style="margin-bottom:20px" toggleable="true">
+						<h:panelGrid columns="1" cellpadding="5">
+
+					<h:outputText value="- Para alterar apenas uma inscrição, você pode utilizar o ícone pincel na última coluna a direita da tabela, e alterar o status da inscrição." />
+					<h:outputText value="- Para alterar mais de uma inscrição ao mesmo tempo, você pode selecionar os alunos no checkbox ao lado esquerdo da tabela, e depois escolher um status
+					na lista na parte inferior da tabela, clicando após em alterar. ." />
+					<h:outputText value="- Para exportar os dados em PDF ou XLS você pode clicar no botão exportar e selecionar uma opção, lembrando que os dados que são exportados
+					são os dados que estão sendo mostrados na tabela. Caso queira filtar os as inscrições é só utilizar os filtros existentes em cada coluna." />
+					
+						</h:panelGrid>
+					</p:fieldset>
 
 			<h:form id="form">
 				<p:growl id="msgs" showDetail="true" />

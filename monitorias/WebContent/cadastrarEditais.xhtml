@@ -18,6 +18,16 @@
 			<h:form id="formDisciplina">
 
 				<p:growl id="growl" sticky="true" showDetail="true" />
+<br></br>
+				<p:fieldset legend="Cadastro de Editais" style="margin-bottom:20px" toggleable="true">
+						<h:panelGrid columns="1" cellpadding="5">
+
+					<h:outputText
+								value="Preencha os campos com as informações necessárias e clique em avançar, após avançar selecione os editais 
+								e a quantidade vagas e clique novamente em avançar, por fim, verifique as informações e clique no botão cadastrar." />
+						</h:panelGrid>
+					</p:fieldset>
+
 
 				<p:wizard backLabel="Voltar" nextLabel="Avançar">
 					<p:tab id="dadosEdital" title="Dados do Edital">
@@ -311,7 +321,7 @@
 								</p:column>
 
 							</p:dataTable>
-							<p:commandButton value="Submit"
+							<p:commandButton value="Cadastrar"
 								actionListener="#{editalBean.inserirEdital(disciplinaBean.getTotalDeVagas())}"
 								update="growl" process="@this" />
 						</p:panel>

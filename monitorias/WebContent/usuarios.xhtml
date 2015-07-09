@@ -11,15 +11,19 @@
 	<ui:define name="conteudo">
 
 <h:body>
-	<h:form>
-		<p:commandButton id="showDialogButton" value="Adicionar Usuário"
-			onclick="PF('dlgUsu').show()" 
-			update=":formUsuario:panelUsuario" process="@this">
-			<p:resetInput target=":formUsuario:panelUsuario" />
-		</p:commandButton>
-	</h:form>
+
 	<h:form id="formUsu">
 		<p:growl id="messages" showDetail="true" />
+			<br></br>
+		<p:fieldset legend="Cadastro de Usuários" style="margin-bottom:20px" toggleable="true">
+						<h:panelGrid columns="1" cellpadding="5">
+
+					<h:outputText
+								value="Para cadastrar um usuário clique em adicionar usuário e preencha com as informações necessárias." />
+						</h:panelGrid>
+					</p:fieldset>
+		
+		
 		<p:panelGrid columns="3">
 			<f:facet name="header">  
         		Cadastro de Usuarios  
@@ -91,6 +95,15 @@
 			</h:panelGrid>
 		</p:dialog>
 	</h:form>
+	
+		<h:form>
+		<p:commandButton id="showDialogButton" value="Adicionar Usuário"
+			onclick="PF('dlgUsu').show()" 
+			update=":formUsuario:panelUsuario" process="@this">
+			<p:resetInput target=":formUsuario:panelUsuario" />
+		</p:commandButton>
+	</h:form>
+	
 </h:body>
 	</ui:define>
 </ui:composition>

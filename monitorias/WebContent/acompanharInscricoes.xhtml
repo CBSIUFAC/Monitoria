@@ -15,6 +15,14 @@
 <ui:define name="conteudo">
 
 <h:body>
+<br></br>
+<p:fieldset legend="Acompanhar Inscrições" style="margin-bottom:20px" toggleable="true">
+						<h:panelGrid columns="1" cellpadding="5">
+
+					<h:outputText
+								value="Abaixo estão listadas as suas inscrições e os seus respectivos status." />
+						</h:panelGrid>
+					</p:fieldset>
 
 	<h:form id="formListaInscricoes">
 		<p:dataTable id="tabelaInscricoes" var="d" value="#{inscricaoBean.listaPorUsuario}" widgetVar="tableListaInscricoes"
@@ -35,17 +43,11 @@
 				<p:outputLabel value="#{d.disciplina.nomeDisciplina}"></p:outputLabel>
 			</p:column>
 			
-			<p:column headerText="Status" filterBy="#{d.status}" filterMatchMode="contains" rendered="#{p:ifGranted('usuario')}">
-				<p:outputLabel value="#{d.status}"></p:outputLabel>
+			<p:column headerText="Status" filterBy="#{d.status}" filterMatchMode="contains">
+				<p:outputLabel value="#{inscricaoBean.converteStatus(d.status)}"></p:outputLabel>
 			</p:column>							
+
 			
-			<p:column headerText="StatusAdmin" filterBy="#{d.status}" filterMatchMode="contains" rendered="#{p:ifGranted('admin')}" >
-				<p:selectOneMenu id="statusSelectOneMenu" value="#{d.status}" style="width:125px" 
-					onchange="submit()" valueChangeListener="#{inscricaoBean.editarInscricao}" >
-            		<f:selectItem itemLabel="Solicitada" itemValue="0" />
-            		<f:selectItem itemLabel="Deferida" itemValue="1" />	
-        		</p:selectOneMenu>
-			</p:column>
 		</p:dataTable>
 	</h:form>
 </h:body>

@@ -19,15 +19,25 @@
 
 				<p:growl id="growl" sticky="true" showDetail="true" />
 				<p:outputPanel id="dropArea">
+	<br></br>
+					<p:fieldset legend="Realizar Inscrições" style="margin-bottom:20px" toggleable="true"> 
+						<h:panelGrid columns="1" cellpadding="5">
+
+					<h:outputText
+								value="Clique no ícone de lupa ao lado do nome do centro para visualizar os editais disponíveis." />
+						</h:panelGrid>
+					</p:fieldset>
+
 
 					<p:dataTable id="c" var="centro" value="#{centroBean.lista}"
 						rendered="#{not empty centroBean.lista}">
+
 
 						<p:column headerText="Nome" style="width:300px;text-align:center">
 							<h:outputText value="#{centro.nomeCentro}" />
 						</p:column>
 
-						<p:column style="width:32px;text-align:center">
+						<p:column style="width:32px;text-align:center" headerText="Visualizar">
 							<p:commandButton update=":formEditais:display"
 								oncomplete="PF('editalDialog').show()" icon="ui-icon-search">
 								<f:setPropertyActionListener value="#{centro}"
@@ -39,7 +49,7 @@
 				</p:outputPanel>
 				<p:dialog header="Editais" widgetVar="editalDialog"
 					resizable="false" draggable="false" showEffect="fade"
-					hideEffect="fade" modal="true">
+					hideEffect="fade" modal="true" width="600px" height="600px">
 
 					<p:outputPanel id="display">
 						<h:panelGrid columns="2" cellpadding="4"
