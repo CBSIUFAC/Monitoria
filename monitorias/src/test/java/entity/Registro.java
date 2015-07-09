@@ -1,7 +1,6 @@
 package entity;
 
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -38,7 +38,6 @@ public class Registro implements Serializable {
 	@ManyToOne	
 	@JoinColumn(referencedColumnName="idRelatorio", name="fkRelatorio")
 	private Relatorio relatorio;
-	
 	
 	/* GETTERS AND SETTERS */
 
