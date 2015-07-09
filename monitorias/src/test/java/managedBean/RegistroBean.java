@@ -1,13 +1,33 @@
 package managedBean;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.internal.SessionImpl;
+import org.hibernate.jdbc.Work;
+
+import util.HibernateUtil;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import DAO.RegistroDAO;
 import DAO.RelatorioDAO;
+
+import com.mysql.jdbc.Connection;
+
 import entity.Aluno;
 import entity.Disciplina;
 import entity.Registro;
@@ -62,6 +82,32 @@ public class RegistroBean {
 			System.out.println("O relatório ta vindo nulo.");
 		}
 		return listaRegistroPorRelatorio;
+	}
+	
+	/* MÉTODOS PARA GERAR OS RELATÓRIOS */
+	
+	public void gerarRelatorio(ActionEvent actionEvent) throws JRException, IOException {
+		
+		JasperPrint jasperPrint;
+		List<Relatorio> listaRelatorio = new ArrayList<Relatorio>();
+		listaRelatorio.add(relatorio);
+		HashMap<String, Object> parametros = new HashMap<String, Object>();
+		parametros.put("idRelatorio", relatorio.getIdRelatorio());
+		
+		
+		HibernateUtil.getConnection();
+		final java.sql.Connection connection = HibernateUtil.connectionOk;
+		System.out.println("Conexão: "+connection);
+		String caminhoReport = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/WEB-INF/reports/Atividades.jasper");
+		
+		jasperPrint = JasperFillManager.fillReport(caminhoReport, parametros, connection);
+		
+		HttpServletResponse httpServletResponse = (HttpServletResponse)FacesContext.getCurrentInstance().getExternalContext().getResponse();  
+	    httpServletResponse.setHeader("Content-disposition", "attachment; filename=report.pdf");  
+	    ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();  
+	    JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);  
+	    FacesContext.getCurrentInstance().responseComplete();  
+	    
 	}
 	
 	public Relatorio getRelatorio() {

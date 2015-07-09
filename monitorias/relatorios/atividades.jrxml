@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Atividades" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="551105c9-1b66-4e8e-8d4a-3f2779f0217d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#73B0E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#CFDBE6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="datasetTabela" uuid="fb87e935-7957-4dd7-95f0-be924ec2d516">
+		<parameter name="idRelatorio" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[SELECT
+     inscricao.`idInscricao` AS inscricao_idInscricao,
+     inscricao.`fkDisciplina` AS inscricao_fkDisciplina,
+     relatorio.`idRelatorio` AS relatorio_idRelatorio,
+     relatorio.`ano` AS relatorio_ano,
+     relatorio.`mes` AS relatorio_mes,
+     relatorio.`fkInscricao` AS relatorio_fkInscricao,
+     registro.`idRegistro` AS registro_idRegistro,
+     registro.`data` AS registro_data,
+     registro.`descricao` AS registro_descricao,
+     registro.`horaEntrada` AS registro_horaEntrada,
+     registro.`horaSaida` AS registro_horaSaida,
+     registro.`fkRelatorio` AS registro_fkRelatorio,
+     inscricao.`fkAluno` AS inscricao_fkAluno,
+     aluno.`matricula` AS aluno_matricula,
+     aluno.`nome` AS aluno_nome,
+     disciplina.`idDisciplina` AS disciplina_idDisciplina,
+     disciplina.`nomeDisciplina` AS disciplina_nomeDisciplina,
+     disciplina.`professor` AS disciplina_professor,
+     disciplina.`codigoDisciplina` AS disciplina_codigoDisciplina,
+     disciplina.`periodo` AS disciplina_periodo
+FROM
+     `inscricao` inscricao INNER JOIN `relatorio` relatorio ON inscricao.`idInscricao` = relatorio.`fkInscricao`
+     INNER JOIN `registro` registro ON relatorio.`idRelatorio` = registro.`fkRelatorio`
+     INNER JOIN `aluno` aluno ON inscricao.`fkAluno` = aluno.`matricula`
+     INNER JOIN `disciplina` disciplina ON inscricao.`fkDisciplina` = disciplina.`idDisciplina`
+WHERE relatorio.idRelatorio = $P{idRelatorio}]]>
+		</queryString>
+		<field name="inscricao_idInscricao" class="java.lang.Integer"/>
+		<field name="inscricao_fkDisciplina" class="java.lang.Integer"/>
+		<field name="relatorio_idRelatorio" class="java.lang.Integer"/>
+		<field name="relatorio_ano" class="java.lang.Integer"/>
+		<field name="relatorio_mes" class="java.lang.Integer"/>
+		<field name="relatorio_fkInscricao" class="java.lang.Integer"/>
+		<field name="registro_idRegistro" class="java.lang.Integer"/>
+		<field name="registro_data" class="java.sql.Date"/>
+		<field name="registro_descricao" class="java.lang.String"/>
+		<field name="registro_horaEntrada" class="java.sql.Time"/>
+		<field name="registro_horaSaida" class="java.sql.Time"/>
+		<field name="registro_fkRelatorio" class="java.lang.Integer"/>
+		<field name="inscricao_fkAluno" class="java.lang.String"/>
+		<field name="aluno_matricula" class="java.lang.String"/>
+		<field name="aluno_nome" class="java.lang.String"/>
+		<field name="disciplina_idDisciplina" class="java.lang.Integer"/>
+		<field name="disciplina_nomeDisciplina" class="java.lang.String"/>
+		<field name="disciplina_professor" class="java.lang.String"/>
+		<field name="disciplina_codigoDisciplina" class="java.lang.String"/>
+		<field name="disciplina_periodo" class="java.lang.Integer"/>
+	</subDataset>
+	<parameter name="idRelatorio" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+     inscricao.`idInscricao` AS inscricao_idInscricao,
+     inscricao.`fkDisciplina` AS inscricao_fkDisciplina,
+     relatorio.`idRelatorio` AS relatorio_idRelatorio,
+     relatorio.`ano` AS relatorio_ano,
+     relatorio.`mes` AS relatorio_mes,
+     relatorio.`fkInscricao` AS relatorio_fkInscricao,
+     registro.`idRegistro` AS registro_idRegistro,
+     registro.`data` AS registro_data,
+     registro.`descricao` AS registro_descricao,
+     registro.`horaEntrada` AS registro_horaEntrada,
+     registro.`horaSaida` AS registro_horaSaida,
+     registro.`fkRelatorio` AS registro_fkRelatorio,
+     inscricao.`fkAluno` AS inscricao_fkAluno,
+     aluno.`matricula` AS aluno_matricula,
+     aluno.`nome` AS aluno_nome,
+     disciplina.`idDisciplina` AS disciplina_idDisciplina,
+     disciplina.`nomeDisciplina` AS disciplina_nomeDisciplina,
+     disciplina.`professor` AS disciplina_professor,
+     disciplina.`codigoDisciplina` AS disciplina_codigoDisciplina,
+     disciplina.`periodo` AS disciplina_periodo,
+     disciplina.`fkCentro` AS disciplina_fkCentro,
+     centro.`idCentro` AS centro_idCentro,
+     centro.`nomeCentro` AS centro_nomeCentro
+FROM
+     `inscricao` inscricao INNER JOIN `relatorio` relatorio ON inscricao.`idInscricao` = relatorio.`fkInscricao`
+     INNER JOIN `registro` registro ON relatorio.`idRelatorio` = registro.`fkRelatorio`
+     INNER JOIN `aluno` aluno ON inscricao.`fkAluno` = aluno.`matricula`
+     INNER JOIN `disciplina` disciplina ON inscricao.`fkDisciplina` = disciplina.`idDisciplina`
+     INNER JOIN `centro` centro ON disciplina.`fkCentro` = centro.`idCentro`
+WHERE
+     relatorio.idRelatorio = $P{idRelatorio}]]>
+	</queryString>
+	<field name="inscricao_idInscricao" class="java.lang.Integer"/>
+	<field name="inscricao_fkDisciplina" class="java.lang.Integer"/>
+	<field name="relatorio_idRelatorio" class="java.lang.Integer"/>
+	<field name="relatorio_ano" class="java.lang.Integer"/>
+	<field name="relatorio_mes" class="java.lang.Integer"/>
+	<field name="relatorio_fkInscricao" class="java.lang.Integer"/>
+	<field name="registro_idRegistro" class="java.lang.Integer"/>
+	<field name="registro_data" class="java.sql.Date"/>
+	<field name="registro_descricao" class="java.lang.String"/>
+	<field name="registro_horaEntrada" class="java.sql.Time"/>
+	<field name="registro_horaSaida" class="java.sql.Time"/>
+	<field name="registro_fkRelatorio" class="java.lang.Integer"/>
+	<field name="inscricao_fkAluno" class="java.lang.String"/>
+	<field name="aluno_matricula" class="java.lang.String"/>
+	<field name="aluno_nome" class="java.lang.String"/>
+	<field name="disciplina_idDisciplina" class="java.lang.Integer"/>
+	<field name="disciplina_nomeDisciplina" class="java.lang.String"/>
+	<field name="disciplina_professor" class="java.lang.String"/>
+	<field name="disciplina_codigoDisciplina" class="java.lang.String"/>
+	<field name="disciplina_periodo" class="java.lang.Integer"/>
+	<field name="disciplina_fkCentro" class="java.lang.Integer"/>
+	<field name="centro_idCentro" class="java.lang.Integer"/>
+	<field name="centro_nomeCentro" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="237">
+			<staticText>
+				<reportElement mode="Opaque" x="-20" y="216" width="183" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="ab64382f-5c95-497a-ac80-b2b8ff1cc173"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Registros:]]></text>
+			</staticText>
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-8" width="595" height="123" backcolor="#FFFFFF" uuid="eb1bbfc1-729a-4f8d-911e-c24c3fc45dd8"/>
+				<staticText>
+					<reportElement x="0" y="48" width="595" height="43" forecolor="#000000" uuid="e5cba10a-7021-4692-89d6-d2a1b75a946f"/>
+					<textElement textAlignment="Center">
+						<font size="20" isBold="true"/>
+					</textElement>
+					<text><![CDATA[UNIVERSIDADE FEDERAL DO ACRE ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="110" y="99" width="392" height="23" forecolor="#000000" uuid="e0a46111-2bfc-414e-bbeb-272241fca796"/>
+					<textElement textAlignment="Center">
+						<font size="16" isBold="true"/>
+					</textElement>
+					<text><![CDATA[RELATÓRIO DE MONITORIA ]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="0" y="71" width="595" height="27" forecolor="#000000" uuid="c0100642-7126-40bb-b7db-6078c402536c"/>
+					<textElement textAlignment="Center">
+						<font size="20" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{centro_nomeCentro}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="121" width="595" height="1" uuid="2218b571-fd25-42f3-99a7-fa41449f5a14"/>
+				</line>
+				<image>
+					<reportElement x="278" y="-2" width="66" height="48" uuid="ada00001-12d5-449a-a97e-f7140a460011"/>
+					<imageExpression><![CDATA["C:\\Users\\João\\Documents\\logo_ufac.jpg"]]></imageExpression>
+				</image>
+			</frame>
+			<staticText>
+				<reportElement x="373" y="133" width="100" height="20" uuid="619c1b5c-8f1a-4e6b-92f4-a54f0bcae5de"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Matrícula:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="46" y="134" width="317" height="20" uuid="b2da996f-2da1-427c-8cbd-cd5729b37f46"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aluno_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="155" width="100" height="20" uuid="230ebae3-1775-4a02-a2a0-442890068c90"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Disciplina:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="174" width="100" height="20" uuid="c3bd443f-ba20-42a8-832b-27ccebfa15c6"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Professor:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="73" y="154" width="451" height="20" uuid="28d65fab-834f-4de0-a291-7da2641d1454"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{disciplina_nomeDisciplina}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="74" y="173" width="450" height="20" uuid="3b6a9d71-b25f-42bc-b31f-17b01951d0b6"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{disciplina_professor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="437" y="133" width="100" height="20" uuid="353188eb-7729-418a-a4bb-6535215093bb"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aluno_matricula}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="134" width="100" height="20" uuid="c62a7e6c-f990-4993-9b65-3b72d1df9336"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Aluno:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="194" width="100" height="20" uuid="3f5dcdda-6880-42a0-8e81-2b464058eec7"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Mês/Ano:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="74" y="194" width="30" height="20" uuid="2ca02819-93c2-497d-947c-abb91f095670"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{relatorio_mes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="194" width="100" height="20" uuid="9e0404bd-7ef0-4cba-a77a-02c9139f9725"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["/ "+$F{relatorio_ano}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="-20" y="236" width="595" height="1" uuid="9ed25a2c-0a02-4a63-9c5f-e8d771aba18d"/>
+			</line>
+		</band>
+	</title>
+	<detail>
+		<band height="239">
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
+			<componentElement>
+				<reportElement key="table" style="table" x="0" y="7" width="555" height="229" uuid="c04a8415-0602-4c6a-8717-4283f3978129">
+					<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="datasetTabela" uuid="09dd4d49-a469-4ca1-b7dd-831c484f1b67">
+						<datasetParameter name="idRelatorio">
+							<datasetParameterExpression><![CDATA[$F{relatorio_idRelatorio}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="1eac7c62-f917-45e5-b0eb-8329a5d3e80a">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="f912efc3-5246-4e91-bc3e-80b0aa9672cc"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="14" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Data:]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="32" rowSpan="1">
+							<textField pattern="dd/MM/yyyy">
+								<reportElement x="0" y="0" width="90" height="32" uuid="d3bb23eb-d08a-4d18-b4c9-9275a9aa98e3"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{registro_data}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="101" uuid="1241a92f-3d07-4a02-840b-4497cd16c53e">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="101" height="30" uuid="9d700a75-6009-4de1-b448-d87b62db46a4"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="14" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Hora Entrada:]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="32" rowSpan="1">
+							<textField pattern="HH:mm:ss">
+								<reportElement x="0" y="0" width="101" height="32" uuid="e614bf4a-4d84-4cd0-9d63-15a3bdf3bdc9"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{registro_horaEntrada}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="cce01733-cb2b-48cf-8cb8-e34b6eea6226">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="e8c913d5-3a72-48fb-8d62-d169bee93675"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="14" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Hora Saída:]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="32" rowSpan="1">
+							<textField pattern="HH:mm:ss">
+								<reportElement x="0" y="0" width="90" height="32" uuid="3e1379e1-be63-443e-afdf-84b3052782bb"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{registro_horaSaida}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="273" uuid="7bffb57b-f43c-4d85-bd4e-b558ce98f01e">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="273" height="30" uuid="5b0ac5aa-1f80-46f6-806d-0eb70c19aaca"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="14" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Descrição:]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="32" rowSpan="1">
+							<textField>
+								<reportElement x="3" y="0" width="270" height="32" uuid="d6180059-c717-4246-a02d-48321ebdce7d"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{registro_descricao}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<lastPageFooter>
+		<band height="50">
+			<line>
+				<reportElement x="163" y="7" width="225" height="1" uuid="d801b8a2-bc7e-4ca9-b466-6a08202c40f9"/>
+			</line>
+			<textField>
+				<reportElement x="73" y="11" width="400" height="20" uuid="4c71d999-3edd-4ac8-934a-d0f038c3bc22"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{disciplina_professor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="1" y="35" width="553" height="13" backcolor="#E6E6E6" uuid="668f6250-c29b-411e-8cec-911a3ecf8f45"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

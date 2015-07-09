@@ -1,18 +1,23 @@
 ﻿package util;
 
+import java.sql.SQLException;
+
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.jdbc.Work;
 import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
+
+import com.mysql.jdbc.Connection;
 
 public class HibernateUtil {
 	//	Variaveis estaticas para serem usadas na configuracao
 	private static SessionFactory sessionFactory;
 	private static ServiceRegistry serviceRegistry;
-		
+	public static java.sql.Connection connectionOk;
 //	Bloco Estatico carregado pelo Classloader do java
 	static{
 //		Bloco try
@@ -34,6 +39,21 @@ public class HibernateUtil {
 //	Retorna a sessao para ser utilizada pelo programa
 	public static SessionFactory getSessionFactory() {
 		return sessionFactory;
+	}
+	
+	public static void getConnection() {
+
+		
+		Session session = getSessionFactory().openSession();
+		session.doWork(new Work() {
+			@Override
+			public void execute(java.sql.Connection connection)
+					throws SQLException {
+				connectionOk = connection;
+			}
+			
+		});
+		
 	}
 
 }

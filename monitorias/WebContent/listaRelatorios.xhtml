@@ -53,14 +53,7 @@
 					update=":formAtividades:dataAtividades">
 				</p:commandButton>
 		</center>
-			</p:column>
-			
-			
-			
-			<p:column headerText="Gerar PDF">
-				<center><p:commandButton value="+"></p:commandButton></center>
-			</p:column>
-			
+			</p:column>		
 			
 		</p:dataTable>
 		<br></br>
@@ -146,12 +139,13 @@
 					<h:outputText value="#{registro.descricao}" />
 				</p:column>
 			
-			
 			</p:dataTable>
+			<br></br>
+			
+			<p:commandButton actionListener="#{registroBean.gerarRelatorio}" value="Download do Relatório" ajax="false"/>
 			
 		</p:dialog>
 	</h:form>
-	
 	
 </h:body>
 

@@ -253,6 +253,7 @@ public class EditalBean {
 		HashMap parametros = new HashMap();
 		parametros.put("ID_EDITAL", edital.getIdEdital());
 		FacesContext facesContext = FacesContext.getCurrentInstance();
+	
 
 		try {
 
@@ -269,7 +270,7 @@ public class EditalBean {
 			FileOutputStream arquivo = new FileOutputStream(pdf);
 
 			JasperExportManager.exportReportToPdfStream(impressoraJasper, arquivo);
-
+			
 			edital.setSrcPDF("//reports/"+caminhoFinal);
 			editalDAO.atualizarEdital(edital);
 
