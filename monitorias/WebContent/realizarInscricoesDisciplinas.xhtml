@@ -9,12 +9,15 @@
 
 <head></head>
 <ui:composition template="/template/principal.xhtml">
+	<f:metadata>
+		<f:viewParam name="id" value="#{editalBean.id}"></f:viewParam>
+	</f:metadata>
 	<ui:define name="conteudo">
 		<body>
 			<h:form id="form">
 				<p:growl id="growl" life="8000" />
 				<p:dataTable 
-					value="#{editalBean.editaisDisciplinasNaoInscritas}"
+					value="#{editalBean.getEditaisDisciplinasNaoInscritas()}"
 					selection="#{disciplinaBean.disciplinasSelecionadas}"
 					rowKey="#{d.disciplina.idDisciplina}" style="margin-bottom:0"
 					var="d" emptyMessage="Você já se inscreveu nas disciplinas desse edital." >

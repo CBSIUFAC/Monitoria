@@ -37,7 +37,7 @@
 							<h:outputText value="#{centro.nomeCentro}" />
 						</p:column>
 
-						<p:column style="width:32px;text-align:center" headerText="Visualizar">
+						<p:column style="width:32px;text-align:center" headerText="Acessar">
 							<p:commandButton update=":formEditais:display"
 								oncomplete="PF('editalDialog').show()" icon="ui-icon-search">
 								<f:setPropertyActionListener value="#{centro}"
@@ -52,21 +52,18 @@
 					hideEffect="fade" modal="true" width="600px" height="600px">
 
 					<p:outputPanel id="display">
-						<h:panelGrid columns="2" cellpadding="4"
+						<h:panelGrid columns="2"
 							rendered="#{not empty centroBean.centroSelecionado}">
 
 							<p:dataTable id="tabela" var="e"
 								value="#{editalBean.listaEditaisPorCentro(centroBean.centroSelecionado)}"
 								emptyMessage="Não existem editais relacionados a esse centro."
-								scrollable="true" scrollHeight="100"
+								scrollable="true"
 								selection="#{editalBean.editalSelecionado}"
 								rowKey="#{e.idEdital}">
 								<f:facet name="header">
             						Escolha um edital
         						</f:facet>
-								<p:column selectionMode="single"
-									style="width:16px;text-align:center" />
-
 								<p:column headerText="Titulo">
 									<p:outputLabel value="#{e.titulo}"></p:outputLabel>
 								</p:column>
@@ -76,13 +73,19 @@
 								</p:column>
 
 								<p:column headerText="Período">
-									<p:outputLabel value="#{inscricaoBean.convertePeriodo(e.periodo)}"></p:outputLabel>
+									<p:outputLabel
+										value="#{inscricaoBean.convertePeriodo(e.periodo)}"></p:outputLabel>
 								</p:column>
 
+								<p:column style="text-align:center"
+									headerText="Acessar">
+									<p:button icon="ui-icon-search"
+										href="/realizarInscricoesDisciplinas.jsf?id=#{e.idEdital}">
+									</p:button>
+								</p:column>
 								<f:facet name="footer">
 									<div align="left">
-										<p:commandButton process="tabela" icon="ui-icon-search"
-											value="Acessar" action="/realizarInscricoesDisciplinas.jsf" />
+										<p:commandButton value="voltar" onclick="editalDialog.hide()" />
 									</div>
 								</f:facet>
 							</p:dataTable>

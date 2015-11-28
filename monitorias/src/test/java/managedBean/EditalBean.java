@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -31,6 +32,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+
+import com.mysql.fabric.xmlrpc.base.Array;
 
 import DAO.CentroDAO;
 import DAO.DisciplinaDAO;
@@ -54,13 +57,12 @@ public class EditalBean {
 	private Centro centro;
 	private Centro centroSelecionado;
 	private EditalDisciplina editalDisciplina = new EditalDisciplina();
-	private List<EditalDisciplina> editaisDisciplinasNaoInscritas = null;
+	private List<EditalDisciplina> editaisDisciplinasNaoInscritas = new ArrayList<EditalDisciplina>();
 
 	GeradorEdital[] beanArray;
 
 	private List<Edital> lista;
 	private List<Edital> listaFiltro;
-	private List<Edital> listaPorCentro;
 
 	private CentroDAO centroDAO = new CentroDAO();
 	private EditalDAO editalDAO = new EditalDAO();
@@ -71,9 +73,39 @@ public class EditalBean {
 
 	private List<Edital> editaisPorCentro;
 
+	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
+	
 	@ManagedProperty("#{disciplinaBean}")
 	private DisciplinaBean disciplinaBean;
+	
+	private int id;
+	
+	@PostConstruct
+	public void carregar(){
+	   String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
+	            
+	   if(id != null && !id.equals("")){
+		   System.out.println("idString= "+id+"\nidInt= "+this.id);
+		  editalSelecionado = editalDAO.getEdital(Integer.valueOf(id));
+	   }
+	}
+	
+	public int getId() {
+		return id;
+	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public List<Disciplina> getDisciplinas() {
+		return disciplinas;
+	}
+
+	public void setDisciplinas(List<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
+	}
+	
 	public EditalDisciplina getEditalDisciplina() {
 		return editalDisciplina;
 	}
@@ -346,8 +378,8 @@ public class EditalBean {
 
 			}
 		}
-		return	editaisDisciplinasNaoInscritas = editaisDisciplinasNaoInscritas(editalSelecionado.getEditaisDisciplinas(), usu.getAluno().getInscricoes());
-
+		editalSelecionado = editalDAO.getEdital(Integer.valueOf(id));;
+		return editaisDisciplinasNaoInscritas(editalSelecionado.getEditaisDisciplinas(), usu.getAluno().getInscricoes());
 	}
 
 	public void setEditaisDisciplinasNaoInscritas(List<EditalDisciplina> editaisDisciplinasNaoInscritas) {
