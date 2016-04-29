@@ -24,7 +24,7 @@ import entity.Usuario;
 @ManagedBean(name="usuarioFace")
 @SessionScoped
 public class UsuarioFace {
-	
+
 	private UsuarioDAO usuDAO = new UsuarioDAO();
 	private Usuario usu;
 	private Usuario novoUsuario = new Usuario();
@@ -35,20 +35,26 @@ public class UsuarioFace {
 	}  
 
 	public Usuario getUsu() {
-		if (usu == null){
-			usu = new Usuario();  
-			SecurityContext context = SecurityContextHolder.getContext();  
-			if(context instanceof SecurityContext)  
-			{  
-				Authentication authentication = context.getAuthentication();  
-				if(authentication instanceof Authentication) {
-					String aux = ((User) authentication.getPrincipal()).getUsername() == null?"É nulo":"Não é nulo";
-					System.out.println(aux);
-					usu = usuDAO.getUsuario(aux);
-					return usu;
+		try{
+			if (usu == null){
+				usu = new Usuario();  
+				SecurityContext context = SecurityContextHolder.getContext();  
+				if(context instanceof SecurityContext)  
+				{  
+					Authentication authentication = context.getAuthentication();  
+					if(authentication instanceof Authentication) {
+						String aux = ((User) authentication.getPrincipal()).getUsername() == null?"É nulo":"Não é nulo";
+						System.out.println(aux);
+						usu = usuDAO.getUsuario(aux);
+						return usu;
+					}
 				}
 			}
 		}
+		catch(Exception e){
+			System.out.println("erro.");
+		}
+
 		return new Usuario();
 	}
 	public void setUsu(Usuario usu) {
@@ -66,11 +72,11 @@ public class UsuarioFace {
 		System.out.println(cpf);
 		Aluno a = alunoDAO.buscaAlunoPorCpf(cpf);
 
-		
+
 		if (a != null){
-		
+
 			System.out.println("Aluno nulo");
-			
+
 			if (usuDAO.getUsuarioPorMatricula(a.getMatricula()) == null){
 				System.out.println("Não existe login com esse aluno");
 				novoUsuario.setAluno(a);
@@ -78,10 +84,10 @@ public class UsuarioFace {
 
 
 				usuDAO.inserirUsuario(novoUsuario);
-				
+
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Sucesso","Cadastro com sucesso: "+novoUsuario.getUsername());  
 				FacesContext.getCurrentInstance().addMessage(null, msg);
-				
+
 				listaUsuario = null;
 				novoUsuario = new Usuario();
 			}else{
@@ -95,7 +101,7 @@ public class UsuarioFace {
 		return "usuarios";
 	}
 
-		
+
 	public void atualizarUsuario(RowEditEvent event){
 		usu = (Usuario) event.getObject();
 		usuDAO.atualizarUsuario(usu);

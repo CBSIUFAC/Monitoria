@@ -117,7 +117,7 @@
 									value="#{disciplinaBean.listaPorCentro}">
 
 									<p:column style="width:40px">
-										<p:commandButton value="+" action="#{disciplinaBean.adicionaDisciplina(disciplina)}" 
+										<p:commandButton icon="ui-icon-arrowthick-1-s" action="#{disciplinaBean.adicionaDisciplina(disciplina)}" 
 										update=":formDisciplina" oncomplete="PF('widgetTabela').clearFilters()"/>
 									</p:column>
 
@@ -129,7 +129,7 @@
 										<h:outputText value="#{disciplina.nomeDisciplina}" />
 									</p:column>
 
-									<p:column headerText="CH Total">
+									<p:column headerText="Carga Horária">
 										<h:outputText value="#{disciplina.cargaHoraria}" />
 									</p:column>
 
@@ -154,7 +154,7 @@
 							<p:fieldset id="disciplinasSelecionadas"
 								legend="Disciplinas Selecionadas" style="margin-top:20px">
 								<p:outputPanel id="dropArea">
-									<h:outputText value="Solte aqui a disciplina"
+									<h:outputText value="Nenhuma disciplina foi selecionada."
 										rendered="#{empty disciplinaBean.droppedDisciplinas}"
 										style="font-size:24px;" />
 
@@ -304,9 +304,6 @@
 								<f:facet name="header">
            									 Disciplinas Selecionadas
        									</f:facet>
-								<p:column headerText="Id">
-									<h:outputText value="#{disciplina.idDisciplina}" />
-								</p:column>
 
 								<p:column headerText="Nome">
 									<h:outputText value="#{disciplina.nomeDisciplina}" />
@@ -321,7 +318,7 @@
 								</p:column>
 
 							</p:dataTable>
-							<p:commandButton value="Cadastrar"
+							<p:commandButton value="Criar Edital"
 								actionListener="#{editalBean.inserirEdital(disciplinaBean.getTotalDeVagas())}"
 								update="growl" process="@this" />
 						</p:panel>

@@ -33,13 +33,16 @@
 						rendered="#{not empty centroBean.lista}">
 
 
-						<p:column headerText="Nome" style="width:300px;text-align:center">
-							<h:outputText value="#{centro.nomeCentro}" />
+						<p:column headerText="Nome" style="width:200px">
+							<h:outputText value="#{centro.nomeCentro}"/> 
+						</p:column>
+						<p:column headerText="Sigla" style="width:100px"> 
+							<h:outputText value="#{centro.siglaCentro}" />
 						</p:column>
 
 						<p:column style="width:32px;text-align:center" headerText="Acessar">
 							<p:commandButton update=":formEditais:display"
-								oncomplete="PF('editalDialog').show()" icon="ui-icon-search">
+								oncomplete="PF('editalDialog').show()" icon="ui-icon-circle-arrow-e">
 								<f:setPropertyActionListener value="#{centro}"
 									target="#{centroBean.centroSelecionado}" />
 							</p:commandButton>
@@ -49,7 +52,7 @@
 				</p:outputPanel>
 				<p:dialog header="Editais" widgetVar="editalDialog"
 					resizable="false" draggable="false" showEffect="fade"
-					hideEffect="fade" modal="true" width="600px" height="600px">
+					hideEffect="fade" modal="true" width="600px">
 
 					<p:outputPanel id="display">
 						<h:panelGrid columns="2"
@@ -79,13 +82,13 @@
 
 								<p:column style="text-align:center"
 									headerText="Acessar">
-									<p:button icon="ui-icon-search"
+									<p:button icon="ui-icon-circle-arrow-e"
 										href="/realizarInscricoesDisciplinas.jsf?id=#{e.idEdital}">
 									</p:button>
 								</p:column>
 								<f:facet name="footer">
 									<div align="left">
-										<p:commandButton value="voltar" onclick="editalDialog.hide()" />
+										<p:commandButton value="Voltar" onclick="editalDialog.hide()" />
 									</div>
 								</f:facet>
 							</p:dataTable>

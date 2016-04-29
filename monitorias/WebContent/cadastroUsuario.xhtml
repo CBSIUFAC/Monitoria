@@ -5,51 +5,48 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 <h:head></h:head>
-		<h:body>
-		
-		<p:growl id="messages" showDetail="true" />
-		<p:dialog header="" visible="true" closable="false" modal="true"
+<h:body>
+
+	<p:growl id="messages" showDetail="true" />
+	<p:dialog header="" visible="true" closable="false" modal="true"
 		draggable="false" resizable="false" width="550">
-		
+
 		<ui:insert name="banner">
-		<p:graphicImage value="/imagens/banner.png"></p:graphicImage>
+			<p:graphicImage value="/imagens/banner.png"></p:graphicImage>
 		</ui:insert>
-		<center>
-		
-		
-   		 <h:outputText value="Instruções para cadastro no Sistema:" />
-   		 <br></br><br></br>
-   		 <h:outputText value="1) Insira o seu cpf;" />
-   		 <br></br>
-   		 <h:outputText value="2) Insira sua data de nascimento no formato dd/mm/aa;"/>
-   		 <br></br>
-   		 <h:outputText value="3) Insira uma senha e clique em cadastrar-se."/>
-   		 <br></br><br></br>
-		 <br></br>
-			
-			<h:form id="formCadastroUsuario">
-				<h:panelGrid id="panelUsuario" columns="2"
-					style="margin-bottom:10px">
 
-					<p:outputLabel for="cpf" value="CPF" />
-					<p:inputMask id="cpf" value="#{cadastroBean.cpf}"
-						mask="999.999.999-99" required="true"
-						requiredMessage="Entre com um cpf" />
+		<center><h:outputText value="Instruções para cadastro no Sistema:" /></center>
+		<br></br>
+			<h:outputText value="1) Insira o seu cpf;" /> <br></br>
+			<h:outputText
+				value="2) Insira sua data de nascimento no formato dd/mm/aa;" /> <br></br>
+			<h:outputText value="3) Insira uma senha e clique em cadastrar-se." />
+			<br></br> <br></br>	<br></br>
 
-					<h:outputLabel for="nascimento" value="Data Nascimento: " />
-					<p:calendar id="nascimento" value="#{cadastroBean.dataNascimento}"
-						required="true" requiredMessage="Informe uma data." mask="99/99/9999" />
+		<h:form id="formCadastroUsuario">
+			<h:panelGrid id="panelUsuario" columns="2" style="margin-bottom:10px">
 
-					<h:outputLabel for="pass" value="Senha" />
-					<p:password id="pass" value="#{cadastroBean.novoUsuario.password}"
-						redisplay="false" required="true"></p:password>
+				<p:outputLabel for="cpf" value="CPF:" />
+				
+				<p:inputMask id="cpf" value="#{cadastroBean.cpf}"
+					mask="999.999.999-99" required="true"
+					requiredMessage="Entre com um cpf" />
 
-					<p:commandButton action="#{cadastroBean.inserirProprioUsuario}"
-						value="Cadastrar" ajax="false" />
-					<p:button href="/login.jsf" value="Cancelar"/>
-				</h:panelGrid>
-			</h:form>
-		</center>
+				<h:outputLabel for="nascimento" value="Data Nascimento: *" />
+				<p:calendar id="nascimento" value="#{cadastroBean.dataNascimento}"
+					required="true" requiredMessage="Informe uma data."
+					mask="99/99/99" />
+
+				<h:outputLabel for="pass" value="Senha: *" />
+				<p:password id="pass" value="#{cadastroBean.novoUsuario.password}"
+					redisplay="false" required="true"></p:password>
+				<p:button action="#{cadastroBean.inserirProprioUsuario()}"
+					value="Cadastrar" ajax="true" />
+				<p:button href="/login.jsf" value="Cancelar" />
+				
+			</h:panelGrid>
+		</h:form>
+
 	</p:dialog>
-		</h:body>
+</h:body>
 </html>

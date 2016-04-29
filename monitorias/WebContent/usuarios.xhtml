@@ -35,7 +35,7 @@
 
 				<p:ajax event="rowEdit"	listener="#{usuarioFace.atualizarUsuario}" update=":formUsu:messages"/>
 				<p:ajax event="rowEditCancel" listener="#{usuarioFace.cancelar}" update=":formUsu:messages"/>
-				<p:column headerText="Nome dos Usuários" id="idusu">
+				<p:column headerText="Login" id="idusu">
 					<p:cellEditor>
 						<f:facet name="output">
 							<p:outputLabel value="#{usuItem.username}"></p:outputLabel>
@@ -44,6 +44,10 @@
 							<h:inputText value="#{usuItem.username}"  />
 						</f:facet>
 					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Categoria de Usuário">
+						<h:outputText rendered="#{usuItem.tipoUsuario == 'admin'}" value="Administrador"> </h:outputText>
+						<h:outputText rendered="#{usuItem.tipoUsuario == 'usuario'}" value="Aluno"> </h:outputText>
 				</p:column>
 				<p:column headerText="Deletar" >
 					<p:commandLink id="linkDeletar"
@@ -66,7 +70,7 @@
 			<h:panelGrid id="panelUsuario" columns="2"
 				style="margin-bottom:10px">
 				
-				<h:outputLabel for="name" value="Login" />
+				<h:outputLabel for="name" value="CPF" />
 				<p:inputText id="name" value="#{usuarioFace.novoUsuario.username}" required="true">
 				</p:inputText>
 				

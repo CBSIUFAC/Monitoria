@@ -128,6 +128,7 @@ public class CadastroBean {
 
 
 	public void setCpf(String cpf) {
+		System.out.println("aqui");
 		this.cpf = cpf;
 	}
 

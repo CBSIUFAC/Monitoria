@@ -18,8 +18,9 @@
 		</ui:insert>
 		<center>
 			<form id="formLogin" method="post" action="j_spring_security_check">
+				<h:messages globalOnly="true" />
 				<p:panelGrid id="panelLogin" columns="2" style="margin-bottom:10px">
-					<h:outputLabel value="Usuário:" />
+					<h:outputLabel id="labelCPF" value="CPF *:" />
 					<p:inputMask id="j_username" required="true"
 						requiredMessage="Usuário é obrigatório" mask="999.999.999-99" />
 
@@ -27,7 +28,7 @@
 					<p:password id="j_password" required="true"
 						requiredMessage="Senha é obrigatória" />
 				</p:panelGrid>
-				<p:commandButton value="Logar" type="submit" />
+				<h:commandButton value="Logar" type="submit" />
 				<p:link outcome="/cadastroUsuario.jsf" value="Cadastre-se" />
 			</form>
 		</center>
